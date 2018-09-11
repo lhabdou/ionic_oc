@@ -1,0 +1,17 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>Dictionnaire FR-COM-ANG</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-list>
+
+        <button ion-item *ngFor="let ligne of dictionnaireList" (click)="onLoadLigneDictionnaire(ligne)"> {{ligne.mot_fr}} </button>
+
+    </ion-list>
+</ion-content>
+
+<ion-footer padding>
+    <p>Bas de page</p>
+</ion-footer>

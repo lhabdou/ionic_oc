@@ -1,0 +1,33 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Mot/Kalima</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+  <ion-card>
+    <ion-card-header>{{ligne.mot_fr}}/{{ligne.mot_ngz}}</ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row>
+          <ion-col>Mot Fr</ion-col>
+          <ion-col>Mot Ngz</ion-col>
+          <ion-col>Mot Ndz</ion-col>
+          <ion-col>Mot Mwa</ion-col>
+          <ion-col>Mot Mao</ion-col>
+          <ion-col>Mot Ang</ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>{{ligne.mot_fr}}</ion-col>
+          <ion-col>{{ligne.mot_ngz}}</ion-col>
+          <ion-col>{{ligne.mot_ndz}}</ion-col>
+          <ion-col>{{ligne.mot_mwa}}</ion-col>
+          <ion-col>{{ligne.mot_mao}}</ion-col>
+          <ion-col>{{ligne.mot_ang}}</ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
