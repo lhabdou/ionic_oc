@@ -1,7 +1,7 @@
-import { IUtilisateur } from './../modeles/utilisateurModele';
-import { LigneDictionnairePage } from './../ligne-dictionnaire/ligneDictionnaire';
-import { ILigneDictionnaire } from '../modeles/ligneDictionnaireModele';
 import { NavController } from 'ionic-angular';
+import { DictionnaireService } from './../services/dictionnaireService';
+import { LigneDictionnairePage } from './../ligne-dictionnaire/ligneDictionnaire';
+import { ILigneDictionnaire } from '../modeles/ligneDictionnaireModel';
 import { Component } from '@angular/core';
 
 @Component({
@@ -10,38 +10,24 @@ import { Component } from '@angular/core';
 })
 export class DictionnairePage {
 
-    utilisateur:IUtilisateur = {
-    id_utilisateur: 1,
-    nom: "Soilihi",
-    prenom: "Abdoulhalim",
-    mdp: "123456",
-    pseudo: "lhabdou",
-    email: "lhabdou26@hotmail.fr",
-    url_image: ""
-    };
+    dictionnaireList:ILigneDictionnaire[];
 
-
-    dictionnaireList:ILigneDictionnaire[] = [
-        { mot_fr: "Manger", mot_ngz: "Hula", mot_ndz: "Hula", mot_mwa: "Wuya", mot_mao: "...", mot_ang: "To Eat",
-        statut:{id_statut:1,statut:'Nouveau'}, utilisateur:this.utilisateur, suggestion: "",
-        definition_fr: "",
-        definition_com: ""},
-        { mot_fr: "Parler", mot_ngz: "Wu Rongowa", mot_ndz: "Wu Laguwa", mot_mwa: "Wu Rongowa", mot_mao: "Rongowa", mot_ang: "To Speak",
-        statut:{id_statut:1,statut:'Nouveau'}, utilisateur:this.utilisateur, suggestion: "",
-        definition_fr: "",
-        definition_com: "" },
-        { mot_fr: "Marcher", mot_ngz: "Hwenda", mot_ndz: "...", mot_mwa: "...", mot_mao: "...", mot_ang: "To eat",
-        statut:{id_statut:1,statut:'Nouveau'}, utilisateur:this.utilisateur, suggestion: "",
-        definition_fr: "",
-        definition_com: "" }
-    ];
-
-    constructor(private navCtrl: NavController) {
+    constructor(private navCtrl: NavController, private dictionnaireService: DictionnaireService) {
 
     }
-    onLoadLigneDictionnaire(ligne:ILigneDictionnaire) {
+
+    ionViewWillEnter(){
         
-        this.navCtrl.push(LigneDictionnairePage, {ligneParam: ligne});
+        this.dictionnaireList = this.dictionnaireService.dictionnaireList.slice();
+    }
+
+
+    onLoadLigneDictionnaire(index:number) {
+
+        this.navCtrl.push(LigneDictionnairePage, {ligneParam: index});
+        
+        //let modal = this.modalCtrl.create(LigneDictionnairePage, {ligneParam:index});
+        //modal.present();
     }
 
 }

@@ -1,5 +1,5 @@
-import { ScreenOrientation } from '@ionic-native/screen-orientation';
-import { ILigneDictionnaire } from '../modeles/ligneDictionnaireModele';
+import { DictionnaireService } from './../services/dictionnaireService';
+import { ILigneDictionnaire } from '../modeles/ligneDictionnaireModel';
 import { Component, OnInit } from '@angular/core';
 import { NavParams } from 'ionic-angular';
 
@@ -11,19 +11,15 @@ export class LigneDictionnairePage implements OnInit {
   name: string;
 
   ligne: ILigneDictionnaire;
+  index:number;
 
-  constructor(private screenOrientation: ScreenOrientation, private navParams: NavParams) {
+  constructor(private dictionnaireService: DictionnaireService, private navParams: NavParams) {
 
   }
 
-
-
   ngOnInit() {
-
-    // set to landscape
-    this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.LANDSCAPE);
-
-    this.ligne = this.navParams.get('ligneParam');
+    this.index = this.navParams.get('ligneParam');
+    this.ligne = this.dictionnaireService.dictionnaireList[this.index]; 
 
   }
 

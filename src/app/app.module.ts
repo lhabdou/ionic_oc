@@ -1,3 +1,5 @@
+import { DictionnaireService } from './../pages/services/dictionnaireService';
+import { ScreenOrientation } from '@ionic-native/screen-orientation';
 import { LigneDictionnairePage } from './../pages/ligne-dictionnaire/ligneDictionnaire';
 import { DictionnairePage } from './../pages/Dictionnaire/dictionnaire';
 import { BrowserModule } from '@angular/platform-browser';
@@ -32,7 +34,9 @@ import { TabsPage } from '../pages/tabs/tabs';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    ScreenOrientation,
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    DictionnaireService
   ]
 })
 export class AppModule {}

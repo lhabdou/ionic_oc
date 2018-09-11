@@ -7,7 +7,9 @@
 <ion-content padding>
     <ion-list>
 
-        <button ion-item *ngFor="let ligne of dictionnaireList" (click)="onLoadLigneDictionnaire(ligne)"> {{ligne.mot_fr}} </button>
+        <button ion-item *ngFor="let ligne of dictionnaireList; let i = index " 
+        (click)="onLoadLigneDictionnaire(i)" [color]="danger">
+        {{ligne.mot_fr}} </button>
 
     </ion-list>
 </ion-content>
