@@ -18,6 +18,7 @@ export class LigneDictionnairePage implements OnInit {
   }
 
   ngOnInit() {
+    
     this.index = this.navParams.get('ligneParam');
     this.ligne = this.dictionnaireService.dictionnaireList[this.index]; 
 

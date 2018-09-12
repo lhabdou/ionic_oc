@@ -11,6 +11,7 @@ import { Component } from '@angular/core';
 export class DictionnairePage {
 
     dictionnaireList:ILigneDictionnaire[];
+    public motCle:string; 
 
     constructor(private navCtrl: NavController, private dictionnaireService: DictionnaireService) {
 
@@ -19,8 +20,8 @@ export class DictionnairePage {
     ionViewWillEnter(){
         
         this.dictionnaireList = this.dictionnaireService.dictionnaireList.slice();
+        
     }
-
 
     onLoadLigneDictionnaire(index:number) {
 
@@ -29,5 +30,15 @@ export class DictionnairePage {
         //let modal = this.modalCtrl.create(LigneDictionnairePage, {ligneParam:index});
         //modal.present();
     }
+
+    
+    onInput(ev:any) {
+
+        if(this.motCle && this.motCle.length >= 2) {
+          
+            this.dictionnaireList = this.dictionnaireService.filtrerListe(this.motCle);
+        } 
+    }
+
 
 }

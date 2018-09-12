@@ -5,11 +5,14 @@
 </ion-header>
 
 <ion-content padding>
-    <ion-list>
 
-        <button ion-item *ngFor="let ligne of dictionnaireList; let i = index " 
-        (click)="onLoadLigneDictionnaire(i)" [color]="danger">
-        {{ligne.mot_fr}} </button>
+        <ion-searchbar [(ngModel)]="motCle"  (ionInput)="onInput($event)">{{motCle}}
+        </ion-searchbar>
+
+
+    <ion-list>
+        <button ion-item *ngFor="let ligne of dictionnaireList; let i = index " (click)="onLoadLigneDictionnaire(i)" [color]=" 'nouveau' == ligne.statut.statut ? 'primary':'secondary'">
+            {{ligne.mot_fr}} </button>
 
     </ion-list>
 </ion-content>
