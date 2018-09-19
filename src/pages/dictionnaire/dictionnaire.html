@@ -6,7 +6,7 @@
 
 <ion-content padding>
 
-        <ion-searchbar [(ngModel)]="motCle"  (ionInput)="onInput($event)">{{motCle}}
+        <ion-searchbar [(ngModel)]="motCle"  (ionInput)="onInput($event)" [placeholder] ="Rechercher" >{{motCle}}
         </ion-searchbar>
 
 

@@ -1,40 +1,46 @@
-import { ILigneDictionnaire } from './../modeles/ligneDictionnaireModel';
+import { IRole } from './../modeles/roleModel';
 import { IUtilisateur } from '../modeles/utilisateurModel';
 import { ILigneDictionnaire } from '../modeles/ligneDictionnaireModel';
 
 
 export class DictionnaireService {
 
+    public role: IRole = {
+        id:1,
+        role:"Administrateur"
+    }
+
     public utilisateur: IUtilisateur = {
-        id_utilisateur: 1,
+        idUtilisateur: 1,
         nom: "Soilihi",
         prenom: "Abdoulhalim",
         mdp: "123456",
         pseudo: "lhabdou",
         email: "lhabdou26@hotmail.fr",
-        url_image: ""
+        urlImage: "", 
+        role:this.role
     };
     dictionnaireFilter:ILigneDictionnaire[] = [] as ILigneDictionnaire[]; 
 
     public dictionnaireList: ILigneDictionnaire[] = [
 
         {
-            mot_fr: "Manger", mot_ngz: "Hula", mot_ndz: "Hula", mot_mwa: "Wuya", mot_mao: "...", mot_ang: "To Eat",
-            statut: { id_statut: 1, statut: 'nouveau' }, utilisateur: this.utilisateur, suggestion: "",
-            definition_fr: "",
-            definition_com: ""
+            motFr: "Manger", motNgz: "Hula", motNdz: "Hula", motMwa: "Wuya", motMao: "...", motAng: "To Eat",
+            statut: { idStatut: 1, statut: 'nouveau' }, utilisateur: this.utilisateur, suggestion: "",
+            definitionFr: "",
+            definitionCom: ""
         },
         {
-            mot_fr: "Parler", mot_ngz: "Wu Rongowa", mot_ndz: "Wu Laguwa", mot_mwa: "Wu Rongowa", mot_mao: "Rongowa", mot_ang: "To Speak",
-            statut: { id_statut: 1, statut: 'encours' }, utilisateur: this.utilisateur, suggestion: "",
-            definition_fr: "",
-            definition_com: ""
+            motFr: "Parler", motNgz: "Wu Rongowa", motNdz: "Wu Laguwa", motMwa: "Wu Rongowa", motMao: "Rongowa", motAng: "To Speak",
+            statut: { idStatut: 1, statut: 'encours' }, utilisateur: this.utilisateur, suggestion: "",
+            definitionFr: "",
+            definitionCom: ""
         },
         {
-            mot_fr: "Marcher", mot_ngz: "Hwenda", mot_ndz: "...", mot_mwa: "...", mot_mao: "...", mot_ang: "To eat",
-            statut: { id_statut: 1, statut: 'valide' }, utilisateur: this.utilisateur, suggestion: "",
-            definition_fr: "",
-            definition_com: ""
+            motFr: "Marcher", motNgz: "Hwenda", motNdz: "...", motMwa: "...", motMao: "...", motAng: "To eat",
+            statut: { idStatut: 1, statut: 'valide' }, utilisateur: this.utilisateur, suggestion: "",
+            definitionFr: "",
+            definitionCom: ""
         }
     ];
 
@@ -42,10 +48,9 @@ export class DictionnaireService {
 
         // this.dictionnaireFilter= [] as ILigneDictionnaire[];
         this.dictionnaireFilter.splice(0, this.dictionnaireFilter.length);
-
         this.dictionnaireList.forEach(ligne => {
 
-            if (ligne.mot_fr.toLocaleLowerCase().includes(motCle.toLocaleLowerCase())) {
+            if (ligne.motFr.toLocaleLowerCase().includes(motCle.toLocaleLowerCase())) {
                 
                 this.dictionnaireFilter.push(ligne);
 

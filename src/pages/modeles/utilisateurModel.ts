@@ -1,10 +1,13 @@
+import { IRole } from './roleModel';
 export class IUtilisateur {
 
-    id_utilisateur: number;
+    idUtilisateur: number;
     nom: string;
     prenom: string;
     mdp: string;
     pseudo: string;
     email: string;
-    url_image: string
+    urlImage: string;
+    role: IRole;
+
 };

@@ -1,4 +1,4 @@
 export class IStatut {
-    id_statut: number;
+    idStatut: number;
     statut: string
 };

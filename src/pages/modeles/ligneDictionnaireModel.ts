@@ -3,16 +3,16 @@ import { IUtilisateur } from './utilisateurModel';
 
 export class ILigneDictionnaire {
     
-    mot_fr: string;
-    mot_ngz: string;
-    mot_ndz: string;
-    mot_mwa: string;
-    mot_mao: string;
-    mot_ang: string;
+    motFr: string;
+    motNgz: string;
+    motNdz: string;
+    motMwa: string;
+    motMao: string;
+    motAng: string;
     utilisateur: IUtilisateur;
     statut: IStatut;
     suggestion: string;
-    definition_fr: string;
-    definition_com: string
+    definitionFr: string;
+    definitionCom: string
 
 };
