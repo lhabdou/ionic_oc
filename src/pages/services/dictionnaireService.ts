@@ -26,19 +26,19 @@ export class DictionnaireService {
 
         {
             motFr: "Manger", motNgz: "Hula", motNdz: "Hula", motMwa: "Wuya", motMao: "...", motAng: "To Eat",
-            statut: { idStatut: 1, statut: 'nouveau' }, utilisateur: this.utilisateur, suggestion: "",
+            statut: { idStatut: 1, statut: 'NOUVEAU' }, utilisateur: this.utilisateur, suggestion: "",
             definitionFr: "",
             definitionCom: ""
         },
         {
             motFr: "Parler", motNgz: "Wu Rongowa", motNdz: "Wu Laguwa", motMwa: "Wu Rongowa", motMao: "Rongowa", motAng: "To Speak",
-            statut: { idStatut: 1, statut: 'encours' }, utilisateur: this.utilisateur, suggestion: "",
+            statut: { idStatut: 1, statut: 'A VALIDER' }, utilisateur: this.utilisateur, suggestion: "",
             definitionFr: "",
             definitionCom: ""
         },
         {
             motFr: "Marcher", motNgz: "Hwenda", motNdz: "...", motMwa: "...", motMao: "...", motAng: "To eat",
-            statut: { idStatut: 1, statut: 'valide' }, utilisateur: this.utilisateur, suggestion: "",
+            statut: { idStatut: 1, statut: 'VALIDE' }, utilisateur: this.utilisateur, suggestion: "",
             definitionFr: "",
             definitionCom: ""
         }
@@ -46,7 +46,7 @@ export class DictionnaireService {
 
     public filtrerListe( motCle:string): ILigneDictionnaire[] {
 
-        // this.dictionnaireFilter= [] as ILigneDictionnaire[];
+        this.dictionnaireFilter= [] as ILigneDictionnaire[];
         this.dictionnaireFilter.splice(0, this.dictionnaireFilter.length);
         this.dictionnaireList.forEach(ligne => {
 

@@ -12,39 +12,36 @@
     <ion-card-content>
       <ion-grid>
         <ion-row>
-          <ion-col>Mot Fr</ion-col>
-          <ion-col>Mot Ngz</ion-col>
-          <ion-col>Mot Ndz</ion-col>
-          <ion-col>Mot Mwa</ion-col>
-          <ion-col>Mot Mao</ion-col>
-          <ion-col>Mot Ang</ion-col>
+          <ion-col>Mot Fr</ion-col>    
+          <ion-input [readonly]="true" value="{{ligne.motFr}}"></ion-input><ion-col></ion-col></ion-input>
         </ion-row>
         <ion-row>
-          <ion-col>{{ligne.motFr}}</ion-col>
-          <ion-col>{{ligne.motNgz}}</ion-col>
-          <ion-col>{{ligne.motNdz}}</ion-col>
-          <ion-col>{{ligne.motMwa}}</ion-col>
-          <ion-col>{{ligne.motMao}}</ion-col>
-          <ion-col>{{ligne.motAng}}</ion-col>
+          <ion-col>Mot Ngz</ion-col>
+          <ion-col><ion-input value="{{ligne.motNgz}}"></ion-input></ion-col>
         </ion-row>
+        <ion-row>
+            <ion-col>Mot Ndz</ion-col>
+            <ion-col><ion-input value="{{ligne.motNdz}}"></ion-input></ion-col>            
+        </ion-row>
+        <ion-row>
+            <ion-col>Mot Mwa</ion-col>
+            <ion-col><ion-input value="{{ligne.motMwa}}"></ion-input></ion-col>          
+        </ion-row>
+        <ion-row>
+            <ion-col>Mot Mao</ion-col>
+            <ion-col><ion-input value="{{ligne.motMao}}"></ion-input></ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>Mot Ang</ion-col>
+            <ion-col><ion-input [readonly]="true" value="{{ligne.motAng}}"></ion-input></ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>Suggestion</ion-col>
+           <ion-col><ion-input value="{{ligne.suggestion}}"></ion-input></ion-col>
+         </ion-row>
       </ion-grid>
+
+      <button name="Contribuer">Enregistrer</button>
     </ion-card-content>
   </ion-card>
-
-  <!-- <form #f="ngForm" ((ngSubmit)="onSubmitWord(f)" )>
-    <ion-list>
-      <ion-label>Mot Ngz</ion-label>
-      <ion-input  [(ngModel)] = "ligne.motNgz"></ion-input>
-
-      <ion-label>Mot Ndz</ion-label>
-      <ion-input  [(ngModel)] = "ligne.motNdz"></ion-input>
-      <ion-label>Mot Mao</ion-label>
-      <ion-input  [(ngModel)] = "ligne.motMao"></ion-input>
-
-      <ion-label>Mot Mwa</ion-label>
-      <ion-input  [(ngModel)] = "ligne.motMwa"></ion-input>
-
-    </ion-list>
-    <button type="submit" ion-button ></button>
-  </form> -->
 </ion-content>

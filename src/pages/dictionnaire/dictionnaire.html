@@ -11,8 +11,8 @@
 
 
     <ion-list>
-        <button ion-item *ngFor="let ligne of dictionnaireList; let i = index " (click)="onLoadLigneDictionnaire(i)" [color]=" 'nouveau' == ligne.statut.statut ? 'primary':'secondary'">
-            {{ligne.mot_fr}} </button>
+        <button ion-item *ngFor="let ligne of dictionnaireList; let i = index " (click)="onLoadLigneDictionnaire(i)" [color]=" 'NOUVEAU' == ligne.statut.statut ? 'primary':'secondary'">
+            {{ligne.motFr}} </button>
 
     </ion-list>
 </ion-content>
