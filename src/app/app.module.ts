@@ -1,5 +1,7 @@
-import { firebaseConfig } from './../app.firebase.config';
-import { AuthService } from './../pages/services/auth.service';
+import { SignupPage } from './../pages/signup/signup';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { FIREBASE_CONFIG } from './app.firebase.config';
+import { AngularFireModule } from 'angularfire2';
 import { UtilisateurService } from './../pages/services/utilisateurService';
 import { LoginPage } from './../pages/login/login';
 import { DictionnaireService } from './../pages/services/dictionnaireService';
@@ -14,21 +16,22 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { MyApp } from './app.component';
 import { SettingsPage } from '../pages/settings/settings';
 import { TabsPage } from '../pages/tabs/tabs';
-import { AngularFireModule } from 'angularfire2';
-import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireAuthModule } from 'angularfire2/auth';
 @NgModule({
   declarations: [
     MyApp,
     DictionnairePage,
     LigneDictionnairePage,
-    SettingsPage, 
+    SettingsPage,
     LoginPage,
+    SignupPage,
     TabsPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    AngularFireModule.initializeApp(firebaseConfig.fire)
+    AngularFireModule.initializeApp(FIREBASE_CONFIG),
+    AngularFireAuthModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -37,17 +40,17 @@ import { AngularFireAuth } from 'angularfire2/auth';
     LigneDictionnairePage,
     SettingsPage,
     LoginPage,
+    SignupPage,
     TabsPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     ScreenOrientation,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
-    DictionnaireService,
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
     AngularFireAuth,
-    AuthService,
+    DictionnaireService,
     UtilisateurService
   ]
 })
-export class AppModule {}
+export class AppModule { }

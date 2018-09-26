@@ -1,18 +1,8 @@
-import { DictionnairePage } from './../dictionnaire/dictionnaire';
-import { AuthService } from './../services/auth.service';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { SignupPage } from './../signup/signup';
+import { IUtilisateur } from './../modeles/utilisateurModel';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { FormBuilder } from '@angular/forms/src/form_builder';
-import { FormGroup } from '@angular/forms/src/model';
-import { Validators } from '@angular/forms/src/validators';
-
-/**
- * Generated class for the LoginPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
 @IonicPage()
 @Component({
   selector: 'page-login',
@@ -20,38 +10,31 @@ import { Validators } from '@angular/forms/src/validators';
 })
 export class LoginPage {
 
-  loginForm: FormGroup;
-  loginError: string;
+  public user = {} as IUtilisateur;
+  messageLogin:string;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,
-    private auth: AuthService,
-    fb: FormBuilder) {
-
-    this.loginForm = fb.group({
-      email: ['', Validators.compose([Validators.required, Validators.email])],
-      password: ['', Validators.compose([Validators.required, Validators.minLength(6)])]
-    });
+  constructor(private afAuth: AngularFireAuth, public navCtrl: NavController, public navParams: NavParams) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
-  }
+  login(user: IUtilisateur) {
 
-  login() {
-    let data = this.loginForm.value;
+    try {
 
-    if (!data.email) {
-      return;
+      const result = this.afAuth.auth.signInWithEmailAndPassword(user.email, user.mdp);
+      
+      console.log(result);
+
+    } catch (e) {
+
+      console.error(e.message);
+
+      this.messageLogin = e.message;
+      
     }
 
-    let credentials = {
-      email: data.email,
-      password: data.password
-    };
-    this.auth.signInWithEmail(credentials)
-      .then(
-      () => this.navCtrl.setRoot(DictionnairePage),
-      error => this.loginError = error.message
-      );
   }
+  signup() {
+    this.navCtrl.push(SignupPage);
+  }
+
 }

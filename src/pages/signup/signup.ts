@@ -1,25 +1,40 @@
+import { AngularFireAuth } from 'angularfire2/auth';
+import { IUtilisateur } from './../modeles/utilisateurModel';
+import { IRole } from './../modeles/roleModel';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
-/**
- * Generated class for the SignupPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
-
-@IonicPage()
+import { NavController, NavParams } from 'ionic-angular';
 @Component({
   selector: 'page-signup',
   templateUrl: 'signup.html',
 })
 export class SignupPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  user = {} as IUtilisateur;
+
+  role = { id: 4, role: "Invite" } as IRole;
+
+
+  constructor(private afAuth:AngularFireAuth, public navCtrl: NavController, public navParams: NavParams) {
+
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad SignupPage');
+  ngOnInit(): void {
+
+    this.user.role = this.role;
+
+  }
+
+  async saveNewUser(user:IUtilisateur) {
+    try {
+      const result = await this.afAuth.auth.createUserWithEmailAndPassword(user.email,user.mdp);
+      console.log(result);
+    }
+    catch (e) {
+
+      console.error(e);
+    }
+    
+
   }
 
 }
