@@ -1,15 +1,13 @@
 import { UtilisateurService } from './../services/utilisateurService';
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { DictionnairePage } from '../Dictionnaire/dictionnaire';
-
 @Component({
   selector: 'page-menu-user',
   templateUrl: 'menu-user.html',
 })
 export class MenuUserPage {
-  
-  dictionnairePage = DictionnairePage; 
+
+  public rootPage = MenuUserPage; 
   connected:boolean = false; 
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private utilisateurService:UtilisateurService) {
