@@ -1,11 +1,11 @@
 <ion-header>
     <ion-navbar>
+        <ion-buttons start>
+            <button ion-button menuToggle *ngIf="!(notConnected)">
+                <ion-icon name="contact"></ion-icon>
+            </button>
+        </ion-buttons>
         <ion-title>Kamusi FR-COM</ion-title>
-        <ion-buttons *ngIf="!(notConnected)" start >
-                <button ion-button icon-only (click)="onToggleMenu()">
-                  <ion-icon name="contact"></ion-icon>
-                </button>
-          </ion-buttons>
     </ion-navbar>
 </ion-header>
 

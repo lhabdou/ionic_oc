@@ -5,7 +5,6 @@ import { LigneDictionnairePage } from './../ligne-dictionnaire/ligneDictionnaire
 import { ILigneDictionnaire } from '../modeles/ligneDictionnaireModel';
 import { Component } from '@angular/core';
 import { UtilisateurService } from '../services/utilisateurService';
-import { MenuController } from 'ionic-angular/components/app/menu-controller';
 @Component({
     selector: 'page-dictionnaire',
     templateUrl: 'dictionnaire.html'
@@ -18,8 +17,7 @@ export class DictionnairePage {
     loginPage = LoginPage;
 
     constructor(private navCtrl: NavController, private dictionnaireService: DictionnaireService,
-        public utilisateurService: UtilisateurService,
-        public menuCtrl: MenuController) {
+        public utilisateurService: UtilisateurService) {
 
     }
 
@@ -47,12 +45,5 @@ export class DictionnairePage {
             this.dictionnaireList = this.dictionnaireService.filtrerListe(this.motCle);
         }
     }
-
-    onToggleMenu() {
-
-        this.menuCtrl.open();
-  
-    }
-
 
 }

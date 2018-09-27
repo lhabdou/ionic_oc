@@ -12,20 +12,14 @@
   <ion-content padding>
 
     <ion-list>
-      <ion-item menuClose detail-none>Close Menu</ion-item>
-      <ion-item>Nom_Prenom</ion-item>
-      <ion-item>adresse mail</ion-item>
-      <ion-label></ion-label>
-      <ion-item>Tel:</ion-item>
-
-      <button ion-button>Modifier profil</button>
+        <button ion-item menuClose *ngFor="let p of pages" (click)="openPage(p)">
+            <ion-icon item-start [name]="p.icon" [color]="isActive(p)"></ion-icon>
+            {{ p.title }}
+          </button>
     </ion-list>
 
     <button *ngIf="connected" color="light">Se déconnecter</button>
-
-
   </ion-content>
-
 </ion-menu>
 
-<ion-nav [root]="rootPage" #content></ion-nav>
+<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>

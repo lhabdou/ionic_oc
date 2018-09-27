@@ -35,7 +35,7 @@ export class LoginPage {
 
       if (result) {
 
-        this.navCtrl.push(DictionnairePage);
+        this.navCtrl.setRoot(DictionnairePage);
 
         this.toast.create({
           message: 'Vous êtes à présent connecter sur Kamusi',
