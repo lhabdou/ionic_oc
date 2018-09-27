@@ -1,3 +1,5 @@
+import { MenuUserPage } from './../pages/menu-user/menu-user';
+import { NgxErrorsModule } from '@ultimate/ngxerrors';
 import { SignupPage } from './../pages/signup/signup';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { FIREBASE_CONFIG } from './app.firebase.config';
@@ -25,13 +27,15 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
     SettingsPage,
     LoginPage,
     SignupPage,
-    TabsPage
+    TabsPage, 
+    MenuUserPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(FIREBASE_CONFIG),
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    NgxErrorsModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -41,7 +45,8 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
     SettingsPage,
     LoginPage,
     SignupPage,
-    TabsPage
+    TabsPage,
+    MenuUserPage
   ],
   providers: [
     StatusBar,

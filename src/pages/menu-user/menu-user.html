@@ -1,0 +1,31 @@
+<ion-menu [content]="content">
+
+  <ion-header>
+
+    <ion-toolbar>
+      <ion-title>Utilisateur</ion-title>
+      <ion-icon name="contact"></ion-icon>
+    </ion-toolbar>
+
+  </ion-header>
+
+  <ion-content padding>
+
+    <ion-list>
+      <ion-item menuClose detail-none>Close Menu</ion-item>
+      <ion-item>Nom_Prenom</ion-item>
+      <ion-item>adresse mail</ion-item>
+      <ion-label></ion-label>
+      <ion-item>Tel:</ion-item>
+
+      <button ion-button>Modifier profil</button>
+    </ion-list>
+
+    <button *ngIf="connected" color="light">Se déconnecter</button>
+
+
+  </ion-content>
+
+</ion-menu>
+
+<ion-nav [root]="dictionnairePage" #content></ion-nav>

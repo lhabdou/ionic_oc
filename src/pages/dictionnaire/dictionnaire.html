@@ -1,22 +1,29 @@
 <ion-header>
     <ion-navbar>
-        <ion-title>Dictionnaire FR-COM-ANG</ion-title>
+        <ion-title>Kamusi FR-COM</ion-title>
+        <ion-buttons *ngIf="!(notConnected)" start >
+                <button ion-button icon-only (click)="onToggleMenu()">
+                  <ion-icon name="contact"></ion-icon>
+                </button>
+          </ion-buttons>
     </ion-navbar>
 </ion-header>
 
 <ion-content padding>
 
-        <ion-searchbar [(ngModel)]="motCle"  (ionInput)="onInput($event)" [placeholder] ="Rechercher" >{{motCle}}
-        </ion-searchbar>
+
+    <ion-searchbar [(ngModel)]="motCle" (ionInput)="onInput($event)" [placeholder]="Rechercher">{{motCle}}
+    </ion-searchbar>
 
 
     <ion-list>
-        <button ion-item *ngFor="let ligne of dictionnaireList; let i = index " (click)="onLoadLigneDictionnaire(i)" [color]=" 'NOUVEAU' == ligne.statut.statut ? 'primary':'secondary'">
+        <button ion-item *ngFor="let ligne of dictionnaireList; let i = index " (click)="onLoadLigneDictionnaire(i)"
+            [color]=" 'NOUVEAU' == ligne.statut.statut ? 'primary':'secondary'">
             {{ligne.motFr}} </button>
 
     </ion-list>
 </ion-content>
 
 <ion-footer padding>
-        <button ion-button [navPush]="loginPage" color="light" >Se connecter</button>
+    <button *ngIf="notConnected" ion-button [navPush]="loginPage" color="light">Se connecter</button>
 </ion-footer>
