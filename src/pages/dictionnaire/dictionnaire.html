@@ -1,6 +1,6 @@
 <ion-header>
     <ion-navbar>
-        <ion-buttons start *ngIf="!(notConnected)" >
+        <ion-buttons start>
             <button ion-button icon-only (click)="onToggleMenu()">
                 <ion-icon name="person"></ion-icon>
             </button>
@@ -25,5 +25,4 @@
 </ion-content>
 
 <ion-footer>
-    <button ion-button [navPush]="loginPage" color="light" *ngIf="notConnected" >Se connecter</button>
 </ion-footer>

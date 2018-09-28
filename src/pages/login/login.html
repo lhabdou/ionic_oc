@@ -17,7 +17,7 @@
         <ion-input type="text" [(ngModel)]="user.email" placeholder="Email" formControlName="email"></ion-input>
       </ion-item>
 
-      <div ngxErrors="email" #emailErrors="ngxErrors">
+      <div ngxErrors="email" #emailErrors="ngxErrors" color="danger">
         <div [ngxError]="['email', 'required']" [when]="['touched', 'dirty']">Veuillez entrer une adresse Email valide</div>
       </div>
 
@@ -26,8 +26,8 @@
         <ion-input type="password" [(ngModel)]="user.mdp" placeholder="Password" formControlName="password"></ion-input>
       </ion-item>
 
-      <div ngxErrors="password" #passwordErrors="ngxErrors">
-        <div color ="danger" [ngxError]="['minlength', 'required']" [when]="['touched']">Le mot de passe doit contenir au moins 5
+      <div ngxErrors="password" #passwordErrors="ngxErrors" color="danger">
+        <div [ngxError]="['minlength', 'required']" [when]="['touched']">Le mot de passe doit contenir au moins 5
           caractères</div>
       </div>
       

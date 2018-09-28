@@ -16,7 +16,6 @@ export class LigneDictionnairePage implements OnInit {
 
   ligne: ILigneDictionnaire;
   index:number;
-  public notConnected:boolean;
   public loginPage = LoginPage; 
 
   constructor(private dictionnaireService: DictionnaireService, 
@@ -28,7 +27,6 @@ export class LigneDictionnairePage implements OnInit {
     
     this.index = this.navParams.get('ligneParam');
     this.ligne = this.dictionnaireService.dictionnaireList[this.index]; 
-    this.notConnected = !this.utilisateurService.loginState;
 
   }
   onSubmitWord(form: NgForm) {

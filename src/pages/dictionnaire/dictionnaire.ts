@@ -1,4 +1,3 @@
-import { LoginPage } from './../login/login';
 import { DictionnaireService } from './../services/dictionnaireService';
 import { LigneDictionnairePage } from './../ligne-dictionnaire/ligneDictionnaire';
 import { ILigneDictionnaire } from '../modeles/ligneDictionnaireModel';
@@ -13,19 +12,15 @@ export class DictionnairePage {
 
     dictionnaireList: ILigneDictionnaire[];
     motCle: string;
-    notConnected: boolean = true;
-    loginPage = LoginPage;
+ 
 
     constructor(private navCtrl: NavController, private dictionnaireService: DictionnaireService,
         public utilisateurService:UtilisateurService, private menuCtrl:MenuController) {
 
     }
     ionViewWillEnter(){
-        console.log("je passe" + this.utilisateurService.getUserConnected()); 
+
         this.dictionnaireList = this.dictionnaireService.dictionnaireList.slice();
-        if(this.utilisateurService.getUserConnected()) {
-            this.notConnected = false;
-        }
 
     }
 

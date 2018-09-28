@@ -1,39 +1,41 @@
-<ion-menu [content]="content" *ngIf="true" side="right">
+<ion-menu [content]="content" side="right">
     <ion-header>
         <ion-toolbar>
             <ion-title>Mon profil</ion-title>
         </ion-toolbar>
     </ion-header>
     <ion-content>
-        <ion-list>
+        <ion-list *ngIf="isAuth">
             <ion-item>
                 <ion-img></ion-img>
             </ion-item>
 
             <ion-item>
                 <ion-label>Nom:</ion-label>
-                <ion-input [(ngModel)]="user.nom" aria-readonly="true"></ion-input>
+                <ion-input [(ngModel)]="user.nom" [readonly]="true"></ion-input>
             </ion-item>
             <ion-item>
                 <ion-label>Prénom:</ion-label>
-                <ion-input [(ngModel)]="user.prenom" aria-readonly="true"></ion-input>
+                <ion-input [(ngModel)]="user.prenom" [readonly]="true"></ion-input>
             </ion-item>
             <ion-item>
                 <ion-label>Email:</ion-label>
-                <ion-input [(ngModel)]="user.email" aria-readonly="true"></ion-input>
+                <ion-input [(ngModel)]="user.email" [readonly]="true"></ion-input>
             </ion-item>
 
             <ion-item>
-                    <button ion-button>
-                            <ion-icon name="settings"> Editer</ion-icon>
-                    </button>
+                <button ion-button>
+                    <ion-icon name="settings"> Editer</ion-icon>
+                </button>
             </ion-item>
 
         </ion-list>
     </ion-content>
     <ion-footer>
-        <button ion-button>
-            <ion-icon name="power" (click)="doLogout()"> Déconnexion</ion-icon>
+        <button ion-button (click)="goToLoginPage()" color="light" *ngIf="!isAuth">Se connecter</button>
+
+        <button ion-button *ngIf="isAuth" (click)="doLogout()">
+            <ion-icon name="power"> Déconnexion</ion-icon>
         </button>
     </ion-footer>
 </ion-menu>

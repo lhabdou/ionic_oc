@@ -3,9 +3,8 @@ import { SignupPage } from './../signup/signup';
 import { IUtilisateur } from './../modeles/utilisateurModel';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { DictionnairePage } from '../Dictionnaire/dictionnaire';
-import { ToastController } from 'ionic-angular/components/toast/toast-controller';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { TabsPage } from '../tabs/tabs';
 @IonicPage()
 @Component({
   selector: 'page-login',
@@ -18,7 +17,7 @@ export class LoginPage {
   loginError: string;
 
   constructor(private afAuth: AngularFireAuth, public navCtrl: NavController,
-    private toast: ToastController, public navParams: NavParams, public fb: FormBuilder) {
+  public navParams: NavParams, public fb: FormBuilder) {
 
     this.loginForm = fb.group({
       email: ['', Validators.compose([Validators.required, Validators.email])],
@@ -34,27 +33,19 @@ export class LoginPage {
       const result = await this.afAuth.auth.signInWithEmailAndPassword(user.email, user.mdp);
 
       if (result) {
-
-        this.navCtrl.setRoot(DictionnairePage);
-
-        this.toast.create({
-          message: 'Vous êtes à présent connecter sur Kamusi',
-          duration: 3000
-        })
-
+        this.navCtrl.setRoot(TabsPage);
       }
-
 
     } catch (error) {
 
       this.loginError = error.message;
-
 
     }
 
   }
   signup() {
     this.navCtrl.push(SignupPage);
+    this.navCtrl.setRoot(TabsPage);
   }
 
   loginWithGoogle() {
