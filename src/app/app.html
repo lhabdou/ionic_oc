@@ -1,1 +1,41 @@
-<ion-nav [root]="rootPage"></ion-nav>
+<ion-menu [content]="content" *ngIf="true" side="right">
+    <ion-header>
+        <ion-toolbar>
+            <ion-title>Mon profil</ion-title>
+        </ion-toolbar>
+    </ion-header>
+    <ion-content>
+        <ion-list>
+            <ion-item>
+                <ion-img></ion-img>
+            </ion-item>
+
+            <ion-item>
+                <ion-label>Nom:</ion-label>
+                <ion-input [(ngModel)]="user.nom" aria-readonly="true"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label>Prénom:</ion-label>
+                <ion-input [(ngModel)]="user.prenom" aria-readonly="true"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label>Email:</ion-label>
+                <ion-input [(ngModel)]="user.email" aria-readonly="true"></ion-input>
+            </ion-item>
+
+            <ion-item>
+                    <button ion-button>
+                            <ion-icon name="settings"> Editer</ion-icon>
+                    </button>
+            </ion-item>
+
+        </ion-list>
+    </ion-content>
+    <ion-footer>
+        <button ion-button>
+            <ion-icon name="power" (click)="logOut()"> Déconnexion</ion-icon>
+        </button>
+    </ion-footer>
+</ion-menu>
+
+<ion-nav [root]="rootPage" #content></ion-nav>

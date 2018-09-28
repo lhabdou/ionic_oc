@@ -11,7 +11,7 @@ export class DictionnaireService {
     }
 
     public utilisateur: IUtilisateur = {
-        idUtilisateur: 1,
+        idUtilisateur: "1",
         nom: "Soilihi",
         prenom: "Abdoulhalim",
         mdp: "123456",
