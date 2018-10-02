@@ -5,6 +5,8 @@
         </ion-toolbar>
     </ion-header>
     <ion-content>
+            <button ion-button (click)="goToLoginPage()" position="middle" color="light" *ngIf="!isAuth">Se connecter</button>
+
         <ion-list *ngIf="isAuth">
             <ion-item>
                 <ion-img></ion-img>
@@ -32,8 +34,6 @@
         </ion-list>
     </ion-content>
     <ion-footer>
-        <button ion-button (click)="goToLoginPage()" color="light" *ngIf="!isAuth">Se connecter</button>
-
         <button ion-button *ngIf="isAuth" (click)="doLogout()">
             <ion-icon name="power"> Déconnexion</ion-icon>
         </button>

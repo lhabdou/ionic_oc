@@ -1,9 +1,12 @@
 import { IRole } from './../modeles/roleModel';
 import { IUtilisateur } from '../modeles/utilisateurModel';
 import { ILigneDictionnaire } from '../modeles/ligneDictionnaireModel';
+import { Subject } from 'rxjs/Subject';
 
 
 export class DictionnaireService {
+
+    ligneDictionnaires$ = new Subject<ILigneDictionnaire[]>();
 
     public role: IRole = {
         id:1,
@@ -61,7 +64,9 @@ export class DictionnaireService {
         return this.dictionnaireFilter;
     }
 
-
+    emitLigneDictionnaires() {
+        this.ligneDictionnaires$.next(this.dictionnaireList.slice());
+    }
 
 
 }

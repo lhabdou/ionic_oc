@@ -41,8 +41,8 @@ export class MyApp {
         } else {
           this.isAuth = false;
           let toast = this.toastCtrl.create({
-            message: 'Vous êtes déconnecté',
-            duration: 3000,
+            message: 'Vous n\'êtes pas connecté',
+            duration: 2000,
             position: 'bottom'
           });
           toast.present();
@@ -58,11 +58,6 @@ export class MyApp {
   doLogout() {
     this.menuCtrl.close();
     this.afAuth.auth.signOut();
-    // .then(function() {
-    // }).catch(function(error) {
-    //   console.log(error)
-    //   ;
-    // });
 
   }
 

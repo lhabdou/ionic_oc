@@ -1,4 +1,3 @@
-import { UtilisateurService } from './../services/utilisateurService';
 import { DictionnaireService } from './../services/dictionnaireService';
 import { ILigneDictionnaire } from '../modeles/ligneDictionnaireModel';
 import { Component, OnInit } from '@angular/core';
@@ -19,7 +18,7 @@ export class LigneDictionnairePage implements OnInit {
   public loginPage = LoginPage; 
 
   constructor(private dictionnaireService: DictionnaireService, 
-    private viewController:ViewController, private navParams: NavParams, private utilisateurService:UtilisateurService) {
+    private viewController:ViewController, private navParams: NavParams) {
 
   }
 

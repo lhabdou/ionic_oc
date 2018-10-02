@@ -30,37 +30,35 @@
         <div [ngxError]="['minlength', 'required']" [when]="['touched']">Le mot de passe doit contenir au moins 5
           caractères</div>
       </div>
-      
+
     </ion-list>
 
-     <div padding-horizontal>
-			<div class="form-error">{{loginError}}</div>
+    <div padding-horizontal>
+      <div class="form-error">{{loginError}}</div>
 
-			<button ion-button full type="submit" [disabled]="!loginForm.valid">Log in</button>
-			<div class="login-footer">
-				<p>
+      <button ion-button full type="submit" [disabled]="!loginForm.valid">Log in</button>
+      <div class="login-footer">
+        <p>
           <a href="#">Mot de passe oublié? <br> </a>
-          
-					Nouveau utilisateur. Veuillez vous enregistrer!
-				</p>
-			</div>
 
-			<ion-list>
+          Nouveau utilisateur. Veuillez vous enregistrer!
+        </p>
+      </div>
 
-				<button ion-button icon-left block clear (click)="loginWithGoogle()">
-					<ion-icon name="logo-google"></ion-icon>
-					Log in with Google
-				</button>
+      <ion-list>
 
-				<button ion-button icon-left block clear (click)="signup()">
-					<ion-icon name="person-add"></ion-icon>
-					Sign up
-				</button>
-			</ion-list>
+        <button ion-button icon-left block clear (click)="loginWithGoogle()">
+          <ion-icon name="logo-google"></ion-icon>
+          Log in with Google
+        </button>
+      </ion-list>
     </div>
-    
-
 
   </form>
+
+  <button ion-button icon-left block clear (click)="signup()">
+    <ion-icon name="person-add"></ion-icon>
+    Sign up
+  </button>
 
 </ion-content>

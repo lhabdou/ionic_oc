@@ -1,3 +1,4 @@
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NgxErrorsModule } from '@ultimate/ngxerrors';
 import { SignupPage } from './../pages/signup/signup';
 import { AngularFireAuth } from 'angularfire2/auth';
@@ -30,6 +31,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(FIREBASE_CONFIG),
     AngularFireAuthModule,
@@ -52,7 +54,8 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     AngularFireAuth,
     DictionnaireService,
-    UtilisateurService
+    UtilisateurService,
+    HttpClient
   ]
 })
 export class AppModule { }

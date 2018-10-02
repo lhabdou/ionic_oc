@@ -8,45 +8,82 @@
 
 
 <ion-content padding>
+  <form (ngSubmit)="saveNewUser(user)" [formGroup]="signupForm">
+    <ion-list>
+      <ion-item>
+        <ion-label floating>Nom:</ion-label>
+        <ion-input type="text" [(ngModel)]="user.nom" formControlName="nom"></ion-input>
+      </ion-item>
+      <div ngxErrors="nom" #nomErrors="ngxErrors" color="danger">
+          <div [ngxError]="['minlength','required']" [when]="['touched', 'dirty']">Veuillez saisir votre nom</div>
+      </div>
 
-  <ion-item>
-    <ion-label stacked>Nom:</ion-label>
-    <ion-input type="text" [(ngModel)]="user.nom"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label stacked>Prénom:</ion-label>
-    <ion-input type="text" [(ngModel)]="user.prenom"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label stacked>Pseudo:</ion-label>
-    <ion-input type="text" [(ngModel)]="user.pseudo"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label stacked>Email:</ion-label>
-    <ion-input type="text" [(ngModel)]="user.email"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label stacked>Mot de passe:</ion-label>
-    <ion-input type="password" [(ngModel)]="user.mdp"></ion-input>
-  </ion-item>
+      <ion-item [ngClass]="{ invalid: prenomErrors.hasError('*', ['touched', 'dirty']) }">
+        <ion-label floating>Prénom:</ion-label>
+        <ion-input type="text" [(ngModel)]="user.prenom" formControlName="prenom"></ion-input>
+      </ion-item>
+      <div ngxErrors="prenom" #prenomErrors="ngxErrors" color="danger">
+          <div [ngxError]="['minlength','required']" [when]="['touched', 'dirty']">Veuillez saisir votre prénom</div>
+      </div>
 
-  <ion-item>
-    <ion-label stacked>Confirmation:</ion-label>
-    <ion-input type="password" [(ngModel)]="user.mdp"></ion-input>
-  </ion-item>
 
-  <ion-item *ngIf="false">
-      <ion-label></ion-label>
-      <!-- <ion-select [(ngModel)]="" multiple="" >
+      <ion-item [ngClass]="{ invalid: pseudoErrors.hasError('*', ['touched', 'dirty']) }">
+        <ion-label floating>Pseudo:</ion-label>
+        <ion-input type="text" [(ngModel)]="user.pseudo" formControlName="pseudo"></ion-input>
+      </ion-item>
+      <div ngxErrors="pseudo" #pseudoErrors="ngxErrors" color="danger">
+          <div [ngxError]="['minlength','required']" [when]="['touched', 'dirty']">Pseudo requis</div>
+      </div>
+
+
+      <ion-item [ngClass]="{ invalid: emailErrors.hasError('*', ['touched', 'dirty']) }">
+        <ion-label floating>Email:</ion-label>
+        <ion-input type="email" [(ngModel)]="user.email" formControlName="email"></ion-input>
+      </ion-item>
+      <div ngxErrors="email" #emailErrors="ngxErrors" color="danger">
+        <div [ngxError]="['email', 'required']" [when]="['touched', 'dirty']">Veuillez entrer une adresse Email valide</div>
+      </div>
+
+      <ion-item [ngClass]="{ invalid: passwordErrors.hasError('*', ['touched', 'dirty']) }">
+        <ion-label floating>Mot de passe:</ion-label>
+        <ion-input  type="password" formControlName="password" [(ngModel)]="user.mdp"></ion-input>
+      </ion-item>
+      <div ngxErrors="password" #passwordErrors="ngxErrors" color="danger">
+        <div [ngxError]="['minlength', 'required']" [when]="['touched']">Le mot de passe doit contenir au moins 5
+          caractères</div>
+      </div>
+
+
+      <ion-item [ngClass]="{ invalid: confPasswordErrors.hasError('*', ['touched', 'dirty']) }">
+        <ion-label floating>Confirmation:</ion-label>
+        <ion-input  type="password" [(ngModel)]="confPassword" formControlName="confPassword"></ion-input>
+      </ion-item>
+
+      <div ngxErrors="confPassword" #confPasswordErrors="ngxErrors" color="danger">
+        <div [ngxError]="['required']" [when]="['touched']">La confirmation du mot de passe est requise</div>
+      </div>
+      <div *ngIf="(user.mdp !== confPassword)">La confirmation du mot de passe n'est pas
+          identique au mot de passe saisi</div>
+
+      <ion-item *ngIf="false">
+        <ion-label></ion-label>
+        <!-- <ion-select [(ngModel)]="" multiple="" >
         <ion-option value="" ></ion-option>
         
       </ion-select> -->
-  </ion-item>
+      </ion-item>
+
+    </ion-list>
+
+    <div class="form-error">{{signupError}}</div>
+
+    <button ion-button type="submit" [disabled]="!signupForm.valid">S'enregistrer</button>
 
 
+
+  </form>
 
 </ion-content>
 
 <ion-footer>
-  <button ion-button (click)="saveNewUser(user)">S'enregistrer</button>
 </ion-footer>

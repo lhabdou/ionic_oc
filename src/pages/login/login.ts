@@ -19,7 +19,7 @@ export class LoginPage {
   constructor(private afAuth: AngularFireAuth, public navCtrl: NavController,
   public navParams: NavParams, public fb: FormBuilder) {
 
-    this.loginForm = fb.group({
+    this.loginForm = this.fb.group({
       email: ['', Validators.compose([Validators.required, Validators.email])],
       password: ['', Validators.compose([Validators.required, Validators.minLength(6)])]
     });
@@ -44,8 +44,8 @@ export class LoginPage {
 
   }
   signup() {
-    this.navCtrl.push(SignupPage);
-    this.navCtrl.setRoot(TabsPage);
+
+    this.navCtrl.setRoot(SignupPage);
   }
 
   loginWithGoogle() {
