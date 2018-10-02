@@ -3,25 +3,33 @@ import { LigneDictionnairePage } from './../ligne-dictionnaire/ligneDictionnaire
 import { ILigneDictionnaire } from '../modeles/ligneDictionnaireModel';
 import { Component } from '@angular/core';
 import { UtilisateurService } from '../services/utilisateurService';
-import { NavController, MenuController} from 'ionic-angular';
+import { NavController, MenuController } from 'ionic-angular';
+import { Subscription } from 'rxjs/Subscription';
+import { OnInit, OnDestroy } from '@angular/core/src/metadata/lifecycle_hooks';
 @Component({
     selector: 'page-dictionnaire',
     templateUrl: 'dictionnaire.html'
 })
-export class DictionnairePage {
+export class DictionnairePage implements OnInit, OnDestroy {
 
     dictionnaireList: ILigneDictionnaire[];
+    dictionnaireSubscription: Subscription;
+
     motCle: string;
- 
+
 
     constructor(private navCtrl: NavController, private dictionnaireService: DictionnaireService,
-        public utilisateurService:UtilisateurService, private menuCtrl:MenuController) {
+        public utilisateurService: UtilisateurService, private menuCtrl: MenuController) {
 
     }
-    ionViewWillEnter(){
+    ngOnInit() {
 
-        this.dictionnaireList = this.dictionnaireService.dictionnaireList.slice();
-
+        this.dictionnaireSubscription = this.dictionnaireService.ligneDictionnaires$.subscribe(
+            (ligneDictionnaires: ILigneDictionnaire[]) => {
+                this.dictionnaireList = ligneDictionnaires;
+            }
+        );
+        this.dictionnaireService.emitLigneDictionnaires();
     }
 
     onLoadLigneDictionnaire(index: number) {
@@ -43,6 +51,10 @@ export class DictionnairePage {
 
     onToggleMenu() {
         this.menuCtrl.open();
+    }
+
+    ngOnDestroy() {
+
     }
 
 }

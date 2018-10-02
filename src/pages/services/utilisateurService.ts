@@ -1,6 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IUtilisateur } from '../modeles/utilisateurModel';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { ENVIRONNEMENT } from '../../constantes/constantesUtilis';
 
 @Injectable()
 export class UtilisateurService {
@@ -12,7 +14,14 @@ export class UtilisateurService {
     email:""
   };
 
-  constructor (private afAuth:AngularFireAuth) {
+  newUser:IUtilisateur = {
+    nom: "Soilihi",
+    prenom: "Abdoulhalim",
+    mdp: "123456",
+    pseudo: "lhabdou",
+    email: "lhabdou26@hotmail.fr"}
+
+  constructor (private afAuth:AngularFireAuth, private httpClient:HttpClient) {
 
   }
 
@@ -27,5 +36,20 @@ export class UtilisateurService {
     } 
     return this.user; 
   }
+
+  saveProfileUser(user:IUtilisateur) {
+
+      // var headers = new Headers();
+      // headers.append("Accept", 'application/json');
+      // headers.append('Content-Type', 'application/json' );
+      // const requestOptions = new RequestOptions({ headers: headers });
+  
+      this.httpClient.post(ENVIRONNEMENT.URL_REST_LOCAL + "/utilisateurs/nouveau",  JSON.stringify(user))
+        .subscribe(data => {
+          console.log(data['_body']);
+         }, error => {
+          console.log(error);
+        });
+    }
 
 }

@@ -1,7 +1,7 @@
 import { IRole } from './roleModel';
 export class IUtilisateur {
 
-    idUtilisateur: string;
+    idUtilisateur?: string;
     nom: string;
     prenom: string;
     mdp?: string;
