@@ -41,6 +41,7 @@ export class LoginPage {
       this.loginError = error.message;
 
     }
+    
 
   }
   signup() {

@@ -29,17 +29,23 @@ export class SignupPage implements OnInit {
       pseudo: ['', Validators.compose([Validators.required, Validators.minLength(2)])],
       email: ['', Validators.compose([Validators.required, Validators.email])],
       password: ['', Validators.compose([Validators.required, Validators.minLength(6)])],
-      confPassword: ['', Validators.compose([Validators.required])]
+      confirmPassword: ['', Validators.compose([Validators.required,])]
+    
+      });
 
-    })
+      //{validator: this.checkPassword('password', 'confirmPassword')}
 
   }
 
-  validatePasswords(password: string, confPassword): boolean {
-    if (password && password != confPassword) {
-      return false;
-    } else if (password) {
-      return true;
+  checkPassword(passwordKey: string, confirmPasswordKey: string) {
+    return (group: FormGroup): { [key: string]: any } | null => {
+      let password = group.get(passwordKey);
+      let confirmPassword = group.get(confirmPasswordKey);
+      if (password.value == confirmPassword.value)
+        return null;
+      return {
+        mismatchedPasswords: true
+      };
     }
   }
 
@@ -60,8 +66,10 @@ export class SignupPage implements OnInit {
     try {
       const result = await this.afAuth.auth.createUserWithEmailAndPassword(user.email, user.mdp);
       user.role = this.roleContributeur;
+      console.log("uid: " + user.uid);
+      console.log("token : " + result.user.getIdTokenResult + "2 id token: " + result.user.getIdToken)
+      user.uid = result.user.getIdToken;
       this.userSrv.saveProfileUser(user);
-      console.log(result);
     }
     catch (e) {
       this.signupError = e.message;

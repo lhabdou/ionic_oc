@@ -60,10 +60,8 @@
       </ion-item>
 
       <div ngxErrors="confPassword" #confPasswordErrors="ngxErrors" color="danger">
-        <div [ngxError]="['required']" [when]="['touched']">La confirmation du mot de passe est requise</div>
-      </div>
-      <div *ngIf="(user.mdp !== confPassword)">La confirmation du mot de passe n'est pas
-          identique au mot de passe saisi</div>
+        <div [ngxError]="['required']" [when]="['touched']">Confirmation du mot de passe incorrecte</div>
+      </div>      
 
       <ion-item *ngIf="false">
         <ion-label></ion-label>
@@ -78,8 +76,6 @@
     <div class="form-error">{{signupError}}</div>
 
     <button ion-button type="submit" [disabled]="!signupForm.valid">S'enregistrer</button>
-
-
 
   </form>
 
