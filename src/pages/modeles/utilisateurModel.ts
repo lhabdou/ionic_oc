@@ -9,6 +9,6 @@ export class IUtilisateur {
     email: string;
     urlImage?: string;
     role?: IRole;
-    uid?: any;
+    uid?: string;
 
 };
