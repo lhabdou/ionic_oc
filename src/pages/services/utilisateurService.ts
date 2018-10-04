@@ -1,63 +1,39 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { IUtilisateur } from "../modeles/utilisateurModel";
-import { AngularFireAuth } from "angularfire2/auth";
 import { ENVIRONNEMENT } from "../../constantes/constantesUtilis";
 @Injectable()
 export class UtilisateurService {
-  user: IUtilisateur = {
-    idUtilisateur: "",
-    nom: "defaultName",
-    prenom: "",
-    email: ""
-  };
 
-  newUser: IUtilisateur = {
-    nom: "Soilihi",
-    prenom: "Abdoulhalim",
-    mdp: "123456",
-    pseudo: "lhabdou",
-    email: "lhabdou26@hotmail.fr"
-  };
+  constructor(private httpClient: HttpClient) { }
 
-  constructor(
-    private afAuth: AngularFireAuth,
-    private httpClient: HttpClient
-  ) {}
+  async getUserProfil(token: string) {
 
-  getUserConnected(): IUtilisateur {
-    if (this.afAuth.auth.currentUser) {
-      return this.getUserProfile(this.afAuth.auth.currentUser.email);
-    }
-  }
-
-  getUserProfile(email: string): IUtilisateur {
     const httpOptions = {
       headers: new HttpHeaders({
         "Content-Type": "application/json",
-        token: this.user.token
+        "token": token
       })
     };
 
-    this.httpClient.get(
+   await this.httpClient.get(
       ENVIRONNEMENT.URL_REST_LOCAL + "/utilisateurs/profil",
       httpOptions
     )
-    .subscribe(
-      (userBack:IUtilisateur) => {
-        this.user = userBack;
-      },
-      error => {
-        console.log(
-          "Erreur lors de la récupération d'un profil utilisateur",
-          error
-        );
-        console.log("mak")
-      }
-    ).closed;
+      .subscribe(
+        (userBack:IUtilisateur) => {
+
+          return userBack;
+        },
+        error => {
+          console.log(
+            "Erreur lors de la récupération d'un profil utilisateur",
+            error
+          );
+        }
+      );
 
 
-    return this.user;
   }
 
   saveProfileUser(user: IUtilisateur) {
@@ -76,7 +52,7 @@ export class UtilisateurService {
         httpOptions
       )
       .subscribe(
-        data => {},
+        data => { },
         error => {
           console.log(
             "Erreur lors de l'enregistrement d'un utilisateur",

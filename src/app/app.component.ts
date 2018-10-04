@@ -6,37 +6,51 @@ import { Platform } from 'ionic-angular/platform/platform';
 import { ViewChild } from '@angular/core';
 import { NavController } from 'ionic-angular/navigation/nav-controller';
 import { IUtilisateur } from '../pages/modeles/utilisateurModel';
-import { UtilisateurService } from '../pages/services/utilisateurService';
 import { LoginPage } from '../pages/login/login';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { MenuController } from 'ionic-angular/components/app/menu-controller';
 import { ToastController } from 'ionic-angular';
+import { UtilisateurService } from '../pages/services/utilisateurService';
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
   rootPage: any = TabsPage;
-  isAuth: boolean = false;
+  isAuth = false;
+  token: string;
   user: IUtilisateur;
   @ViewChild('content') content: NavController;
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
-    private userSrv: UtilisateurService, private afAuth: AngularFireAuth,
-    private menuCtrl: MenuController, private toastCtrl: ToastController) {
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen, private afAuth: AngularFireAuth,
+    private menuCtrl: MenuController, private userSrv:UtilisateurService, private toastCtrl: ToastController) {
 
     platform.ready().then(() => {
 
-      afAuth.auth.onAuthStateChanged((user) => {
-        if (user) {
-          this.isAuth = true;
-          this.user = this.userSrv.getUserConnected();
-          let toast = this.toastCtrl.create({
-            message: 'Bienvenu sur Kamusi',
-            duration: 3000,
-            position: 'top'
-          });
-          toast.present();
-          this.content.setRoot(TabsPage);
+      afAuth.auth.onAuthStateChanged((userDetails) => {
+        if (userDetails && userDetails.email) {
+          userDetails.getIdToken().then((token) => {
+            this.token = token;
+            this.isAuth = true;
+            this.userSrv.getUserProfil(this.token).then((userResult)=>{
+              this.user = userResult;
+              let toast = this.toastCtrl.create({
+                message: this.user.nom + ' ' + this.user.prenom +  ', Bienvenu sur Kamusi',
+                duration: 3000,
+                position: 'top'
+              });
+              toast.present();
+              this.content.setRoot(TabsPage);
+            }).catch((error)=>{
+              console.log("Erreur lors de récupération du profil utilisateur", error);
+            });
+            
+
+          }).catch((error) => {
+
+            console.log("Erreur lors de récupération du token", error);
+
+          })
+
 
         } else {
           this.isAuth = false;

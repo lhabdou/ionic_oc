@@ -1,72 +1,42 @@
-import { IRole } from './../modeles/roleModel';
-import { IUtilisateur } from '../modeles/utilisateurModel';
 import { ILigneDictionnaire } from '../modeles/ligneDictionnaireModel';
-import { Subject } from 'rxjs/Subject';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { ENVIRONNEMENT } from '../../constantes/constantesUtilis';
+import { Injectable } from '@angular/core';
 
 
+@Injectable()
 export class DictionnaireService {
 
-    ligneDictionnaires$ = new Subject<ILigneDictionnaire[]>();
+  dictionnaireFilter: ILigneDictionnaire[];
 
-    public role: IRole = {
-        id:1,
-        role:"Administrateur"
-    }
+  constructor(public httpClient: HttpClient) { }
 
-    public utilisateur: IUtilisateur = {
-        idUtilisateur: "1",
-        nom: "Soilihi",
-        prenom: "Abdoulhalim",
-        mdp: "123456",
-        pseudo: "lhabdou",
-        email: "lhabdou26@hotmail.fr",
-        urlImage: "", 
-        role:this.role
+  public lancerUneRecherche(motCle: string): ILigneDictionnaire[] {
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        "Content-Type": "application/json",
+        "Accept":'application/json'
+      })
     };
-    dictionnaireFilter:ILigneDictionnaire[] = [] as ILigneDictionnaire[]; 
 
-    public dictionnaireList: ILigneDictionnaire[] = [
-
-        {
-            motFr: "Manger", motNgz: "Hula", motNdz: "Hula", motMwa: "Wuya", motMao: "...", motAng: "To Eat",
-            statut: { idStatut: 1, statut: 'NOUVEAU' }, utilisateur: this.utilisateur, suggestion: "",
-            definitionFr: "",
-            definitionCom: ""
+    this.httpClient.get(
+      ENVIRONNEMENT.URL_REST_LOCAL + "/rechercher/" + motCle,
+      httpOptions
+    )
+      .subscribe(
+        (result: ILigneDictionnaire[]) => {
+          this.dictionnaireFilter = result;
         },
-        {
-            motFr: "Parler", motNgz: "Wu Rongowa", motNdz: "Wu Laguwa", motMwa: "Wu Rongowa", motMao: "Rongowa", motAng: "To Speak",
-            statut: { idStatut: 1, statut: 'A VALIDER' }, utilisateur: this.utilisateur, suggestion: "",
-            definitionFr: "",
-            definitionCom: ""
-        },
-        {
-            motFr: "Marcher", motNgz: "Hwenda", motNdz: "...", motMwa: "...", motMao: "...", motAng: "To eat",
-            statut: { idStatut: 1, statut: 'VALIDE' }, utilisateur: this.utilisateur, suggestion: "",
-            definitionFr: "",
-            definitionCom: ""
+        error => {
+          console.log(
+            "Erreur lors de la recherche",
+            error
+          );
         }
-    ];
+      );
 
-    public filtrerListe( motCle:string): ILigneDictionnaire[] {
-
-        this.dictionnaireFilter= [] as ILigneDictionnaire[];
-        this.dictionnaireFilter.splice(0, this.dictionnaireFilter.length);
-        this.dictionnaireList.forEach(ligne => {
-
-            if (ligne.motFr.toLocaleLowerCase().includes(motCle.toLocaleLowerCase())) {
-                
-                this.dictionnaireFilter.push(ligne);
-
-            }
-            
-        });
-        
-        return this.dictionnaireFilter;
-    }
-
-    emitLigneDictionnaires() {
-        this.ligneDictionnaires$.next(this.dictionnaireList.slice());
-    }
-
+    return this.dictionnaireFilter;
+  }
 
 }

@@ -12,22 +12,22 @@
                 <ion-img></ion-img>
             </ion-item>
 
-            <ion-item>
+            <ion-item *ngIf="isAuth">
                 <ion-label>Nom:</ion-label>
-                <ion-input [(ngModel)]="user.nom" [readonly]="true"></ion-input>
+                <ion-input [readonly]="true">{{user.nom}}</ion-input>
             </ion-item>
-            <ion-item>
+            <ion-item *ngIf="isAuth">
                 <ion-label>Prénom:</ion-label>
-                <ion-input [(ngModel)]="user.prenom" [readonly]="true"></ion-input>
+                <ion-input [readonly]="true">{{user.prenom}}</ion-input>
             </ion-item>
-            <ion-item>
+            <ion-item *ngIf="isAuth">
                 <ion-label>Email:</ion-label>
-                <ion-input [(ngModel)]="user.email" [readonly]="true"></ion-input>
+                <ion-input [readonly]="true">{{user.email}}</ion-input>
             </ion-item>
 
-            <ion-item>
+            <ion-item *ngIf="isAuth">
                 <button ion-button>
-                    <ion-icon name="settings"> Editer</ion-icon>
+                    <ion-icon ion-button name="settings"> Editer</ion-icon>
                 </button>
             </ion-item>
 

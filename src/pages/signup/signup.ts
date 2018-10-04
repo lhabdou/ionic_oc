@@ -72,7 +72,7 @@ export class SignupPage {
           .getIdToken()
           .then((token: string) => {
             user.token = token;
-            console.log("token", token);
+
             this.userSrv.saveProfileUser(user);
           })
           .catch(error => {

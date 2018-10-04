@@ -52,10 +52,10 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
     SplashScreen,
     ScreenOrientation,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
+    HttpClient,
     AngularFireAuth,
     DictionnaireService,
-    UtilisateurService,
-    HttpClient
+    UtilisateurService 
   ]
 })
 export class AppModule { }
