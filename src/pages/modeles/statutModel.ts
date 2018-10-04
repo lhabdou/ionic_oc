@@ -1,4 +1,4 @@
-export class IStatut {
+export interface IStatut {
     idStatut: number;
     statut: string
 };

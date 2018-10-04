@@ -1,4 +1,4 @@
-export class IRole {
+export interface IRole {
 
     id: number;
     role: string;

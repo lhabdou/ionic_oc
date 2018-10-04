@@ -33,6 +33,11 @@ export class LoginPage {
       const result = await this.afAuth.auth.signInWithEmailAndPassword(user.email, user.mdp);
 
       if (result) {
+        result.user.getIdToken().then((token)=>{
+          this.user.token = token;
+        }).catch((error)=>{
+          console.log("Erreur lors de la récupération du token", error);
+        })
         this.navCtrl.setRoot(TabsPage);
       }
 
@@ -41,7 +46,7 @@ export class LoginPage {
       this.loginError = error.message;
 
     }
-    
+
 
   }
   signup() {

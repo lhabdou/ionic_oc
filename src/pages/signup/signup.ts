@@ -1,23 +1,21 @@
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
-import { OnInit } from "@angular/core/src/metadata/lifecycle_hooks";
 import { AngularFireAuth } from "angularfire2/auth";
 import { IUtilisateur } from "./../modeles/utilisateurModel";
 import { IRole } from "./../modeles/roleModel";
 import { Component } from "@angular/core";
 import { NavController, NavParams } from "ionic-angular";
 import { UtilisateurService } from "../services/utilisateurService";
-import * as firebase from "firebase";
 @Component({
   selector: "page-signup",
   templateUrl: "signup.html"
 })
-export class SignupPage implements OnInit {
+export class SignupPage {
   user = {} as IUtilisateur;
   confPassword: string;
   signupForm: FormGroup;
   signupError: string;
 
-  roleContributeur = { id: 3, role: "CONTRIBUTEUR" } as IRole;
+  roleContributeur = { id: 3, role: "CONTRIBUTEUR"} as IRole;
 
   constructor(
     private afAuth: AngularFireAuth,
@@ -65,23 +63,7 @@ export class SignupPage implements OnInit {
     };
   }
 
-  ngOnInit(): void {
-    if (this.afAuth.auth.currentUser) {
-      this.user.role = this.roleContributeur;
-    }
-  }
-
-  test(user: IUtilisateur) {
-    this.afAuth.auth
-      .createUserWithEmailAndPassword(user.email, user.mdp)
-      .then(data => {
-        console.log(data);
-      })
-      .catch(err => console.log);
-  }
-
-  async saveNewUser(user: IUtilisateur) {
-    let result;
+  async saveNewUser (user: IUtilisateur) {
     user.role = this.roleContributeur;
     this.afAuth.auth
       .createUserWithEmailAndPassword(user.email, user.mdp)
@@ -89,7 +71,7 @@ export class SignupPage implements OnInit {
         data.user
           .getIdToken()
           .then((token: string) => {
-            user.uid = token;
+            user.token = token;
             console.log("token", token);
             this.userSrv.saveProfileUser(user);
           })
@@ -106,5 +88,6 @@ export class SignupPage implements OnInit {
           error
         );
       });
+      return this.user;
   }
 }

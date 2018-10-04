@@ -28,33 +28,46 @@ export class UtilisateurService {
   getUserConnected(): IUtilisateur {
 
     if (this.afAuth.auth.currentUser) {
-      this.user.idUtilisateur = this.afAuth.auth.currentUser.uid;
-      this.user.nom = "Soilihi";
-      this.user.email = this.afAuth.auth.currentUser.email;
-      this.user.prenom = "Abdoul";
+
+      return this.getUserProfile(this.afAuth.auth.currentUser.email);
+      // this.user.nom = "Soilihi";
+      // this.user.email = this.afAuth.auth.currentUser.email;
+      // this.user.prenom = "Abdoul";
 
     }
-    return this.user;
   }
 
-  saveProfileUser(user: IUtilisateur) {
+  getUserProfile(email:string):IUtilisateur {
 
-    
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
-        'uid': user.uid
+        'token': this.user.token
         //'Authorization': 'my-auth-token'
       })
     };
 
-    console.log(httpOptions.headers);
-    
+    return this.user;
+
+  }
+
+  saveProfileUser(user: IUtilisateur) {
+
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'token': user.token
+        //'Authorization': 'my-auth-token'
+      })
+    };
+
+
     this.httpClient.post(ENVIRONNEMENT.URL_REST_LOCAL + "/utilisateurs/nouveau", user, httpOptions)
       .subscribe(data => {
 
       }, error => {
-        console.log(error); 
+        console.log("Erreur lors de l'enregistrement d'un utilisateur",error);
       });
   }
 

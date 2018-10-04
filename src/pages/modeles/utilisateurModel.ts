@@ -1,5 +1,5 @@
 import { IRole } from './roleModel';
-export class IUtilisateur {
+export interface IUtilisateur {
 
     idUtilisateur?: string;
     nom: string;
@@ -9,6 +9,6 @@ export class IUtilisateur {
     email: string;
     urlImage?: string;
     role?: IRole;
-    uid?: string;
+    token?: string;
 
 };

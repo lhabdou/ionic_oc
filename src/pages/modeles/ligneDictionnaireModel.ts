@@ -1,8 +1,8 @@
 import { IStatut } from './statutModel';
 import { IUtilisateur } from './utilisateurModel';
 
-export class ILigneDictionnaire {
-    
+export interface ILigneDictionnaire {
+
     motFr: string;
     motNgz: string;
     motNdz: string;
