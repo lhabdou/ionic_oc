@@ -1,3 +1,4 @@
+import { IUtilisateur } from './../modeles/utilisateurModel';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { IUtilisateur } from "../modeles/utilisateurModel";
@@ -28,9 +29,6 @@ export class UtilisateurService {
   getUserConnected(): IUtilisateur {
     if (this.afAuth.auth.currentUser) {
       return this.getUserProfile(this.afAuth.auth.currentUser.email);
-      // this.user.nom = "Soilihi";
-      // this.user.email = this.afAuth.auth.currentUser.email;
-      // this.user.prenom = "Abdoul";
     }
   }
 
@@ -43,14 +41,16 @@ export class UtilisateurService {
     };
 
     this.httpClient.get(
-      ENVIRONNEMENT.URL_REST_LOCAL + "/utilisateurs/"+ this.user.idUtilisateur,
+      ENVIRONNEMENT.URL_REST_LOCAL + "/utilisateurs/profil",
       httpOptions
     )
     .subscribe(
-      data => {},
+      (userBack:IUtilisateur) => {
+        this.user = userBack;
+      },
       error => {
         console.log(
-          "Erreur lors de l'enregistrement d'un utilisateur",
+          "Erreur lors de la récupération d'un profil utilisateur",
           error
         );
         console.log("mak")
