@@ -15,17 +15,17 @@ export class LigneDictionnairePage implements OnInit {
 
   ligne: ILigneDictionnaire;
   index:number;
-  public loginPage = LoginPage; 
+  public loginPage = LoginPage;
 
-  constructor(private dictionnaireService: DictionnaireService, 
+  constructor(private dictionnaireService: DictionnaireService,
     private viewController:ViewController, private navParams: NavParams) {
 
   }
 
   ngOnInit() {
-    
+
     this.index = this.navParams.get('ligneParam');
-    this.ligne = this.dictionnaireService.dictionnaireList[this.index]; 
+    this.ligne = this.dictionnaireService.dictionnaireFilter[this.index];
 
   }
   onSubmitWord(form: NgForm) {
@@ -37,13 +37,13 @@ export class LigneDictionnairePage implements OnInit {
 
   accesValidation(): boolean {
 
-    return true; 
+    return true;
 
   }
 
   accesContributeur(): boolean {
 
-    return true; 
+    return true;
 
   }
 
