@@ -117,6 +117,8 @@ export class SignupPage {
               this.userSrv.saveProfileUser(user);
             })
             .catch(error => {
+
+              this.signupError ="Erreur lors de la vérification Backend du token /br", error.message;
               console.log(
                 "Erreur lors de la vérification Backend du token",
                 error
@@ -124,6 +126,7 @@ export class SignupPage {
             });
         })
         .catch(error => {
+          this.signupError ="Erreur lors de l'enregistrement du nouveau utilisateur dans firebase/br",  error.message;
           console.log(
             "Erreur lors de l'enregistrement du nouveau utilisateur dans firebase",
             error
@@ -135,7 +138,9 @@ export class SignupPage {
       userUpdate.updateEmail(user.email).then((data)=>{
 
       }).catch((error)=>{
+        this.signupError = "Erreur lors de la mise à jour de l'adresse mail /br ", error.message;
         console.log("Erreur lors de la mise à jour de l'adresse mail", error);
+
       });
 
       const headersOption = {
