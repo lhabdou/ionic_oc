@@ -1,27 +1,31 @@
 <ion-header>
-    <ion-navbar>
-        <ion-buttons start>
-            <button ion-button icon-only (click)="onToggleMenu()">
-                <ion-icon name="person"></ion-icon>
-            </button>
-        </ion-buttons>
-        <ion-title>Kamusi FR-COM</ion-title>
-    </ion-navbar>
+  <ion-navbar>
+    <ion-buttons start>
+      <button ion-button icon-only (click)="onToggleMenu()">
+        <ion-icon name="person"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>Kamusi FR-COM</ion-title>
+  </ion-navbar>
 </ion-header>
 
 <ion-content padding>
 
 
-    <ion-searchbar [(ngModel)]="motCle" (ionInput)="onInput($event)" [placeholder]="Rechercher" [(ngModel)]="motCle">
-    </ion-searchbar>
+  <ion-searchbar [(ngModel)]="motCle" (ionInput)="onInput($event)" [placeholder]="Rechercher" [(ngModel)]="motCle">
+  </ion-searchbar>
 
 
-    <ion-list>
-        <button ion-item *ngFor="let ligne of dictionnaireList; let i = index " (click)="onLoadLigneDictionnaire(i)"
-            [color]=" 'NOUVEAU' == ligne.statut.statut ? 'primary':'secondary'">{{ligne.motFr}}
-            </button>
+  <ion-list>
+    <ion-item>
+      <ion-label>Résultat</ion-label>
+    </ion-item>
 
-    </ion-list>
+    <button ion-item *ngFor="let ligne of dictionnaireList; let i = index " (click)="onLoadLigneDictionnaire(i)"
+      [color]=" 'NOUVEAU' == ligne.statut.statut ? 'primary':'secondary'">{{ligne.motFr}}
+    </button>
+
+  </ion-list>
 </ion-content>
 
 <ion-footer>

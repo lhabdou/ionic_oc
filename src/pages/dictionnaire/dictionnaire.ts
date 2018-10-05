@@ -10,7 +10,7 @@ import { NavController, MenuController } from 'ionic-angular';
 })
 export class DictionnairePage {
 
-    dictionnaireList: ILigneDictionnaire[];
+  dictionnaireList: ILigneDictionnaire[];
     motCle: string;
 
 
@@ -34,10 +34,14 @@ export class DictionnairePage {
         if (this.motCle && this.motCle.length >= 2) {
 
             this.dictionnaireService.lancerUneRecherche(this.motCle).subscribe(
-              motsResult => {
-                this.dictionnaireList = motsResult;
-              }
-            );
+                data => {this.dictionnaireList = data},
+                error => {
+                  console.log(
+                    "Erreur lors de la recherche d'un mot",
+                    error
+                  );
+                }
+              );
         }
     }
 

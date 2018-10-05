@@ -1,5 +1,5 @@
 import { IRole } from './roleModel';
-export interface IUtilisateur {
+export class IUtilisateur {
 
     idUtilisateur?: string;
     nom: string;

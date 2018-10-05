@@ -5,14 +5,14 @@ export interface ILigneDictionnaire {
 
     motFr: string;
     motNgz: string;
-    motNdz: string;
-    motMwa: string;
-    motMao: string;
+    motNdz?: string;
+    motMwa?: string;
+    motMao?: string;
     motAng: string;
-    utilisateur: IUtilisateur;
+    utilisateur?: IUtilisateur;
     statut: IStatut;
-    suggestion: string;
-    definitionFr: string;
-    definitionCom: string
+    suggestion?: string;
+    definitionFr?: string;
+    definitionCom?: string
 
 };

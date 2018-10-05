@@ -1,3 +1,4 @@
+import { SignupPage } from './../pages/signup/signup';
 import { Component } from "@angular/core";
 import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
@@ -30,7 +31,7 @@ export class MyApp {
     private userSrv: UtilisateurService,
     private afAuth: AngularFireAuth,
     private menuCtrl: MenuController,
-    private toastCtrl: ToastController
+    private toastCtrl: ToastController,
   ) {
     platform.ready().then(() => {
       afAuth.auth.onAuthStateChanged(user => {
@@ -82,5 +83,10 @@ export class MyApp {
   goToLoginPage() {
     this.menuCtrl.close();
     this.content.push(LoginPage);
+  }
+
+  editerProfil(user:IUtilisateur) {
+    this.menuCtrl.close();
+    this.content.push(SignupPage, { newUser: false, user: user});
   }
 }
