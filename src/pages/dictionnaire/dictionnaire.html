@@ -1,12 +1,12 @@
 <ion-header>
-    <ion-navbar>
-        <ion-buttons start>
-            <button ion-button icon-only (click)="onToggleMenu()">
-                <ion-icon name="person"></ion-icon>
-            </button>
-        </ion-buttons>
-        <ion-title>Kamusi FR-COM</ion-title>
-    </ion-navbar>
+  <ion-navbar>
+    <ion-buttons start>
+      <button ion-button icon-only (click)="onToggleMenu()">
+        <ion-icon name="person"></ion-icon>
+      </button>
+    </ion-buttons>
+    <ion-title>Kamusi FR-COM</ion-title>
+  </ion-navbar>
 </ion-header>
 
 <ion-content padding>
@@ -20,7 +20,7 @@
         <button ion-item *ngFor="let ligne of dictionnaireList; let i = index " (click)="onLoadLigneDictionnaire(i)"
             [color]=" 'NOUVEAU' == ligne.statut.statut ? 'primary':'secondary'" [(ngModel)]="ligne.motFr" ></button>
 
-    </ion-list>
+  </ion-list>
 </ion-content>
 
 <ion-footer>

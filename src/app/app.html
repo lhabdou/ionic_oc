@@ -1,43 +1,43 @@
 <ion-menu [content]="content" side="right">
-    <ion-header>
-        <ion-toolbar>
-            <ion-title *ngIf="isAuth">Mon profil</ion-title>
-        </ion-toolbar>
-    </ion-header>
-    <ion-content>
-            <button ion-button (click)="goToLoginPage()" position="middle" color="light" *ngIf="!isAuth">Se connecter</button>
+  <ion-header>
+    <ion-toolbar>
+      <ion-title *ngIf="isAuth">Mon profil</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <button ion-button (click)="goToLoginPage()" position="middle" color="light" *ngIf="!isAuth">Se connecter</button>
 
-        <ion-list *ngIf="isAuth">
-            <ion-item>
-                <ion-img></ion-img>
-            </ion-item>
+    <ion-list *ngIf="isAuth">
+      <ion-item>
+        <ion-img></ion-img>
+      </ion-item>
 
-            <ion-item *ngIf="isAuth">
-                <ion-label>Nom:</ion-label>
-                <ion-input [readonly]="true">{{user.nom}}</ion-input>
-            </ion-item>
-            <ion-item *ngIf="isAuth">
-                <ion-label>Prénom:</ion-label>
-                <ion-input [readonly]="true">{{user.prenom}}</ion-input>
-            </ion-item>
-            <ion-item *ngIf="isAuth">
-                <ion-label>Email:</ion-label>
-                <ion-input [readonly]="true">{{user.email}}</ion-input>
-            </ion-item>
+      <ion-item>
+        <ion-label>Nom:</ion-label>
+        <ion-input [(ngModel)]="user.nom" [readonly]="true"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Prénom:</ion-label>
+        <ion-input [(ngModel)]="user.prenom" [readonly]="true"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label>Email:</ion-label>
+        <ion-input [(ngModel)]="user.email" [readonly]="true"></ion-input>
+      </ion-item>
 
-            <ion-item *ngIf="isAuth">
-                <button ion-button>
-                    <ion-icon ion-button name="settings"> Editer</ion-icon>
-                </button>
-            </ion-item>
-
-        </ion-list>
-    </ion-content>
-    <ion-footer>
-        <button ion-button *ngIf="isAuth" (click)="doLogout()">
-            <ion-icon name="power"> Déconnexion</ion-icon>
+      <ion-item>
+        <button ion-button (click)="editerProfil(user)">
+          <ion-icon name="settings" ></ion-icon> &nbsp; Editer
         </button>
-    </ion-footer>
+      </ion-item>
+
+    </ion-list>
+  </ion-content>
+  <ion-footer>
+    <button ion-button *ngIf="isAuth" (click)="doLogout()">
+      <ion-icon name="power"></ion-icon> &nbsp; Déconnexion
+    </button>
+  </ion-footer>
 </ion-menu>
 
 <ion-nav [root]="rootPage" #content></ion-nav>

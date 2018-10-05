@@ -51,7 +51,7 @@ export class LoginPage {
   }
   signup() {
 
-    this.navCtrl.setRoot(SignupPage);
+    this.navCtrl.push(SignupPage, { newUser: true , user : new IUtilisateur()});
   }
 
   loginWithGoogle() {

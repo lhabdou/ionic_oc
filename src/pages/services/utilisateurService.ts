@@ -2,13 +2,13 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { IUtilisateur } from "../modeles/utilisateurModel";
 import { ENVIRONNEMENT } from "../../constantes/constantesUtilis";
+import { Observable } from "rxjs/Observable";
 @Injectable()
 export class UtilisateurService {
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {}
 
-  async getUserProfil(token: string) {
-
+  getUserProfile(token: string): Observable<IUtilisateur> {
     const httpOptions = {
       headers: new HttpHeaders({
         "Content-Type": "application/json",
@@ -16,23 +16,10 @@ export class UtilisateurService {
       })
     };
 
-   await this.httpClient.get(
+   return this.httpClient.get<IUtilisateur>(
       ENVIRONNEMENT.URL_REST_LOCAL + "/utilisateurs/profil",
       httpOptions
-    )
-      .subscribe(
-        (userBack:IUtilisateur) => {
-
-          return userBack;
-        },
-        error => {
-          console.log(
-            "Erreur lors de la récupération d'un profil utilisateur",
-            error
-          );
-        }
-      );
-
+    );
 
   }
 
@@ -41,7 +28,7 @@ export class UtilisateurService {
       headers: new HttpHeaders({
         "Content-Type": "application/json",
         "Accept-Type": "application/json",
-        token: user.token
+        "token": user.token
       })
     };
 

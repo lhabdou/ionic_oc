@@ -16,18 +16,8 @@ export class DictionnairePage {
     constructor(private navCtrl: NavController, private dictionnaireService: DictionnaireService,
         public utilisateurService: UtilisateurService, private menuCtrl: MenuController) {
 
-        }
-
-
-    onInput(ev: any) {
-    
-        if (this.motCle && this.motCle.length >= 2) {
-
-            this.dictionnaireList = this.dictionnaireService.lancerUneRecherche(this.motCle);
-        }
     }
 
-    
     onLoadLigneDictionnaire(index: number) {
 
         this.navCtrl.push(LigneDictionnairePage, { ligneParam: index });
@@ -38,6 +28,23 @@ export class DictionnairePage {
 
     onToggleMenu() {
         this.menuCtrl.open();
-   }
+    }
+
+
+    onInput(ev: any) {
+
+        if (this.motCle && this.motCle.length >= 2) {
+
+            this.dictionnaireService.lancerUneRecherche(this.motCle).subscribe(
+                data => {this.dictionnaireList = data},
+                error => {
+                  console.log(
+                    "Erreur lors de la recherche d'un mot",
+                    error
+                  );
+                }
+              );
+        }
+    }
 
 }

@@ -1,21 +1,22 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Enregistrement</ion-title>
+    <ion-title *ngIf="newUser">Enregistrement</ion-title>
+    <ion-title *ngIf="!newUser">Mise à jour</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-  <form (ngSubmit)="saveNewUser(user)" [formGroup]="signupForm">
+  <form (ngSubmit)="newUser? saveUser(user, true):saveUser(user,false)" [formGroup]="signupForm">
     <ion-list>
       <ion-item>
         <ion-label floating>Nom:</ion-label>
         <ion-input type="text" [(ngModel)]="user.nom" formControlName="nom"></ion-input>
       </ion-item>
       <div ngxErrors="nom" #nomErrors="ngxErrors" color="danger">
-          <div [ngxError]="['minlength','required']" [when]="['touched', 'dirty']">Veuillez saisir votre nom</div>
+        <div [ngxError]="['minlength','required']" [when]="['touched', 'dirty']">Veuillez saisir votre nom</div>
       </div>
 
       <ion-item [ngClass]="{ invalid: prenomErrors.hasError('*', ['touched', 'dirty']) }">
@@ -23,7 +24,7 @@
         <ion-input type="text" [(ngModel)]="user.prenom" formControlName="prenom"></ion-input>
       </ion-item>
       <div ngxErrors="prenom" #prenomErrors="ngxErrors" color="danger">
-          <div [ngxError]="['minlength','required']" [when]="['touched', 'dirty']">Veuillez saisir votre prénom</div>
+        <div [ngxError]="['minlength','required']" [when]="['touched', 'dirty']">Veuillez saisir votre prénom</div>
       </div>
 
 
@@ -32,7 +33,7 @@
         <ion-input type="text" [(ngModel)]="user.pseudo" formControlName="pseudo"></ion-input>
       </ion-item>
       <div ngxErrors="pseudo" #pseudoErrors="ngxErrors" color="danger">
-          <div [ngxError]="['minlength','required']" [when]="['touched', 'dirty']">Pseudo requis</div>
+        <div [ngxError]="['minlength','required']" [when]="['touched', 'dirty']">Pseudo requis</div>
       </div>
 
 
@@ -46,22 +47,23 @@
 
       <ion-item [ngClass]="{ invalid: passwordErrors.hasError('*', ['touched', 'dirty']) }">
         <ion-label floating>Mot de passe:</ion-label>
-        <ion-input  type="password" formControlName="password" [(ngModel)]="user.mdp"></ion-input>
+        <ion-input type="password" formControlName="password" [(ngModel)]="user.mdp"></ion-input>
       </ion-item>
       <div ngxErrors="password" #passwordErrors="ngxErrors" color="danger">
         <div [ngxError]="['minlength', 'required']" [when]="['touched']">Le mot de passe doit contenir au moins 5
           caractères</div>
       </div>
 
-
-      <ion-item [ngClass]="{ invalid: confPasswordErrors.hasError('*', ['touched', 'dirty']) }">
+      <ion-item *ngIf="newUser" [ngClass]="{ invalid: confPasswordErrors.hasError('*', ['touched', 'dirty']) }">
         <ion-label floating>Confirmation:</ion-label>
-        <ion-input  type="password" [(ngModel)]="confPassword" formControlName="confPassword"></ion-input>
+        <ion-input type="password" [(ngModel)]="confPassword" formControlName="confPassword"></ion-input>
       </ion-item>
 
-      <div ngxErrors="confPassword" #confPasswordErrors="ngxErrors" color="danger">
+      <div *ngIf="newUser" ngxErrors="confPassword" #confPasswordErrors="ngxErrors" color="danger">
         <div [ngxError]="['required']" [when]="['touched']">Confirmation du mot de passe incorrecte</div>
       </div>
+
+
 
     </ion-list>
 
@@ -74,4 +76,7 @@
 </ion-content>
 
 <ion-footer>
+  <div *ngIf="!newUser">
+    <button ion-button (click)="modifierMdp()">Modifier le mot de passe</button>
+  </div>
 </ion-footer>
