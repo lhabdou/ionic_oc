@@ -17,7 +17,7 @@ import { ToastController } from "ionic-angular";
   templateUrl: "app.html"
 })
 export class MyApp {
-  
+
   rootPage: any = TabsPage;
   isAuth = false;
   token: string;

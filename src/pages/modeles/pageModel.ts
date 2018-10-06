@@ -1,4 +1,4 @@
-export interface IPage {
+export class IPage {
     title: string;
     pageName: string;
     tabComponent?:any;

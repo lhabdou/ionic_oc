@@ -1,7 +1,7 @@
 import { IStatut } from './statutModel';
 import { IUtilisateur } from './utilisateurModel';
 
-export interface ILigneDictionnaire {
+export class ILigneDictionnaire {
 
     motFr: string;
     motNgz: string;
@@ -10,7 +10,7 @@ export interface ILigneDictionnaire {
     motMao?: string;
     motAng: string;
     utilisateur?: IUtilisateur;
-    statut: IStatut;
+    statut?: IStatut;
     suggestion?: string;
     definitionFr?: string;
     definitionCom?: string

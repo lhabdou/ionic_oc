@@ -11,17 +11,20 @@
 
 <ion-content padding>
 
+  <ion-searchbar [(ngModel)]="motCle" (ionInput)="onInput($event)" [placeholder]="Rechercher">
+  </ion-searchbar>
 
-    <ion-searchbar [(ngModel)]="motCle" (ionInput)="onInput($event)" [placeholder]="Rechercher">
-    </ion-searchbar>
 
+  <ion-list>
 
-    <ion-list>
-        <button ion-item *ngFor="let ligne of dictionnaireList; let i = index " (click)="onLoadLigneDictionnaire(i)"
-            [color]=" 'NOUVEAU' == ligne.statut.statut ? 'primary':'secondary'" [(ngModel)]="ligne.motFr" ></button>
+    <button ion-item *ngFor="let ligne of dictionnaireList; let i = index " (click)="onLoadLigneDictionnaire(i)"
+      [color]=" 'NOUVEAU' == ligne.statut.statut ? 'primary':'secondary'">{{ligne.motFr}}</button>
 
   </ion-list>
 </ion-content>
 
 <ion-footer>
+  <ion-item>
+    @Corporation: Le rêve comorien
+  </ion-item>
 </ion-footer>

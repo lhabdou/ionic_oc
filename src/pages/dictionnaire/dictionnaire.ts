@@ -1,9 +1,9 @@
 import { DictionnaireService } from './../services/dictionnaireService';
 import { LigneDictionnairePage } from './../ligne-dictionnaire/ligneDictionnaire';
-import { ILigneDictionnaire } from '../modeles/ligneDictionnaireModel';
 import { Component } from '@angular/core';
 import { UtilisateurService } from '../services/utilisateurService';
 import { NavController, MenuController } from 'ionic-angular';
+import { ILigneDictionnaire } from '../modeles/ligneDictionnaireModel';
 @Component({
     selector: 'page-dictionnaire',
     templateUrl: 'dictionnaire.html'
@@ -31,19 +31,15 @@ export class DictionnairePage {
     }
 
 
-    onInput(ev: any) {
+    async onInput(ev: any) {
 
         if (this.motCle && this.motCle.length >= 2) {
 
             this.dictionnaireService.lancerUneRecherche(this.motCle).subscribe(
-                data => {this.dictionnaireList = data},
-                error => {
-                  console.log(
-                    "Erreur lors de la recherche d'un mot",
-                    error
-                  );
-                }
-              );
+                (result: ILigneDictionnaire[]) => {
+                    this.dictionnaireList = result;
+                    console.log("dictionnaire 1: ", this.dictionnaireList);
+                });
         }
     }
 
