@@ -43,7 +43,7 @@ export class LoginPage {
 
     } catch (error) {
 
-      this.loginError = error.message;
+      this.loginError = "Erreur de connexion! Vérifier les informations saisies";
 
     }
 

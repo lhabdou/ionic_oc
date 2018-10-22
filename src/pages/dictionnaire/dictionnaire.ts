@@ -38,7 +38,6 @@ export class DictionnairePage {
             this.dictionnaireService.lancerUneRecherche(this.motCle).subscribe(
                 (result: ILigneDictionnaire[]) => {
                     this.dictionnaireList = result;
-                    console.log("dictionnaire 1: ", this.dictionnaireList);
                 });
         }
     }

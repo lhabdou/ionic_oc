@@ -1,6 +1,6 @@
-import { HttpHeaders } from '@angular/common/http';
-import { ENVIRONNEMENT } from './../../constantes/constantesUtilis';
-import { HttpClient } from '@angular/common/http';
+import { HttpHeaders } from "@angular/common/http";
+import { ENVIRONNEMENT } from "./../../constantes/constantesUtilis";
+import { HttpClient } from "@angular/common/http";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { AngularFireAuth } from "angularfire2/auth";
 import { IUtilisateur } from "./../modeles/utilisateurModel";
@@ -27,38 +27,35 @@ export class SignupPage {
     public navParams: NavParams,
     private userSrv: UtilisateurService,
     private fb: FormBuilder,
-    private httpClient:HttpClient
+    private httpClient: HttpClient
   ) {
     this.newUser = navParams.get("newUser");
     if (!this.newUser) {
       this.user = navParams.get("user");
 
-      this.signupForm = this.fb.group(
-        {
-          nom: [
-            "",
-            Validators.compose([Validators.required, Validators.minLength(2)])
-          ],
-          prenom: [
-            "",
-            Validators.compose([Validators.required, Validators.minLength(2)])
-          ],
-          pseudo: [
-            "",
-            Validators.compose([Validators.required, Validators.minLength(2)])
-          ],
-          email: [
-            "",
-            Validators.compose([Validators.required, Validators.email])
-          ],
-          password: [
-            "",
-            Validators.compose([Validators.required, Validators.minLength(6)])
-          ]}
-      );
-
+      this.signupForm = this.fb.group({
+        nom: [
+          "",
+          Validators.compose([Validators.required, Validators.minLength(2)])
+        ],
+        prenom: [
+          "",
+          Validators.compose([Validators.required, Validators.minLength(2)])
+        ],
+        pseudo: [
+          "",
+          Validators.compose([Validators.required, Validators.minLength(2)])
+        ],
+        email: [
+          "",
+          Validators.compose([Validators.required, Validators.email])
+        ],
+        password: [
+          "",
+          Validators.compose([Validators.required, Validators.minLength(6)])
+        ]
+      });
     } else {
-
       this.signupForm = this.fb.group(
         {
           nom: [
@@ -82,14 +79,14 @@ export class SignupPage {
             Validators.compose([Validators.required, Validators.minLength(6)])
           ],
 
-          confPassword: ["", Validators.compose([Validators.required])]
+          confPassword: [
+            "",
+            Validators.compose([Validators.required, Validators.minLength(6)])
+          ]
         },
         { validator: this.checkPassword("password", "confPassword") }
       );
-
     }
-
-
   }
 
   checkPassword(passwordKey: string, confirmPasswordKey: string) {
@@ -117,8 +114,9 @@ export class SignupPage {
               this.userSrv.saveProfileUser(user);
             })
             .catch(error => {
-
-              this.signupError ="Erreur lors de la vérification Backend du token /br", error.message;
+              (this.signupError =
+                "Erreur lors de la vérification Backend du token /br"),
+                error.message;
               console.log(
                 "Erreur lors de la vérification Backend du token",
                 error
@@ -126,33 +124,39 @@ export class SignupPage {
             });
         })
         .catch(error => {
-          this.signupError ="Erreur lors de l'enregistrement du nouveau utilisateur dans firebase/br",  error.message;
+          (this.signupError =
+            "Erreur lors de l'enregistrement du nouveau utilisateur dans firebase/br"),
+            error.message;
           console.log(
             "Erreur lors de l'enregistrement du nouveau utilisateur dans firebase",
             error
           );
         });
     } else {
-
       var userUpdate = this.afAuth.auth.currentUser;
-      userUpdate.updateEmail(user.email).then((data)=>{
-
-      }).catch((error)=>{
-        this.signupError = "Erreur lors de la mise à jour de l'adresse mail /br ", error.message;
-        console.log("Erreur lors de la mise à jour de l'adresse mail", error);
-
-      });
+      userUpdate
+        .updateEmail(user.email)
+        .then(data => {})
+        .catch(error => {
+          (this.signupError =
+            "Erreur lors de la mise à jour de l'adresse mail /br "),
+            error.message;
+          console.log("Erreur lors de la mise à jour de l'adresse mail", error);
+        });
 
       const headersOption = {
         headers: new HttpHeaders({
           "Content-Type": "application/json",
           "Accept-Type": "application/json",
-          "token": user.token
+          token: user.token
         })
       };
 
-      this.httpClient.put(ENVIRONNEMENT.URL_REST_LOCAL + "", user, headersOption);
-
+      this.httpClient.put(
+        ENVIRONNEMENT.URL_REST_LOCAL + "",
+        user,
+        headersOption
+      );
     }
   }
 }
