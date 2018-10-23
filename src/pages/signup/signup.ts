@@ -82,7 +82,7 @@ export class SignupPage {
             Validators.compose([Validators.required, Validators.minLength(6)])
           ],
 
-          confPassword: ["", Validators.compose([Validators.required])]
+          confPassword: ["", Validators.compose([Validators.required, Validators.minLength(6)])]
         },
         { validator: this.checkPassword("password", "confPassword") }
       );
@@ -113,7 +113,6 @@ export class SignupPage {
             .getIdToken()
             .then((token: string) => {
               user.token = token;
-              console.log("token", token);
               this.userSrv.saveProfileUser(user);
             })
             .catch(error => {

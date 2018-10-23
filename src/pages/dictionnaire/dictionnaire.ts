@@ -10,7 +10,7 @@ import { ILigneDictionnaire } from '../modeles/ligneDictionnaireModel';
 })
 export class DictionnairePage {
 
-    dictionnaireList: ILigneDictionnaire[];
+    dictionnaireList: any;
     motCle: string;
 
     constructor(private navCtrl: NavController, private dictionnaireService: DictionnaireService,
@@ -31,15 +31,16 @@ export class DictionnairePage {
     }
 
 
-    async onInput(ev: any) {
+    onInput(ev: any) {
 
         if (this.motCle && this.motCle.length >= 2) {
 
             this.dictionnaireService.lancerUneRecherche(this.motCle).subscribe(
                 (result: ILigneDictionnaire[]) => {
                     this.dictionnaireList = result;
-                    console.log("dictionnaire 1: ", this.dictionnaireList);
                 });
+        } else {
+            this.dictionnaireList = false;
         }
     }
 

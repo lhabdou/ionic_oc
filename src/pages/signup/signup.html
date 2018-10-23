@@ -53,15 +53,19 @@
         <div [ngxError]="['minlength', 'required']" [when]="['touched']">Le mot de passe doit contenir au moins 5
           caractères</div>
       </div>
+      <div *ngIf="newUser" >
 
-      <ion-item *ngIf="newUser" [ngClass]="{ invalid: confPasswordErrors.hasError('*', ['touched', 'dirty']) }">
-        <ion-label floating>Confirmation:</ion-label>
-        <ion-input type="password" [(ngModel)]="confPassword" formControlName="confPassword"></ion-input>
-      </ion-item>
+          <ion-item [ngClass]="{ invalid: confPasswordErrors.hasError('*', ['touched', 'dirty']) }">
+              <ion-label floating>Confirmation:</ion-label>
+              <ion-input type="password" [(ngModel)]="confPassword" formControlName="confPassword"></ion-input>
+            </ion-item>
+      
+            <div  ngxErrors="confPassword" #confPasswordErrors="ngxErrors" color="danger">
+              <div [ngxError]="['minlength', 'required']" [when]="['touched']">Confirmation du mot de passe incorrecte</div>
+            </div>
 
-      <div *ngIf="newUser" ngxErrors="confPassword" #confPasswordErrors="ngxErrors" color="danger">
-        <div [ngxError]="['required']" [when]="['touched']">Confirmation du mot de passe incorrecte</div>
       </div>
+      
 
 
 
