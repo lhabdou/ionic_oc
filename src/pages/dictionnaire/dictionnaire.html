@@ -15,7 +15,7 @@
   </ion-searchbar>
 
 
-  <ion-list>
+  <ion-list *ngIf="dictionnaireList">
 
     <button ion-item *ngFor="let ligne of dictionnaireList; let i = index " (click)="onLoadLigneDictionnaire(i)"
       [color]=" 'NOUVEAU' == ligne.statut.statut ? 'primary':'secondary'">{{ligne.motFr}}</button>

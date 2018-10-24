@@ -10,7 +10,7 @@ import { ILigneDictionnaire } from '../modeles/ligneDictionnaireModel';
 })
 export class DictionnairePage {
 
-    dictionnaireList: ILigneDictionnaire[];
+    dictionnaireList: any;
     motCle: string;
 
     constructor(private navCtrl: NavController, private dictionnaireService: DictionnaireService,
@@ -31,7 +31,7 @@ export class DictionnairePage {
     }
 
 
-    async onInput(ev: any) {
+    onInput(ev: any) {
 
         if (this.motCle && this.motCle.length >= 2) {
 
@@ -39,6 +39,8 @@ export class DictionnairePage {
                 (result: ILigneDictionnaire[]) => {
                     this.dictionnaireList = result;
                 });
+        } else {
+            this.dictionnaireList = false;
         }
     }
 
