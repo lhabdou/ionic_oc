@@ -68,7 +68,8 @@
 
     <div class="form-error">{{signupError}}</div>
 
-    <button ion-button type="submit" [disabled]="!signupForm.valid">S'enregistrer</button>
+    <button *ngIf="newUser" ion-button type="submit" [disabled]="!signupForm.valid">S'enregistrer</button>
+    <button *ngIf="!newUser" ion-button type="submit" [disabled]="!signupForm.valid">Modifier</button>
 
   </form>
 

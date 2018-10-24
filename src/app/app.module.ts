@@ -1,3 +1,4 @@
+import { MdpOubliePage } from './../pages/mdp-oublie/mdp-oublie';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NgxErrorsModule } from '@ultimate/ngxerrors';
 import { SignupPage } from './../pages/signup/signup';
@@ -27,7 +28,8 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
     SettingsPage,
     LoginPage,
     SignupPage,
-    TabsPage
+    TabsPage,
+    MdpOubliePage
   ],
   imports: [
     BrowserModule,
@@ -45,7 +47,8 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
     SettingsPage,
     LoginPage,
     SignupPage,
-    TabsPage
+    TabsPage,
+    MdpOubliePage
   ],
   providers: [
     StatusBar,
@@ -55,7 +58,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
     HttpClient,
     AngularFireAuth,
     DictionnaireService,
-    UtilisateurService 
+    UtilisateurService
   ]
 })
 export class AppModule { }

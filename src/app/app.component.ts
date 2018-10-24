@@ -34,8 +34,8 @@ export class MyApp {
     private toastCtrl: ToastController,
   ) {
     platform.ready().then(() => {
-      afAuth.auth.onAuthStateChanged(user => {
-        if (user) {
+      afAuth.auth.onAuthStateChanged(userData => {
+        if (userData) {
           afAuth.auth.currentUser
             .getIdToken()
             .then(tokenResult => {
@@ -43,6 +43,7 @@ export class MyApp {
 
               this.userSrv.getUserProfile(this.token).subscribe(userResult => {
                 this.user = userResult;
+                this.user.token = this.token;
                 this.isAuth = true;
                 let toast = this.toastCtrl.create({
                   message:

@@ -1,0 +1,42 @@
+<!--
+  Generated template for the MdpOubliePage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Mot de passe Oublié?</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <p>
+    Veuillez renseigner votre adresse email, un lien pour réinitialiser votre mot de passe
+    vous sera envoyé.
+  </p>
+
+  <form (ngSubmit)="reinitialiserMdp()" [formGroup]="mdpOublieForm">
+    <ion-list inset>
+
+      <ion-item [ngClass]="{ invalid: emailErrors.hasError('*', ['touched', 'dirty'])}">
+        <ion-label floating>Email</ion-label>
+        <ion-input type="text" [(ngModel)]="email" formControlName="email"></ion-input>
+      </ion-item>
+
+      <div ngxErrors="email" #emailErrors="ngxErrors" color="danger">
+        <div [ngxError]="['email', 'required']" [when]="['touched', 'dirty']">Veuillez entrer une adresse Email valide</div>
+      </div>
+
+      <div class="form-error">{{error}}</div>
+
+      <button ion-button full type="submit" [disabled]="!mdpOublieForm.valid">Reinitialiser</button>
+
+
+    </ion-list>
+  </form>
+
+</ion-content>

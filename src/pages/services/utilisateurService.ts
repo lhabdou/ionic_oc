@@ -23,7 +23,7 @@ export class UtilisateurService {
 
   }
 
-  saveProfileUser(user: IUtilisateur) {
+  saveProfileUser(user: IUtilisateur, newUser:boolean) {
     const httpOptions = {
       headers: new HttpHeaders({
         "Content-Type": "application/json",
@@ -32,8 +32,9 @@ export class UtilisateurService {
       })
     };
 
-    this.httpClient
-      .post(
+    if(newUser) {
+      this.httpClient
+      .post<IUtilisateur>(
         ENVIRONNEMENT.URL_REST_LOCAL + "/utilisateurs/nouveau",
         user,
         httpOptions
@@ -47,5 +48,24 @@ export class UtilisateurService {
           );
         }
       );
+
+    } else {
+      this.httpClient
+      .put<IUtilisateur>(
+        ENVIRONNEMENT.URL_REST_LOCAL + "/utilisateurs/maj",
+        user,
+        httpOptions
+      )
+      .subscribe(
+        data => { data.mdp = ""},
+        error => {
+          console.log(
+            "Erreur lors de la modification d'un utilisateur",
+            error
+          );
+        }
+      );
+    }
+
   }
 }

@@ -1,3 +1,4 @@
+import { MdpOubliePage } from './../mdp-oublie/mdp-oublie';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { SignupPage } from './../signup/signup';
 import { IUtilisateur } from './../modeles/utilisateurModel';
@@ -49,6 +50,14 @@ export class LoginPage {
 
 
   }
+
+  reinitialiserMdp() {
+
+    this.navCtrl.push(MdpOubliePage);
+
+
+  }
+
   signup() {
 
     this.navCtrl.push(SignupPage, { newUser: true , user : new IUtilisateur()});

@@ -1,6 +1,4 @@
-import { HttpHeaders } from "@angular/common/http";
-import { ENVIRONNEMENT } from "./../../constantes/constantesUtilis";
-import { HttpClient } from "@angular/common/http";
+import { TabsPage } from './../tabs/tabs';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { AngularFireAuth } from "angularfire2/auth";
 import { IUtilisateur } from "./../modeles/utilisateurModel";
@@ -8,6 +6,7 @@ import { IRole } from "./../modeles/roleModel";
 import { Component } from "@angular/core";
 import { NavController, NavParams } from "ionic-angular";
 import { UtilisateurService } from "../services/utilisateurService";
+import { ToastController } from 'ionic-angular/components/toast/toast-controller';
 @Component({
   selector: "page-signup",
   templateUrl: "signup.html"
@@ -25,9 +24,9 @@ export class SignupPage {
     private afAuth: AngularFireAuth,
     public navCtrl: NavController,
     public navParams: NavParams,
+    public toastCtrl:ToastController,
     private userSrv: UtilisateurService,
-    private fb: FormBuilder,
-    private httpClient: HttpClient
+    private fb: FormBuilder
   ) {
     this.newUser = navParams.get("newUser");
     if (!this.newUser) {
@@ -82,11 +81,15 @@ export class SignupPage {
             "",
             Validators.compose([Validators.required, Validators.minLength(6)])
           ]
-
         },
         { validator: this.checkPassword("password", "confPassword") }
       );
     }
+  }
+  ngOnInit(): void {
+
+    this.user.mdp = "";
+
   }
 
   checkPassword(passwordKey: string, confirmPasswordKey: string) {
@@ -110,52 +113,41 @@ export class SignupPage {
             .getIdToken()
             .then((token: string) => {
               user.token = token;
-              this.userSrv.saveProfileUser(user);
+              this.userSrv.saveProfileUser(user, newUtilisateur);
             })
             .catch(error => {
               (this.signupError =
-                "Erreur lors de la vérification Backend du token /br"),
-                error.message;
-              console.log(
-                "Erreur lors de la vérification Backend du token",
-                error
-              );
+                error.message);
             });
         })
         .catch(error => {
-          (this.signupError =
-            "Erreur lors de l'enregistrement du nouveau utilisateur dans firebase/br"),
-            error.message;
-          console.log(
-            "Erreur lors de l'enregistrement du nouveau utilisateur dans firebase",
-            error
-          );
+          (this.signupError = error.message);
         });
     } else {
       var userUpdate = this.afAuth.auth.currentUser;
       userUpdate
         .updateEmail(user.email)
-        .then(data => {})
+        .then(data => {
+          this.userSrv.saveProfileUser(user, newUtilisateur);
+          this.profilMaj();
+
+        })
         .catch(error => {
-          (this.signupError =
-            "Erreur lors de la mise à jour de l'adresse mail /br "),
-            error.message;
-          console.log("Erreur lors de la mise à jour de l'adresse mail", error);
+          (this.signupError = error.message);
         });
 
-      const headersOption = {
-        headers: new HttpHeaders({
-          "Content-Type": "application/json",
-          "Accept-Type": "application/json",
-          token: user.token
-        })
-      };
 
-      this.httpClient.put(
-        ENVIRONNEMENT.URL_REST_LOCAL + "",
-        user,
-        headersOption
-      );
     }
+  }
+
+  profilMaj() {
+
+    let toast = this.toastCtrl.create({
+      message:"Votre profil est bien mis à jour",
+      duration: 2000,
+      position: "bottom"
+    });
+    toast.present();
+    this.navCtrl.setRoot(TabsPage);
   }
 }
