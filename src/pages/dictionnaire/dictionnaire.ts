@@ -20,7 +20,7 @@ export class DictionnairePage {
 
     onLoadLigneDictionnaire(index: number) {
 
-        this.navCtrl.push(LigneDictionnairePage, { ligneParam: index });
+        this.navCtrl.push(LigneDictionnairePage, {ligneParam: this.dictionnaireList[index] });
 
         //let modal = this.modalCtrl.create(LigneDictionnairePage, {ligneParam:index});
         //modal.present();
