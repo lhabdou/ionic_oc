@@ -12,6 +12,7 @@ import { LoginPage } from "../pages/login/login";
 import { AngularFireAuth } from "angularfire2/auth";
 import { MenuController } from "ionic-angular/components/app/menu-controller";
 import { ToastController } from "ionic-angular";
+import * as firebase from "firebase";
 
 @Component({
   templateUrl: "app.html"
@@ -91,5 +92,12 @@ export class MyApp {
   editerProfil(user:IUtilisateur) {
     this.menuCtrl.close();
     this.content.push(SignupPage, { newUser: false, user: user});
+  }
+
+  sendEmailVerification() {
+
+    firebase.auth().currentUser.sendEmailVerification().then((ok)=>{
+
+    })
   }
 }
