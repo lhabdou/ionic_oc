@@ -21,6 +21,7 @@ export class MyApp {
   rootPage: any = TabsPage;
   isAuth = false;
   token: string;
+  emailNonVerifie:boolean = true;
   user: IUtilisateur;
   @ViewChild('content') content: NavController;
 
@@ -40,6 +41,7 @@ export class MyApp {
             .getIdToken()
             .then(tokenResult => {
               this.token = tokenResult;
+              this.emailNonVerifie = !userData.emailVerified;
 
               this.userSrv.getUserProfile(this.token).subscribe(userResult => {
                 this.user = userResult;

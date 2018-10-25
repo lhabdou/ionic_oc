@@ -1,5 +1,4 @@
-import { NavController } from 'ionic-angular';
-import { TabsPage } from './../tabs/tabs';
+import { AngularFireAuth } from 'angularfire2/auth';
 import { ToastController } from 'ionic-angular';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
@@ -9,7 +8,7 @@ import { Observable } from "rxjs/Observable";
 @Injectable()
 export class UtilisateurService {
 
-  constructor(private httpClient: HttpClient,
+  constructor(private afAuth:AngularFireAuth, private httpClient: HttpClient,
     private toastCtrl:ToastController) {}
 
   getUserProfile(token: string): Observable<IUtilisateur> {
@@ -44,7 +43,10 @@ export class UtilisateurService {
         httpOptions
       )
       .subscribe(
-        data => { },
+        data => {
+
+          this.afAuth.auth.signInWithEmailAndPassword(user.email,user.mdp);
+         },
         error => {
           console.log(
             "Erreur lors de l'enregistrement d'un utilisateur",

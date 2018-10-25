@@ -116,6 +116,8 @@ export class SignupPage {
             .then((token: string) => {
               user.token = token;
               this.userSrv.saveProfileUser(user, newUtilisateur);
+              this.profilCree();
+              this.navCtrl.setRoot(TabsPage);
             })
             .catch(error => {
               (this.signupError =
@@ -181,7 +183,22 @@ export class SignupPage {
         {
           text: 'Supprimer',
           handler: () => {
-            this.userSrv.supprimerUtilisateur(this.user);          }
+            this.userSrv.supprimerUtilisateur(this.user) }
+        }
+      ]
+    });
+    alert.present();
+  }
+
+  profilCree() {
+    let alert = this.alertCtrl.create({
+      title: 'Confirmation de votre Email',
+      message: 'Veuillez confirmer votre adresse mail en cliquant sur le lien qui vous a été envoyé.',
+      buttons: [
+        {
+          text: 'Ok',
+          handler: () => {
+            this.navCtrl.setRoot(TabsPage) }
         }
       ]
     });

@@ -24,6 +24,9 @@
         <ion-label>Email:</ion-label>
         <ion-input [(ngModel)]="user.email" [readonly]="true"></ion-input>
       </ion-item>
+      <button ion-button small *ngIf="emailNonVerifie" color="danger">
+          Adresse email non confirmé
+      </button>
 
       <ion-item>
         <button ion-button (click)="editerProfil(user)">
