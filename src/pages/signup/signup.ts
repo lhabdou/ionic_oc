@@ -1,12 +1,14 @@
+import { ENVIRONNEMENT } from './../../constantes/constantesUtilis';
 import { TabsPage } from './../tabs/tabs';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { AngularFireAuth } from "angularfire2/auth";
 import { IUtilisateur } from "./../modeles/utilisateurModel";
-import { IRole } from "./../modeles/roleModel";
 import { Component } from "@angular/core";
 import { NavController, NavParams } from "ionic-angular";
 import { UtilisateurService } from "../services/utilisateurService";
 import { ToastController } from 'ionic-angular/components/toast/toast-controller';
+import * as firebase from 'firebase';
+import { AlertController } from 'ionic-angular/components/alert/alert-controller';
 @Component({
   selector: "page-signup",
   templateUrl: "signup.html"
@@ -18,14 +20,12 @@ export class SignupPage {
   signupError: string;
   newUser: boolean;
 
-  roleContributeur = { id: 3, role: "CONTRIBUTEUR" } as IRole;
-
   constructor(
     private afAuth: AngularFireAuth,
     public navCtrl: NavController,
     public navParams: NavParams,
     public toastCtrl:ToastController,
-    private userSrv: UtilisateurService,
+    private userSrv: UtilisateurService, private alertCtrl:AlertController,
     private fb: FormBuilder
   ) {
     this.newUser = navParams.get("newUser");
@@ -105,11 +105,13 @@ export class SignupPage {
 
   async saveUser(user: IUtilisateur, newUtilisateur?: boolean) {
     if (newUtilisateur) {
-      user.role = this.roleContributeur;
+      user.role = ENVIRONNEMENT.roleContributeur;
       this.afAuth.auth
         .createUserWithEmailAndPassword(user.email, user.mdp)
         .then((data: firebase.auth.UserCredential) => {
-          data.user
+          data.user.sendEmailVerification().then((ok)=>{
+
+            data.user
             .getIdToken()
             .then((token: string) => {
               user.token = token;
@@ -119,6 +121,12 @@ export class SignupPage {
               (this.signupError =
                 error.message);
             });
+
+            console.log("Email de vérification envoyé", ok);
+          },(error)=>{
+            console.log("Erreur d'envoie du mail de vérification");
+          })
+
         })
         .catch(error => {
           (this.signupError = error.message);
@@ -149,5 +157,34 @@ export class SignupPage {
     });
     toast.present();
     this.navCtrl.setRoot(TabsPage);
+  }
+
+  supprimerProfil() {
+
+    this.presentConfirm();
+
+    this.navCtrl.setRoot(TabsPage);
+  }
+
+  presentConfirm() {
+    let alert = this.alertCtrl.create({
+      title: 'Attention',
+      message: 'Vous êtes sur le point de supprimer votre profil, Vous allez perdre tous les points de contributions acquis si vous continuer.',
+      buttons: [
+        {
+          text: 'Annuler',
+          role: 'cancel',
+          handler: () => {
+            //Nothing To Do
+          }
+        },
+        {
+          text: 'Supprimer',
+          handler: () => {
+            this.userSrv.supprimerUtilisateur(this.user);          }
+        }
+      ]
+    });
+    alert.present();
   }
 }

@@ -1,3 +1,5 @@
+import { UtilisateurService } from './../services/utilisateurService';
+import { ENVIRONNEMENT } from './../../constantes/constantesUtilis';
 import { MdpOubliePage } from './../mdp-oublie/mdp-oublie';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { SignupPage } from './../signup/signup';
@@ -19,7 +21,7 @@ export class LoginPage {
   loginError: string;
 
   constructor(private afAuth: AngularFireAuth, public navCtrl: NavController,
-  public navParams: NavParams, public fb: FormBuilder) {
+  public navParams: NavParams, public fb: FormBuilder, private utilisateurService:UtilisateurService) {
 
     this.loginForm = this.fb.group({
       email: ['', Validators.compose([Validators.required, Validators.email])],
@@ -71,21 +73,45 @@ export class LoginPage {
     provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
 
     firebase.auth().signInWithPopup(provider).then(function(result) {
-      // This gives you a Google Access Token. You can use it to access the Google API.
-      var token = result.credential.accessToken;
+      // // This gives you a Google Access Token. You can use it to access the Google API.
+      // result.user.getIdToken().then((token)=>{
+      //   this.user.token = token;
+      // },(error)=>{
+      //   console.log("Erreur", error);
+      // });
       // The signed-in user info.
-      var user = result.user;
+      var userR = result.user;
+      this.saveUser(userR);
+
       // ...
     }).catch(function(error) {
       // Handle Errors here.
-      var errorCode = error.code;
-      var errorMessage = error.message;
+      //var errorCode = error.code;
+      //var errorMessage = error.message;
       // The email of the user's account used.
-      var email = error.email;
+      //var email = error.email;
       // The firebase.auth.AuthCredential type that was used.
-      var credential = error.credential;
+      //var credential = error.credential;
       // ...
     });
+
+
+  }
+
+ async saveUser(user:firebase.User) {
+
+    this.user.email = user.email;
+    this.user.nom = user.displayName;
+    this.user.idUtilisateur = user.uid;
+    this.user.role = ENVIRONNEMENT.roleContributeur;
+    await user.getIdToken().then((token)=>{
+      this.user.token = token;
+    }, (error)=>{
+      console.log("Erreur lors de la récupération du token gmail ", error);
+    })
+    this.user.urlImage = user.photoURL;
+
+    this.utilisateurService.saveProfileUser(this.user, true);
 
   }
 
