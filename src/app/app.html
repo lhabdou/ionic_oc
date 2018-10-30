@@ -20,6 +20,17 @@
         <ion-label>Prénom:</ion-label>
         <ion-input [(ngModel)]="user.prenom" [readonly]="true"></ion-input>
       </ion-item>
+
+      <ion-item>
+        <ion-label>Pseudo:</ion-label>
+        <ion-input [(ngModel)]="user.pseudo" [readonly]="true"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Tél:</ion-label>
+        <ion-input [(ngModel)]="user.tel" [readonly]="true"></ion-input>
+      </ion-item>
+
       <ion-item>
         <ion-label>Email:</ion-label>
         <ion-input [(ngModel)]="user.email" [readonly]="true"></ion-input>
@@ -33,7 +44,7 @@
       </div>
 
 
-      <ion-item>
+      <ion-item *ngIf="!user.googleConnect" >
         <button ion-button (click)="editerProfil(user)">
           <ion-icon name="settings" ></ion-icon> &nbsp; Editer
         </button>

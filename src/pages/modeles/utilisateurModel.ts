@@ -6,7 +6,9 @@ export class IUtilisateur {
     prenom: string;
     mdp?: string;
     pseudo?: string;
+    tel?: string;
     email: string;
+    googleConnect: boolean;
     urlImage?: string;
     role?: IRole;
     token?: string;
