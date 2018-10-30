@@ -40,7 +40,8 @@ export class LoginPage {
         result.user.getIdToken().then((token)=>{
           this.user.token = token;
         }).catch((error)=>{
-          console.log("Erreur lors de la récupération du token", error);
+
+          this.loginError = "Erreur lors de la récupération du token ";
         })
         this.navCtrl.setRoot(TabsPage);
       }
@@ -107,7 +108,7 @@ export class LoginPage {
     await user.getIdToken().then((token)=>{
       this.user.token = token;
     }, (error)=>{
-      console.log("Erreur lors de la récupération du token gmail ", error);
+     this.loginError = "Erreur lors de la récupération du token gmail ";
     })
     this.user.urlImage = user.photoURL;
 

@@ -1,14 +1,14 @@
-import { ENVIRONNEMENT } from './../../constantes/constantesUtilis';
-import { TabsPage } from './../tabs/tabs';
+import { ENVIRONNEMENT } from "./../../constantes/constantesUtilis";
+import { TabsPage } from "./../tabs/tabs";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { AngularFireAuth } from "angularfire2/auth";
 import { IUtilisateur } from "./../modeles/utilisateurModel";
 import { Component } from "@angular/core";
 import { NavController, NavParams } from "ionic-angular";
 import { UtilisateurService } from "../services/utilisateurService";
-import { ToastController } from 'ionic-angular/components/toast/toast-controller';
-import * as firebase from 'firebase';
-import { AlertController } from 'ionic-angular/components/alert/alert-controller';
+import { ToastController } from "ionic-angular/components/toast/toast-controller";
+import * as firebase from "firebase";
+import { AlertController } from "ionic-angular/components/alert/alert-controller";
 @Component({
   selector: "page-signup",
   templateUrl: "signup.html"
@@ -19,18 +19,21 @@ export class SignupPage {
   signupForm: FormGroup;
   signupError: string;
   newUser: boolean;
+  oldEmail: string;
 
   constructor(
     private afAuth: AngularFireAuth,
     public navCtrl: NavController,
     public navParams: NavParams,
-    public toastCtrl:ToastController,
-    private userSrv: UtilisateurService, private alertCtrl:AlertController,
+    public toastCtrl: ToastController,
+    private userSrv: UtilisateurService,
+    private alertCtrl: AlertController,
     private fb: FormBuilder
   ) {
     this.newUser = navParams.get("newUser");
     if (!this.newUser) {
       this.user = navParams.get("user");
+      this.oldEmail = this.user.email;
 
       this.signupForm = this.fb.group({
         nom: [
@@ -87,9 +90,7 @@ export class SignupPage {
     }
   }
   ngOnInit(): void {
-
     this.user.mdp = "";
-
   }
 
   checkPassword(passwordKey: string, confirmPasswordKey: string) {
@@ -109,51 +110,52 @@ export class SignupPage {
       this.afAuth.auth
         .createUserWithEmailAndPassword(user.email, user.mdp)
         .then((data: firebase.auth.UserCredential) => {
-          data.user.sendEmailVerification().then((ok)=>{
-
-            data.user
-            .getIdToken()
-            .then((token: string) => {
-              user.token = token;
-              this.userSrv.saveProfileUser(user, newUtilisateur);
-              this.profilCree();
-              this.navCtrl.setRoot(TabsPage);
-            })
-            .catch(error => {
-              (this.signupError =
-                error.message);
-            });
-
-            console.log("Email de vérification envoyé", ok);
-          },(error)=>{
-            console.log("Erreur d'envoie du mail de vérification");
-          })
-
+          data.user.sendEmailVerification().then(
+            ok => {
+              data.user
+                .getIdToken()
+                .then((token: string) => {
+                  user.token = token;
+                  this.userSrv.saveProfileUser(user, newUtilisateur);
+                  this.profilCree();
+                  this.navCtrl.setRoot(TabsPage);
+                })
+                .catch(error => {
+                  this.signupError = error.message;
+                });
+            },
+            error => {
+              this.signupError = "Erreur d'envoie du mail de vérification";
+            }
+          );
         })
         .catch(error => {
-          (this.signupError = error.message);
+          this.signupError = error.message;
         });
     } else {
-      var userUpdate = this.afAuth.auth.currentUser;
-      userUpdate
-        .updateEmail(user.email)
-        .then(data => {
-          this.userSrv.saveProfileUser(user, newUtilisateur);
-          this.profilMaj();
-
+      this.afAuth.auth
+        .signInWithEmailAndPassword(this.oldEmail, this.user.mdp)
+        .then(userOk => {
+          var userUpdate = this.afAuth.auth.currentUser;
+          userUpdate
+            .updateEmail(user.email)
+            .then(data => {
+              this.userSrv.saveProfileUser(user, newUtilisateur);
+              this.profilMaj();
+            })
+            .catch(error => {
+              this.signupError = error.message;
+            });
         })
-        .catch(error => {
-          (this.signupError = error.message);
+        .catch(errorMdp => {
+          this.signupError = errorMdp.message;
         });
-
-
     }
   }
 
   profilMaj() {
-
     let toast = this.toastCtrl.create({
-      message:"Votre profil est bien mis à jour",
+      message: "Votre profil est bien mis à jour",
       duration: 2000,
       position: "bottom"
     });
@@ -162,7 +164,6 @@ export class SignupPage {
   }
 
   supprimerProfil() {
-
     this.presentConfirm();
 
     this.navCtrl.setRoot(TabsPage);
@@ -170,20 +171,22 @@ export class SignupPage {
 
   presentConfirm() {
     let alert = this.alertCtrl.create({
-      title: 'Attention',
-      message: 'Vous êtes sur le point de supprimer votre profil, Vous allez perdre tous les points de contributions acquis si vous continuer.',
+      title: "Attention",
+      message:
+        "Vous êtes sur le point de supprimer votre profil, Vous allez perdre tous les points de contributions acquis si vous continuer.",
       buttons: [
         {
-          text: 'Annuler',
-          role: 'cancel',
+          text: "Annuler",
+          role: "cancel",
           handler: () => {
             //Nothing To Do
           }
         },
         {
-          text: 'Supprimer',
+          text: "Supprimer",
           handler: () => {
-            this.userSrv.supprimerUtilisateur(this.user) }
+            this.userSrv.supprimerUtilisateur(this.user);
+          }
         }
       ]
     });
@@ -192,13 +195,15 @@ export class SignupPage {
 
   profilCree() {
     let alert = this.alertCtrl.create({
-      title: 'Confirmation de votre Email',
-      message: 'Veuillez confirmer votre adresse mail en cliquant sur le lien qui vous a été envoyé.',
+      title: "Confirmation de votre Email",
+      message:
+        "Veuillez confirmer votre adresse mail en cliquant sur le lien qui vous a été envoyé.",
       buttons: [
         {
-          text: 'Ok',
+          text: "Ok",
           handler: () => {
-            this.navCtrl.setRoot(TabsPage) }
+            this.navCtrl.setRoot(TabsPage);
+          }
         }
       ]
     });

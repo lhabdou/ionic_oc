@@ -27,8 +27,6 @@ export class LigneDictionnairePage implements OnInit {
 
   }
   onSubmitWord(form: NgForm) {
-
-    console.log(form.value);
     this.viewController.dismiss();
 
   }

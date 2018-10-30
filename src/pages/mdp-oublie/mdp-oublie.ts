@@ -20,20 +20,15 @@ export class MdpOubliePage {
     });
   }
 
-  ionViewDidLoad() {
-    console.log("ionViewDidLoad MdpOubliePage");
-  }
-
   reinitialiserMdp() {
     this.afAuth.auth
       .sendPasswordResetEmail(this.email)
       .then((result) => {
-        console.log("ok",result);
         this.mdpReinitialise();
 
       },(error) => {
-        this.error = error;
-        console.log("erreur", error);
+        this.error = error.message;
+
       });
   }
 
