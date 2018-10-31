@@ -95,9 +95,11 @@ export class SignupPage {
         { validator: this.checkPassword("password", "confPassword") }
       );
     }
-    this.paysService.getAllCountries().subscribe((paysData:IPays[])=>{
-      this.listePays = paysData;
-    });
+    if(!this.listePays) {
+      this.paysService.getAllCountries().subscribe((paysData:IPays[])=>{
+        this.listePays = paysData;
+      });
+    }
 
   }
   ngOnInit(): void {

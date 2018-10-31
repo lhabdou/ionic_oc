@@ -40,7 +40,7 @@
         <ion-label floating>Pays:</ion-label>
         <ion-select [(ngModel)]="user.pays" formControlName="pays">
           <ion-option [value]=""></ion-option>
-          <ion-option *ngFor="let p of listePays"  [value]="p.nom"></ion-option>
+          <ion-option *ngFor="let p of listePays"  [value]="p">{{p.nom}}</ion-option>
         </ion-select>
       </ion-item>
 
