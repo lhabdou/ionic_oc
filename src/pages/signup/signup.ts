@@ -1,3 +1,4 @@
+import { IPays } from './../modeles/paysModel';
 import { ENVIRONNEMENT } from "./../../constantes/constantesUtilis";
 import { TabsPage } from "./../tabs/tabs";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
@@ -9,6 +10,7 @@ import { UtilisateurService } from "../services/utilisateurService";
 import { ToastController } from "ionic-angular/components/toast/toast-controller";
 import * as firebase from "firebase";
 import { AlertController } from "ionic-angular/components/alert/alert-controller";
+import { PaysService } from '../services/paysService';
 @Component({
   selector: "page-signup",
   templateUrl: "signup.html"
@@ -20,6 +22,7 @@ export class SignupPage {
   signupError: string;
   newUser: boolean;
   oldEmail: string;
+  listePays: IPays[];
 
   constructor(
     private afAuth: AngularFireAuth,
@@ -28,8 +31,10 @@ export class SignupPage {
     public toastCtrl: ToastController,
     private userSrv: UtilisateurService,
     private alertCtrl: AlertController,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private paysService: PaysService
   ) {
+
     this.newUser = navParams.get("newUser");
     if (!this.newUser) {
       this.user = navParams.get("user");
@@ -46,8 +51,9 @@ export class SignupPage {
         ],
         pseudo: [
           "",
-          Validators.compose([Validators.required, Validators.minLength(2)])
+          Validators.minLength(2)
         ],
+        pays: [],
         email: [
           "",
           Validators.compose([Validators.required, Validators.email])
@@ -70,8 +76,9 @@ export class SignupPage {
           ],
           pseudo: [
             "",
-            Validators.compose([Validators.required, Validators.minLength(2)])
+            Validators.minLength(2)
           ],
+          pays: [],
           email: [
             "",
             Validators.compose([Validators.required, Validators.email])
@@ -88,6 +95,10 @@ export class SignupPage {
         { validator: this.checkPassword("password", "confPassword") }
       );
     }
+    this.paysService.getAllCountries().subscribe((paysData:IPays[])=>{
+      this.listePays = paysData;
+    });
+
   }
   ngOnInit(): void {
     this.user.mdp = "";

@@ -1,3 +1,4 @@
+import { IPays } from './paysModel';
 import { IRole } from './roleModel';
 export class IUtilisateur {
 
@@ -7,6 +8,7 @@ export class IUtilisateur {
     mdp?: string;
     pseudo?: string;
     tel?: string;
+    pays?:IPays;
     email: string;
     googleConnect: boolean;
     urlImage?: string;

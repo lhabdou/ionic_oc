@@ -33,9 +33,16 @@
         <ion-input type="text" [(ngModel)]="user.pseudo" formControlName="pseudo"></ion-input>
       </ion-item>
       <div ngxErrors="pseudo" #pseudoErrors="ngxErrors" color="danger">
-        <div [ngxError]="['minlength','required']" [when]="['touched', 'dirty']">Pseudo requis</div>
+        <div [ngxError]="['minlength']" [when]="['touched', 'dirty']">Pseudo doit avoir au moins 2 caractères</div>
       </div>
 
+      <ion-item>
+        <ion-label floating>Pays:</ion-label>
+        <ion-select [(ngModel)]="user.pays" formControlName="pays">
+          <ion-option [value]=""></ion-option>
+          <ion-option *ngFor="let p of listePays"  [value]="p.nom"></ion-option>
+        </ion-select>
+      </ion-item>
 
       <ion-item [ngClass]="{ invalid: emailErrors.hasError('*', ['touched', 'dirty']) }">
         <ion-label floating>Email:</ion-label>

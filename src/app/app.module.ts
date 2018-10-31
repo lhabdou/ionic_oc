@@ -1,3 +1,4 @@
+import { PaysService } from './../pages/services/paysService';
 import { MdpOubliePage } from './../pages/mdp-oublie/mdp-oublie';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NgxErrorsModule } from '@ultimate/ngxerrors';
@@ -58,7 +59,8 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
     HttpClient,
     AngularFireAuth,
     DictionnaireService,
-    UtilisateurService
+    UtilisateurService,
+    PaysService
   ]
 })
 export class AppModule { }
