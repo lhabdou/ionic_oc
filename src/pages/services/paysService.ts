@@ -1,4 +1,3 @@
-import { Observable } from 'rxjs';
 import { Injectable } from "@angular/core";
 import { IPays } from "./../modeles/paysModel";
 import { HttpClient, HttpHeaders } from "@angular/common/http";

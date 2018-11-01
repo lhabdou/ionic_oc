@@ -39,7 +39,6 @@
       <ion-item>
         <ion-label floating>Pays:</ion-label>
         <ion-select [(ngModel)]="user.pays" formControlName="pays">
-          <ion-option [value]=""></ion-option>
           <ion-option *ngFor="let p of listePays"  [value]="p">{{p.nom}}</ion-option>
         </ion-select>
       </ion-item>
@@ -51,6 +50,12 @@
       <div ngxErrors="email" #emailErrors="ngxErrors" color="danger">
         <div [ngxError]="['email', 'required']" [when]="['touched', 'dirty']">Veuillez entrer une adresse Email valide</div>
       </div>
+
+      <ion-item>
+        <ion-label floating>Tél:</ion-label>
+        <ion-input [(ngModel)]="user.tel" formControlName="tel">
+        </ion-input>
+      </ion-item>
 
       <ion-item [ngClass]="{ invalid: passwordErrors.hasError('*', ['touched', 'dirty']) }">
         <ion-label floating>Mot de passe:</ion-label>

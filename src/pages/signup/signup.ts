@@ -54,6 +54,7 @@ export class SignupPage {
           Validators.minLength(2)
         ],
         pays: [],
+        tel: [],
         email: [
           "",
           Validators.compose([Validators.required, Validators.email])
@@ -79,6 +80,7 @@ export class SignupPage {
             Validators.minLength(2)
           ],
           pays: [],
+          tel: [],
           email: [
             "",
             Validators.compose([Validators.required, Validators.email])
