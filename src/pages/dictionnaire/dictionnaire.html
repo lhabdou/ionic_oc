@@ -10,6 +10,23 @@
 </ion-header>
 
 <ion-content padding>
+    <div class = "choixLangue">
+        <label class = "item item-radio">
+           <input type = "radio" name = "group1" />
+           <div class = "item-content">
+              Français
+           </div>
+           <i class = "radio-icon ion-checkmark"></i>
+        </label>
+     
+        <label class = "item item-radio">
+           <input type = "radio" name = "group1" />
+           <div class = "item-content">
+             Shi Ngazidja
+           </div>
+           <i class = "radio-icon ion-checkmark"></i>
+        </label>
+     </div>
 
   <ion-searchbar [(ngModel)]="motCle" (ionInput)="onInput($event)" [placeholder]="Rechercher">
   </ion-searchbar>
@@ -25,6 +42,6 @@
 
 <ion-footer>
   <ion-item>
-    @Corporation: Le rêve comorien
+    ©Corporation2019: 'kamusi Project'
   </ion-item>
 </ion-footer>
