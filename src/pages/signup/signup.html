@@ -11,8 +11,9 @@
 <ion-content padding>
   <form (ngSubmit)="newUser? saveUser(user, true):saveUser(user,false)" [formGroup]="signupForm">
     <ion-list>
+      <ion-note>* Champs obligatoires</ion-note>
       <ion-item>
-        <ion-label floating>Nom:</ion-label>
+        <ion-label floating>*Nom:</ion-label>
         <ion-input type="text" [(ngModel)]="user.nom" formControlName="nom"></ion-input>
       </ion-item>
       <div ngxErrors="nom" #nomErrors="ngxErrors" color="danger">
@@ -20,7 +21,7 @@
       </div>
 
       <ion-item [ngClass]="{ invalid: prenomErrors.hasError('*', ['touched', 'dirty']) }">
-        <ion-label floating>Prénom:</ion-label>
+        <ion-label floating>*Prénom:</ion-label>
         <ion-input type="text" [(ngModel)]="user.prenom" formControlName="prenom"></ion-input>
       </ion-item>
       <div ngxErrors="prenom" #prenomErrors="ngxErrors" color="danger">
@@ -37,14 +38,14 @@
       </div>
 
       <ion-item>
-        <ion-label floating>Pays:</ion-label>
+        <ion-label floating>*Pays:</ion-label>
         <ion-select [(ngModel)]="user.pays" formControlName="pays">
           <ion-option *ngFor="let p of listePays"  [value]="p">{{p.nom}}</ion-option>
         </ion-select>
       </ion-item>
 
       <ion-item [ngClass]="{ invalid: emailErrors.hasError('*', ['touched', 'dirty']) }">
-        <ion-label floating>Email:</ion-label>
+        <ion-label floating>*Email:</ion-label>
         <ion-input type="email" [(ngModel)]="user.email" formControlName="email"></ion-input>
       </ion-item>
       <div ngxErrors="email" #emailErrors="ngxErrors" color="danger">
@@ -58,7 +59,7 @@
       </ion-item>
 
       <ion-item [ngClass]="{ invalid: passwordErrors.hasError('*', ['touched', 'dirty']) }">
-        <ion-label floating>Mot de passe:</ion-label>
+        <ion-label floating>*Mot de passe:</ion-label>
         <ion-input type="password" formControlName="password" [(ngModel)]="user.mdp"></ion-input>
       </ion-item>
       <div ngxErrors="password" #passwordErrors="ngxErrors" color="danger">
@@ -67,7 +68,7 @@
       </div>
       <div *ngIf="newUser">
         <ion-item [ngClass]="{ invalid: confPasswordErrors.hasError('*', ['touched', 'dirty']) }">
-          <ion-label floating>Confirmation:</ion-label>
+          <ion-label floating>*Confirmation:</ion-label>
           <ion-input type="password" [(ngModel)]="confPassword" formControlName="confPassword"></ion-input>
         </ion-item>
         <div ngxErrors="confPassword" #confPasswordErrors="ngxErrors" color="danger">

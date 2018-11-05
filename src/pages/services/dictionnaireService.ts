@@ -9,11 +9,12 @@ export class DictionnaireService {
   dictionnaireFilter: ILigneDictionnaire[];
 
 
-  lancerUneRecherche(motCle: string): Observable<ILigneDictionnaire[]> {
+  lancerUneRecherche(motCle: string, langue:string): Observable<ILigneDictionnaire[]> {
     const httpOptions = {
       headers: new HttpHeaders({
         "Content-Type": 'application/json',
-        "Accept":'application/json'
+        "Accept":'application/json',
+        "langue":langue
       })
     };
 

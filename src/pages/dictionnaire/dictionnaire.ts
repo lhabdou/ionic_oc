@@ -12,6 +12,13 @@ export class DictionnairePage {
 
     dictionnaireList: any;
     motCle: string;
+    langue:string ='fr';
+
+    // langueList = [
+    //   {'fr': {phrase:"Veuillez choisir une langue de recherche"}},
+    //   {'ngz':{phrase:"Tsoungouwa ye lougha ya wu tsafitsi"}},
+    //   {'ang': {phrase:"Select language"}}
+    // ]
 
     constructor(private navCtrl: NavController, private dictionnaireService: DictionnaireService,
         public utilisateurService: UtilisateurService, private menuCtrl: MenuController) {
@@ -35,7 +42,7 @@ export class DictionnairePage {
 
         if (this.motCle && this.motCle.length >= 2) {
 
-            this.dictionnaireService.lancerUneRecherche(this.motCle).subscribe(
+            this.dictionnaireService.lancerUneRecherche(this.motCle, this.langue).subscribe(
                 (result: ILigneDictionnaire[]) => {
                     this.dictionnaireList = result;
                 });

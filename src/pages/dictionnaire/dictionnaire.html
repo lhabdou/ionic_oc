@@ -10,38 +10,47 @@
 </ion-header>
 
 <ion-content padding>
-    <div class = "choixLangue">
-        <label class = "item item-radio">
-           <input type = "radio" name = "group1" />
-           <div class = "item-content">
-              Français
-           </div>
-           <i class = "radio-icon ion-checkmark"></i>
-        </label>
-     
-        <label class = "item item-radio">
-           <input type = "radio" name = "group1" />
-           <div class = "item-content">
-             Shi Ngazidja
-           </div>
-           <i class = "radio-icon ion-checkmark"></i>
-        </label>
-     </div>
 
-  <ion-searchbar [(ngModel)]="motCle" (ionInput)="onInput($event)" [placeholder]="Rechercher">
-  </ion-searchbar>
+  <ion-item>
+    <ion-label floating>Langues/Lougha</ion-label>
+    <ion-select [(ngModel)]="langue">
+      <ion-option class="frOption" value="fr">Français</ion-option>
+      <ion-option class="ngzOption" value="ngz">Shi Ngazidja</ion-option>
+      <ion-option class="ngzOption" value="ang">English</ion-option>
+    </ion-select>
+  </ion-item>
+
+  <div *ngIf="langue">
+
+    <ion-searchbar [(ngModel)]="motCle" (ionInput)="onInput($event)" [placeholder]="Rechercher">
+    </ion-searchbar>
 
 
-  <ion-list *ngIf="dictionnaireList">
+    <ion-list *ngIf="langue=='fr' && dictionnaireList">
+      <button ion-button *ngFor="let ligne of dictionnaireList; let i = index " (click)="onLoadLigneDictionnaire(i)"
+        [color]=" 'NOUVEAU' == ligne.statut.statut ? 'primary':'secondary'"><ion-item>{{ligne.motFr}}</ion-item></button>
 
-    <button ion-item *ngFor="let ligne of dictionnaireList; let i = index " (click)="onLoadLigneDictionnaire(i)"
-      [color]=" 'NOUVEAU' == ligne.statut.statut ? 'primary':'secondary'">{{ligne.motFr}}</button>
+    </ion-list>
 
-  </ion-list>
+    <ion-list *ngIf="langue=='ngz' && dictionnaireList">
+      <button ion-button *ngFor="let ligne of dictionnaireList; let i = index " (click)="onLoadLigneDictionnaire(i)"
+        [color]=" 'NOUVEAU' == ligne.statut.statut ? 'primary':'secondary'"><ion-item>{{ligne.motNgz}}</ion-item></button>
+
+
+    </ion-list>
+
+    <ion-list *ngIf="langue=='ang' && dictionnaireList">
+
+      <button ion-button *ngFor="let ligne of dictionnaireList; let i = index " (click)="onLoadLigneDictionnaire(i)"
+        [color]=" 'NOUVEAU' == ligne.statut.statut ? 'primary':'secondary'"> <ion-item>{{ligne.motAng}} </ion-item> </button>
+
+    </ion-list>
+
+  </div>
 </ion-content>
 
 <ion-footer>
   <ion-item>
-    ©Corporation2019: 'kamusi Project'
+    ©Corporation 2019 'kamusi Project'
   </ion-item>
 </ion-footer>
