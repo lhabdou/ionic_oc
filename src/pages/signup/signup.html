@@ -83,7 +83,7 @@
 
     <button *ngIf="newUser" ion-button type="submit" [disabled]="!signupForm.valid">S'enregistrer</button>
     <button *ngIf="!newUser" ion-button type="submit" [disabled]="!signupForm.valid">Modifier</button>
-    <div style="position: absolute; bottom: 0px; width: 100%;">
+    <div style="position: relative; bottom: 0px; width: 100%;">
       <button *ngIf="!newUser" ion-button small color="danger" (click)="supprimerProfil()">Supprimer mon profil</button>
       <br>
     </div>

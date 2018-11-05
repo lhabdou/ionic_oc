@@ -27,6 +27,11 @@
       </ion-item>
 
       <ion-item>
+          <ion-label>Pays:</ion-label>
+          <ion-input *ngIf="user.pays" [(ngModel)]="user.pays.nom" [readonly]="true"></ion-input>
+        </ion-item>
+
+      <ion-item>
         <ion-label>Tél:</ion-label>
         <ion-input [(ngModel)]="user.tel" [readonly]="true"></ion-input>
       </ion-item>
