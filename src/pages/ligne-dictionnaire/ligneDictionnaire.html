@@ -1,51 +1,69 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Mot/Kalima</ion-title>
+    <ion-title>Mot / Kalima</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 <ion-content padding>
   <ion-card>
-    <ion-card-header>{{ligne.motFr}}/{{ligne.motNgz}}</ion-card-header>
+    <ion-card-header>{{ligne.motFr}} / {{ligne.motNgz}}</ion-card-header>
     <ion-card-content>
       <ion-grid>
-        <ion-row>
-          <ion-col>Mot Fr</ion-col>    
-          <ion-col><ion-input [readonly]="true" value="{{ligne.motFr}}"></ion-input></ion-col>
+        <ion-row align-items-start>
+          <ion-col>Mot Fr</ion-col>
+          <ion-col col-auto>
+            <ion-input [readonly]="true" value="{{ligne.motFr}}"></ion-input>
+          </ion-col>
         </ion-row>
-        <ion-row>
+        <ion-row align-items-start>
           <ion-col>Mot Ngz</ion-col>
-          <ion-col><ion-input value="{{ligne.motNgz}}"></ion-input></ion-col>
+          <ion-col col-auto>
+            <ion-input value="{{ligne.motNgz}}"></ion-input>
+          </ion-col>
         </ion-row>
         <ion-row>
-            <ion-col>Mot Ndz</ion-col>
-            <ion-col><ion-input value="{{ligne.motNdz}}"></ion-input></ion-col>            
+          <ion-col>Mot Ndz</ion-col>
+          <ion-col col-auto>
+            <ion-input value="{{ligne.motNdz}}"></ion-input>
+          </ion-col>
         </ion-row>
         <ion-row>
-            <ion-col>Mot Mwa</ion-col>
-            <ion-col><ion-input value="{{ligne.motMwa}}"></ion-input></ion-col>          
+          <ion-col>Mot Mwa</ion-col>
+          <ion-col col-auto>
+            <ion-input value="{{ligne.motMwa}}"></ion-input>
+          </ion-col>
         </ion-row>
         <ion-row>
-            <ion-col>Mot Mao</ion-col>
-            <ion-col><ion-input value="{{ligne.motMao}}"></ion-input></ion-col>
+          <ion-col>Mot Mao</ion-col>
+          <ion-col col-auto>
+            <ion-input value="{{ligne.motMao}}"></ion-input>
+          </ion-col>
         </ion-row>
         <ion-row>
-            <ion-col>Mot Ang</ion-col>
-            <ion-col><ion-input [readonly]="true" value="{{ligne.motAng}}"></ion-input></ion-col>
+          <ion-col>Mot Ang</ion-col>
+          <ion-col col-auto>
+            <ion-input [readonly]="true" value="{{ligne.motAng}}"></ion-input>
+          </ion-col>
         </ion-row>
         <ion-row>
-            <ion-col>Suggestion</ion-col>
-           <ion-col><ion-input value="{{ligne.suggestion}}"></ion-input></ion-col>
-         </ion-row>
+          <ion-col>Suggestion</ion-col>
+          <ion-col col-auto>
+            <ion-input value="{{ligne.suggestion}}"></ion-input>
+          </ion-col>
+        </ion-row>
       </ion-grid>
 
-      <button ion-button *ngIf="accesValidation()" name="valider">Valider</button>
-      <button ion-button  *ngIf="accesContributeur()" name="Contribuer">Proposer</button>
+      <button ion-button *ngIf="accesValidation()" (click)="validerMot()" >Valider</button>
+      <button ion-button [disabled]="!contributeurAccess" (click)="proposer()">Proposer</button>
+      <ion-card *ngIf="!contributeurAccess">
+        <ion-card-content>
+          <ion-note>Pour faire une proposition, vous devez être connecté. en cliquant en haut à droite dans la page
+            d'accueil</ion-note>
+        </ion-card-content>
+      </ion-card>
     </ion-card-content>
   </ion-card>
-</ion-content>
 
-<ion-footer padding>
-</ion-footer>
+</ion-content>

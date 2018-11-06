@@ -58,7 +58,7 @@ export class MyApp {
                   position: "top"
                 });
                 toast.present();
-                this.content.setRoot(TabsPage);
+                this.content.setRoot(TabsPage,{user:this.user});
               });
             })
             .catch(error => {
@@ -82,6 +82,7 @@ export class MyApp {
   doLogout() {
     this.menuCtrl.close();
     this.afAuth.auth.signOut();
+    this.content.setRoot(TabsPage);
   }
 
   goToLoginPage() {

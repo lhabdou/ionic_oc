@@ -1,3 +1,6 @@
+import { IUtilisateur } from './../modeles/utilisateurModel';
+import { NavParams } from 'ionic-angular';
+import { IRole } from './../modeles/roleModel';
 import { DictionnaireService } from './../services/dictionnaireService';
 import { LigneDictionnairePage } from './../ligne-dictionnaire/ligneDictionnaire';
 import { Component } from '@angular/core';
@@ -13,21 +16,19 @@ export class DictionnairePage {
     dictionnaireList: any;
     motCle: string;
     langue:string ='fr';
-
-    // langueList = [
-    //   {'fr': {phrase:"Veuillez choisir une langue de recherche"}},
-    //   {'ngz':{phrase:"Tsoungouwa ye lougha ya wu tsafitsi"}},
-    //   {'ang': {phrase:"Select language"}}
-    // ]
+    role: IRole;
+    user: IUtilisateur;
 
     constructor(private navCtrl: NavController, private dictionnaireService: DictionnaireService,
-        public utilisateurService: UtilisateurService, private menuCtrl: MenuController) {
+        public utilisateurService: UtilisateurService, private menuCtrl: MenuController, private navParams: NavParams) {
+
+          this.user = this.navParams.data;
 
     }
 
     onLoadLigneDictionnaire(index: number) {
 
-        this.navCtrl.push(LigneDictionnairePage, {ligneParam: this.dictionnaireList[index] });
+        this.navCtrl.push(LigneDictionnairePage, {ligneParam: this.dictionnaireList[index] , user:this.user});
 
         //let modal = this.modalCtrl.create(LigneDictionnairePage, {ligneParam:index});
         //modal.present();

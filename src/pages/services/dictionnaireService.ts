@@ -1,3 +1,4 @@
+import { IUtilisateur } from './../modeles/utilisateurModel';
 import { ENVIRONNEMENT } from "./../../constantes/constantesUtilis";
 import { Injectable } from "@angular/core";
 import { HttpHeaders, HttpClient } from "@angular/common/http";
@@ -20,6 +21,36 @@ export class DictionnaireService {
 
    return  this.httpClient.get<ILigneDictionnaire[]>(
       ENVIRONNEMENT.URL_REST_LOCAL + "/rechercher/" + motCle,
+      httpOptions);
+
+  }
+
+  proposer(ligne: ILigneDictionnaire, user:IUtilisateur): Observable<ILigneDictionnaire[]> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        "Content-Type": 'application/json',
+        "Accept":'application/json',
+        "token": user.token
+      })
+    };
+
+   return  this.httpClient.post<ILigneDictionnaire[]>(
+      ENVIRONNEMENT.URL_REST_LOCAL + "/contribuer", ligne,
+      httpOptions);
+
+  }
+
+  validerMot(ligne: ILigneDictionnaire, user:IUtilisateur): Observable<ILigneDictionnaire[]> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        "Content-Type": 'application/json',
+        "Accept":'application/json',
+        "token": user.token
+      })
+    };
+
+   return  this.httpClient.post<ILigneDictionnaire[]>(
+      ENVIRONNEMENT.URL_REST_LOCAL + "/valider", ligne,
       httpOptions);
 
   }

@@ -39,7 +39,7 @@
 
       <ion-item  [ngClass]="{ invalid: paysErrors.hasError('*', ['touched', 'dirty']) }">
         <ion-label floating>*Pays:</ion-label>
-        <ion-select [(ngModel)]="user.pays.nom"  formControlName="pays">
+        <ion-select [(ngModel)]="user.pays"  formControlName="pays">
           <ion-option *ngIf="user.pays">{{user.pays.nom}}</ion-option>
           <ion-option *ngFor="let p of listePays"  [value]="p">{{p.nom}}</ion-option>
         </ion-select>
