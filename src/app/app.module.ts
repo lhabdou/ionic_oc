@@ -18,7 +18,7 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { MyApp } from './app.component';
-import { SettingsPage } from '../pages/settings/settings';
+import { FaqCguPage } from '../pages/faqCgu/faqCgu';
 import { TabsPage } from '../pages/tabs/tabs';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 @NgModule({
@@ -26,7 +26,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
     MyApp,
     DictionnairePage,
     LigneDictionnairePage,
-    SettingsPage,
+    FaqCguPage,
     LoginPage,
     SignupPage,
     TabsPage,
@@ -45,7 +45,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
     MyApp,
     DictionnairePage,
     LigneDictionnairePage,
-    SettingsPage,
+    FaqCguPage,
     LoginPage,
     SignupPage,
     TabsPage,
