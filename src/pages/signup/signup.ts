@@ -53,7 +53,7 @@ export class SignupPage {
           "",
           Validators.minLength(2)
         ],
-        pays: [],
+        pays: [Validators.required],
         tel: [],
         email: [
           "",
@@ -79,7 +79,7 @@ export class SignupPage {
             "",
             Validators.minLength(2)
           ],
-          pays: [],
+          pays: [Validators.required],
           tel: [],
           email: [
             "",
