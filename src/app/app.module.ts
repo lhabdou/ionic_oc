@@ -1,3 +1,4 @@
+import { LigneDictionnaireModificationPage } from './../pages/ligne-dictionnaire/modification/ligneDictionnaireModification';
 import { PaysService } from './../pages/services/paysService';
 import { MdpOubliePage } from './../pages/mdp-oublie/mdp-oublie';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
@@ -26,6 +27,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
     MyApp,
     DictionnairePage,
     LigneDictionnairePage,
+    LigneDictionnaireModificationPage,
     FaqCguPage,
     LoginPage,
     SignupPage,
@@ -45,6 +47,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
     MyApp,
     DictionnairePage,
     LigneDictionnairePage,
+    LigneDictionnaireModificationPage,
     FaqCguPage,
     LoginPage,
     SignupPage,

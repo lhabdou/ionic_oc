@@ -1,12 +1,10 @@
-import { NavController } from 'ionic-angular/navigation/nav-controller';
-import { AlertController } from 'ionic-angular/components/alert/alert-controller';
-import { DictionnaireService } from './../services/dictionnaireService';
+import { LigneDictionnaireModificationPage } from './modification/ligneDictionnaireModification';
+import { AlertController } from "ionic-angular/components/alert/alert-controller";
 import { IUtilisateur } from "./../modeles/utilisateurModel";
 import { ILigneDictionnaire } from "../modeles/ligneDictionnaireModel";
 import { Component, OnInit } from "@angular/core";
 import { NavParams } from "ionic-angular";
-import { NgForm } from "@angular/forms/src/directives/ng_form";
-import { ViewController } from "ionic-angular/navigation/view-controller";
+import { NavController } from "ionic-angular/navigation/nav-controller";
 import { LoginPage } from "../login/login";
 
 @Component({
@@ -23,56 +21,45 @@ export class LigneDictionnairePage implements OnInit {
   user: IUtilisateur;
   access: boolean = false;
   contributeurAccess: boolean = false;
-
+  valideurs: Array<number> = [1, 2];
+  dialect:string;
 
   constructor(
-    private viewController: ViewController, private alertCtrl:AlertController,
-    private navParams: NavParams, private dictionnaireService:DictionnaireService,
-    private navCtrl: NavController
+    private alertCtrl: AlertController,
+    private navParams: NavParams,
+    private navCtrl: NavController,
   ) {
     this.user = this.navParams.get("user");
     this.accesContributeur();
-
   }
 
   ngOnInit() {
     this.ligne = this.navParams.get("ligneParam");
-
-
-  }
-  onSubmitWord(form: NgForm) {
-    this.viewController.dismiss();
-  }
-
-  accesValidation(): boolean {
-    let valideurs:Array<number> = [1, 2];
-    if (
-      this.user &&
-      this.user.role &&
-      (this.checkArray(valideurs, this.user.role.id))
-    ) {
-      this.access = true;
-    }
-    return this.access;
   }
 
   accesContributeur(): boolean {
-    let contributeurs:Array<number> = [1, 2, 3];
-
+    let contributeurs = 3;
     if (
       this.user &&
       this.user.role &&
-      (this.checkArray(contributeurs, this.user.role.id))
+      (this.checkArray(this.valideurs, this.user.role.id) ||
+        (this.checkStatut() && contributeurs == this.user.role.id))
     ) {
       this.contributeurAccess = true;
     }
     return this.contributeurAccess;
   }
 
-  checkArray(array : Array<number>, id:number): boolean {
+  private checkStatut(): boolean {
+    return (
+      this.ligne.statut.statut != "A VALIDER" &&
+      this.ligne.statut.statut != "CLOTURE"
+    );
+  }
 
-    array.forEach(element => {
-      if(element == id) {
+  checkArray(tableau: Array<number>, id: number): boolean {
+    tableau.forEach(element => {
+      if (element == id) {
         this.access = true;
       }
     });
@@ -80,36 +67,71 @@ export class LigneDictionnairePage implements OnInit {
     return this.access;
   }
 
-
   proposer() {
-    this.dictionnaireService.proposer(this.ligne, this.user).subscribe(
-      (result)=>{
-
-        this.confirmationOk("Confirmation","Merci pour votre" +
-        " contribution, un mail vous sera envoyé "+
-        "une fois votre proposition analysée");
-
-      });
+    this.choixDialect();
   }
 
-  validerMot() {
-
-    this.dictionnaireService.validerMot(this.ligne, this.user).subscribe(
-      (result)=>{
-        this.confirmationOk("Confirmation","Le mot " + this.ligne.motFr +", est bien validé");
-      });
-
-  }
-
-
-  confirmationOk( titre:string, msg:string) {
+  confirmationOk(titre: string, msg: string) {
     let alert = this.alertCtrl.create({
       title: titre,
       message: msg,
       buttons: [
         {
           text: "Ok",
-          handler: () => {
+          handler: () => {}
+        }
+      ]
+    });
+    alert.present();
+  }
+
+  choixDialect() {
+    let alert = this.alertCtrl.create({
+      title: "Dialecte à modifier",
+      message:
+        "Veuillez choisir la langue que vous souhaitez faire une modification, ou choisir ",
+      inputs: [
+        {
+          type: "radio",
+          label: "Shi Ngazidja",
+          value:"motNgz",
+          checked:true
+        },
+        {
+          type:"radio",
+          label: "Shi Ndzuani",
+          value:"motNdz"
+        },
+        {
+          type:"radio",
+          label: "Shi Mwali",
+          value:"motMwa"
+        },
+        {
+          type:"radio",
+          label: "Shi Maore",
+          value:"motMao"
+        },
+        {
+          type:"radio",
+          label: "Suggestion ou Remarque",
+          value:"sug"
+        }
+      ],
+      buttons: [
+        {
+          text: "Annuler",
+          handler: () => { }
+        },
+        {
+          text: "Ok",
+          handler: (value) => {
+            this.dialect= value;
+            this.navCtrl.push(LigneDictionnaireModificationPage, {
+              ligne: this.ligne,
+              user: this.user,
+              dialect: this.dialect
+            });
           }
         }
       ]

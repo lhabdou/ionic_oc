@@ -27,22 +27,25 @@
 
 
     <ion-list *ngIf="langue=='fr' && dictionnaireList">
-      <button ion-button *ngFor="let ligne of dictionnaireList; let i = index " (click)="onLoadLigneDictionnaire(i)"
-        [color]=" 'NOUVEAU' == ligne.statut.statut ? 'primary':'secondary'"><ion-item>{{ligne.motFr}}</ion-item></button>
+      <button ion-button *ngFor="let ligne of dictionnaireList; let i = index" (click)="onLoadLigneDictionnaire(i)"
+        [color]=" ('NOUVEAU' == ligne.statut.statut || 'VALIDE' == ligne.statut.statut ||
+        ligne.statut.statut == 'CLOTURE') ? 'primary':'secondary'"><ion-item>{{ligne.motFr}}</ion-item></button>
 
     </ion-list>
 
     <ion-list *ngIf="langue=='ngz' && dictionnaireList">
-      <button ion-button *ngFor="let ligne of dictionnaireList; let i = index " (click)="onLoadLigneDictionnaire(i)"
-        [color]=" 'NOUVEAU' == ligne.statut.statut ? 'primary':'secondary'"><ion-item>{{ligne.motNgz}}</ion-item></button>
+      <button ion-button *ngFor="let ligne of dictionnaireList; let i = index" (click)="onLoadLigneDictionnaire(i)"
+        [color]=" ('NOUVEAU' == ligne.statut.statut || 'VALIDE' == ligne.statut.statut ||
+        ligne.statut.statut == 'CLOTURE')? 'primary':'secondary'"><ion-item>{{ligne.motNgz}}</ion-item></button>
 
 
     </ion-list>
 
     <ion-list *ngIf="langue=='ang' && dictionnaireList">
 
-      <button ion-button *ngFor="let ligne of dictionnaireList; let i = index " (click)="onLoadLigneDictionnaire(i)"
-        [color]=" 'NOUVEAU' == ligne.statut.statut ? 'primary':'secondary'"> <ion-item>{{ligne.motAng}} </ion-item> </button>
+      <button ion-button *ngFor="let ligne of dictionnaireList; let i = index" (click)="onLoadLigneDictionnaire(i)"
+        [color]=" ('NOUVEAU' == ligne.statut.statut || 'VALIDE' == ligne.statut.statut ||
+        ligne.statut.statut == 'CLOTURE')? 'primary':'secondary'"> <ion-item>{{ligne.motAng}} </ion-item> </button>
 
     </ion-list>
 

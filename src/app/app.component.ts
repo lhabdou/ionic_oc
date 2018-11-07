@@ -62,7 +62,7 @@ export class MyApp {
               });
             })
             .catch(error => {
-             return "Erreur lors de la récupération du token" +  error.message;
+             return "Erreur lors de la connexion" +  error.message;
             });
         } else {
           this.isAuth = false;

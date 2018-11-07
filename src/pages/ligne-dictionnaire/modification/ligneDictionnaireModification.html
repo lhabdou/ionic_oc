@@ -1,0 +1,78 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Mot / Kalima</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+  <ion-card>
+    <ion-card-header>{{ligne.motFr}} / {{ligne.motNgz}}</ion-card-header>
+    <ion-card-content>
+      <ion-grid>
+        <ion-row >
+          <ion-col>Français</ion-col>
+          <ion-col > {{ligne.motFr}}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>English</ion-col>
+          <ion-col>
+            {{ligne.motAng}}
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>Definition FR</ion-col>
+          <ion-col>
+            {{ligne.definitionFr}}
+          </ion-col>
+        </ion-row>
+        <ion-item>
+          <ion-label stacked>Fassiri Comorien</ion-label>
+          <ion-input>
+            {{ligne.definitionCom}}
+          </ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label stacked>Suggestion</ion-label>
+          <ion-input>
+            {{ligne.suggestion}}
+          </ion-input>
+        </ion-item>
+
+        <ion-item *ngIf="dialect == 'ngz'" >
+          <ion-label stacked>Shi Ngazidja</ion-label>
+          <ion-input>
+            {{ligne.motNgz}}
+          </ion-input>
+        </ion-item>
+
+        <ion-item *ngIf="dialect == 'ndz'" >
+          <ion-label stacked>Shi Ndzuani</ion-label>
+          <ion-input>
+            {{ligne.motNdz}}
+          </ion-input>
+        </ion-item>
+
+        <ion-item *ngIf="dialect == 'mwa'" >
+          <ion-label stacked>Shi Mwali</ion-label>
+          <ion-input>
+            {{ligne.motMwa}}
+          </ion-input>
+        </ion-item>
+
+        <ion-item *ngIf="dialect == 'mao'" >
+          <ion-label stacked>Shi Maore</ion-label>
+          <ion-input>
+            {{ligne.motMao}}
+          </ion-input>
+        </ion-item>
+      </ion-grid>
+
+      <button ion-button *ngIf="accesValidation()" (click)="validerMot()" >Valider</button>
+      <button ion-button [disabled]="!contributeurAccess" (click)="proposer()">Proposer</button>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

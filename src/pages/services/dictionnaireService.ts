@@ -25,31 +25,34 @@ export class DictionnaireService {
 
   }
 
-  proposer(ligne: ILigneDictionnaire, user:IUtilisateur): Observable<ILigneDictionnaire[]> {
+  proposer(ligne: ILigneDictionnaire, user:IUtilisateur, dialect:string): Observable<ILigneDictionnaire[]> {
     const httpOptions = {
       headers: new HttpHeaders({
         "Content-Type": 'application/json',
         "Accept":'application/json',
-        "token": user.token
+        "token": user.token,
+        "dialect": dialect
       })
     };
 
-   return  this.httpClient.post<ILigneDictionnaire[]>(
-      ENVIRONNEMENT.URL_REST_LOCAL + "/contribuer", ligne,
+   return  this.httpClient.put<ILigneDictionnaire[]>(
+      ENVIRONNEMENT.URL_REST_LOCAL + "/proposermodification", ligne,
       httpOptions);
 
   }
 
-  validerMot(ligne: ILigneDictionnaire, user:IUtilisateur): Observable<ILigneDictionnaire[]> {
+  validerMot(ligne: ILigneDictionnaire, user:IUtilisateur, dialect:string): Observable<ILigneDictionnaire[]> {
     const httpOptions = {
       headers: new HttpHeaders({
         "Content-Type": 'application/json',
         "Accept":'application/json',
-        "token": user.token
+        "token": user.token,
+        "dialect": dialect
+
       })
     };
 
-   return  this.httpClient.post<ILigneDictionnaire[]>(
+   return  this.httpClient.put<ILigneDictionnaire[]>(
       ENVIRONNEMENT.URL_REST_LOCAL + "/valider", ligne,
       httpOptions);
 
