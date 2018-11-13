@@ -5,12 +5,11 @@
         <ion-icon name="person"></ion-icon>
       </button>
     </ion-buttons>
-    <ion-title>Kamusi FR-COM</ion-title>
+    <ion-title>Kamusi COM</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-
   <ion-item>
     <ion-label floating>Langues/Lougha</ion-label>
     <ion-select [(ngModel)]="langue">
@@ -21,39 +20,77 @@
   </ion-item>
 
   <div *ngIf="langue">
-
-    <ion-searchbar [(ngModel)]="motCle" (ionInput)="onInput($event)" [placeholder]="Rechercher">
+    <ion-searchbar
+      [(ngModel)]="motCle"
+      (ionInput)="onInput($event)"
+      placeholder="Rechercher / Tsafitsi"
+    >
     </ion-searchbar>
 
-
-    <ion-list *ngIf="langue=='fr' && dictionnaireList">
-      <button ion-button *ngFor="let ligne of dictionnaireList; let i = index" (click)="onLoadLigneDictionnaire(i)"
-        [color]=" ('NOUVEAU' == ligne.statut.statut || 'VALIDE' == ligne.statut.statut ||
-        ligne.statut.statut == 'CLOTURE') ? 'primary':'secondary'"><ion-item>{{ligne.motFr}}</ion-item></button>
-
+    <ion-list *ngIf="langue == 'fr' && dictionnaireList">
+      <img src="assets/icon/img_fr.ico" alt="drapeau Français">
+      <button
+        ion-button
+        *ngFor="let ligne of dictionnaireList; let i = index"
+        (click)="onLoadLigneDictionnaire(i)"
+        [color]="
+          'NOUVEAU' == ligne.statut.statut ||
+          'VALIDE' == ligne.statut.statut ||
+          ligne.statut.statut == 'CLOTURE'
+            ? 'secondary'
+            : 'danger'
+        "
+      >
+        <ion-item>{{ ligne.motFr }}</ion-item>
+      </button>
     </ion-list>
 
-    <ion-list *ngIf="langue=='ngz' && dictionnaireList">
-      <button ion-button *ngFor="let ligne of dictionnaireList; let i = index" (click)="onLoadLigneDictionnaire(i)"
-        [color]=" ('NOUVEAU' == ligne.statut.statut || 'VALIDE' == ligne.statut.statut ||
-        ligne.statut.statut == 'CLOTURE')? 'primary':'secondary'"><ion-item>{{ligne.motNgz}}</ion-item></button>
-
-
+    <ion-list *ngIf="langue == 'ngz' && dictionnaireList">
+        <img src="assets/icon/img_ngz.ico" alt="drapeau Ngazidja">
+      <button
+        ion-button
+        *ngFor="let ligne of dictionnaireList; let i = index"
+        (click)="onLoadLigneDictionnaire(i)"
+        [color]="
+          'NOUVEAU' == ligne.statut.statut ||
+          'VALIDE' == ligne.statut.statut ||
+          ligne.statut.statut == 'CLOTURE'
+            ? 'secondary'
+            : 'danger'
+        "
+      >
+        <ion-item>{{ ligne.motNgz }}</ion-item>
+      </button>
     </ion-list>
 
-    <ion-list *ngIf="langue=='ang' && dictionnaireList">
-
-      <button ion-button *ngFor="let ligne of dictionnaireList; let i = index" (click)="onLoadLigneDictionnaire(i)"
-        [color]=" ('NOUVEAU' == ligne.statut.statut || 'VALIDE' == ligne.statut.statut ||
-        ligne.statut.statut == 'CLOTURE')? 'primary':'secondary'"> <ion-item>{{ligne.motAng}} </ion-item> </button>
-
+    <ion-list *ngIf="langue == 'ang' && dictionnaireList">
+        <img src="assets/icon/img_ang.ico" alt="drapeau britanique">
+      <button
+        ion-button
+        *ngFor="let ligne of dictionnaireList; let i = index"
+        (click)="onLoadLigneDictionnaire(i)"
+        [color]="
+          'NOUVEAU' == ligne.statut.statut ||
+          'VALIDE' == ligne.statut.statut ||
+          ligne.statut.statut == 'CLOTURE'
+            ? 'secondary'
+            : 'danger'
+        "
+      >
+        <ion-item>{{ ligne.motAng }} </ion-item>
+      </button>
     </ion-list>
-
+  </div>
+  <div class="legend">
+    <ion-item small>
+      <button ion-button color="secondary">V</button>
+      <ion-note>Mot modifiable</ion-note>
+    </ion-item>
+    <ion-item small>
+      <button ion-button color="danger">R</button>
+      <ion-note>Mot non modifiable</ion-note>
+    </ion-item>
   </div>
 </ion-content>
 
-<ion-footer>
-  <ion-item>
-    ©Corporation 2019 'kamusi Project'
-  </ion-item>
-</ion-footer>
+<ion-footer> <ion-item> ©Corporation 2019 'kamusi' </ion-item> </ion-footer>

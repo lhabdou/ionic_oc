@@ -30,8 +30,7 @@
         </ion-row>
         <ion-item>
           <ion-label stacked>Fassiri Comorien</ion-label>
-          <ion-input>
-            {{ligne.definitionCom}}
+          <ion-input [(ngModel)]="ligne.definitionCom">
           </ion-input>
         </ion-item>
         <ion-item>
@@ -43,29 +42,25 @@
 
         <ion-item *ngIf="dialect == 'ngz'" >
           <ion-label stacked>Shi Ngazidja</ion-label>
-          <ion-input>
-            {{ligne.motNgz}}
+          <ion-input [(ngModel)]="ligne.motNgz">
           </ion-input>
         </ion-item>
 
         <ion-item *ngIf="dialect == 'ndz'" >
           <ion-label stacked>Shi Ndzuani</ion-label>
-          <ion-input>
-            {{ligne.motNdz}}
+          <ion-input [(ngModel)]="ligne.motNdz">
           </ion-input>
         </ion-item>
 
         <ion-item *ngIf="dialect == 'mwa'" >
           <ion-label stacked>Shi Mwali</ion-label>
-          <ion-input>
-            {{ligne.motMwa}}
+          <ion-input [(ngModel)]="ligne.motMwa">
           </ion-input>
         </ion-item>
 
         <ion-item *ngIf="dialect == 'mao'" >
           <ion-label stacked>Shi Maore</ion-label>
-          <ion-input>
-            {{ligne.motMao}}
+          <ion-input [(ngModel)]="ligne.motMao">
           </ion-input>
         </ion-item>
       </ion-grid>

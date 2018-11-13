@@ -13,6 +13,7 @@ export class ILigneDictionnaire {
     statut?: IStatut;
     suggestion?: string;
     definitionFr?: string;
-    definitionCom?: string
+    definitionCom?: string;
+    dialectModifie?:string
 
 };

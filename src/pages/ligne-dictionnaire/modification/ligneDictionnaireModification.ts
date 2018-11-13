@@ -1,11 +1,11 @@
+import { TabsPage } from './../../tabs/tabs';
+import { NavController } from 'ionic-angular/navigation/nav-controller';
 import { AlertController } from "ionic-angular/components/alert/alert-controller";
 import { DictionnaireService } from "./../../services/dictionnaireService";
 import { IUtilisateur } from "./../../modeles/utilisateurModel";
 import { ILigneDictionnaire } from "../../modeles/ligneDictionnaireModel";
 import { Component, OnInit } from "@angular/core";
 import { NavParams } from "ionic-angular";
-import { NgForm } from "@angular/forms/src/directives/ng_form";
-import { ViewController } from "ionic-angular/navigation/view-controller";
 import { LoginPage } from "../../login/login";
 
 @Component({
@@ -26,21 +26,19 @@ export class LigneDictionnaireModificationPage implements OnInit {
   dialect: string;
 
   constructor(
-    private viewController: ViewController,
     private alertCtrl: AlertController,
     private navParams: NavParams,
-    private dictionnaireService: DictionnaireService
+    private dictionnaireService: DictionnaireService,
+    private navCtrl: NavController
   ) {
     this.user = this.navParams.get("user");
-    this.accesContributeur();
   }
 
   ngOnInit() {
     this.ligne = this.navParams.get("ligne");
     this.dialect = this.navParams.get("dialect");
-  }
-  onSubmitWord(form: NgForm) {
-    this.viewController.dismiss();
+    this.ligne.dialectModifie = this.dialect;
+    this.accesContributeur();
   }
 
   accesValidation(): boolean {
@@ -57,7 +55,7 @@ export class LigneDictionnaireModificationPage implements OnInit {
   accesContributeur(): boolean {
     let contributeurs = 3;
     if (
-      this.user &&
+      this.user && this.user.emailVerifie &&
       this.user.role &&
       (this.checkArray(this.valideurs, this.user.role.id) ||
         (this.checkStatut() && contributeurs == this.user.role.id))
@@ -86,7 +84,7 @@ export class LigneDictionnaireModificationPage implements OnInit {
 
   proposer() {
     this.dictionnaireService
-      .proposer(this.ligne, this.user, this.dialect)
+      .proposer(this.ligne, this.user)
       .subscribe(result => {
         this.confirmationOk(
           "Confirmation",
@@ -95,11 +93,13 @@ export class LigneDictionnaireModificationPage implements OnInit {
             "une fois votre proposition analysée"
         );
       });
+
+      this.navCtrl.setRoot(TabsPage);
   }
 
   validerMot() {
     this.dictionnaireService
-      .validerMot(this.ligne, this.user, this.dialect)
+      .validerMot(this.ligne, this.user)
       .subscribe(result => {
         this.confirmationOk(
           "Confirmation",

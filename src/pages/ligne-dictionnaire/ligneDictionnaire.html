@@ -1,81 +1,97 @@
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>Mot / Kalima</ion-title>
-  </ion-navbar>
-
+  <ion-navbar> <ion-title>Mot / Kalima</ion-title> </ion-navbar>
 </ion-header>
 
 <ion-content padding>
   <ion-card>
-    <ion-card-header>{{ligne.motFr}} / {{ligne.motNgz}}</ion-card-header>
+    <ion-card-header>{{ ligne.motFr }} / {{ ligne.motNgz }}</ion-card-header>
     <ion-card-content>
       <ion-grid>
-        <ion-row >
-          <ion-col>Français</ion-col>
-          <ion-col > {{ligne.motFr}}
-          </ion-col>
+        <ion-row>
+          <ion-img
+            src="assets/imgs/img_fr.png"
+            alt="drapeau Français"
+          ></ion-img>
+          <ion-col>Français: </ion-col>
+          <ion-col>{{ ligne.motFr }} </ion-col>
         </ion-row>
-        <ion-row >
-          <ion-col>Shi Ngazidja</ion-col>
-          <ion-col >
-            {{ligne.motNgz}}
-          </ion-col>
+
+        <ion-row>
+          <ion-img
+            src="assets/imgs/img_ngz.png"
+            alt="drapeau Ngazidja"
+          ></ion-img>
+          <ion-col>Shi Ngazidja: </ion-col>
+          <ion-col> {{ ligne.motNgz }} </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-img
+            src="assets/imgs/img_ndz.png"
+            alt="drapeau Ndzuani"
+          ></ion-img>
+          <ion-col>Shi Ndzuani: </ion-col>
+          <ion-col> {{ ligne.motNdz }} </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-img src="assets/imgs/img_mwa.png" alt="drapeau Mwali"></ion-img>
+          <ion-col>Shi Mwali: </ion-col>
+          <ion-col> {{ ligne.motMwa }} </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-img src="assets/imgs/img_mao.png" alt="drapeau Maore"></ion-img>
+          <ion-col>Shi Maore:</ion-col>
+          <ion-col> {{ ligne.motMao }} </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-img
+            src="assets/imgs/img_ang.png"
+            alt="drapeau Britanique"
+          ></ion-img>
+          <ion-col>English:</ion-col>
+          <ion-col> {{ ligne.motAng }} </ion-col>
         </ion-row>
         <ion-row>
-          <ion-col>Shi Ndzuani</ion-col>
-          <ion-col >
-            {{ligne.motNdz}}
-          </ion-col>
+          <ion-img
+            src="assets/imgs/img_fr.png"
+            alt="drapeau Français"
+          ></ion-img>
+          <ion-col>Definition FR:</ion-col>
+          <ion-col> {{ ligne.definitionFr }} </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-img
+            src="assets/imgs/img_ngz.png"
+            alt="drapeau Ngazidja"
+          ></ion-img>
+          <ion-col>Fassiri NGZ:</ion-col>
+          <ion-col> {{ ligne.definitionCom }} </ion-col>
         </ion-row>
         <ion-row>
-          <ion-col>Shi Mwali</ion-col>
-          <ion-col >
-            {{ligne.motMwa}}
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>Shi Maore</ion-col>
-          <ion-col >
-            {{ligne.motMao}}
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>English</ion-col>
-          <ion-col >
-            {{ligne.motAng}}
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>Definition FR</ion-col>
-          <ion-col>
-            {{ligne.definitionFr}}
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>Fassiri NGZ</ion-col>
-          <ion-col>
-            {{ligne.definitionCom}}
-          </ion-col>
-        </ion-row>
-        <ion-row>
-          <ion-col>Dernière Suggestion</ion-col>
-          <ion-col >
-            {{ligne.suggestion}}
-          </ion-col>
+          <ion-img></ion-img>
+          <ion-col>Dernière Suggestion:</ion-col>
+          <ion-col> {{ ligne.suggestion }} </ion-col>
         </ion-row>
       </ion-grid>
 
-      <button ion-button [disabled]="!contributeurAccess" (click)="proposer()">Proposer</button>
+      <button ion-button [disabled]="!contributeurAccess" (click)="proposer()">
+        Proposer
+      </button>
       <ion-card *ngIf="!contributeurAccess">
         <ion-card-content>
-          <ion-note>Les propositions sont possibles: <br>
-            1- Si vous êtes connectés <br>
-            2- Si le mot n'est pas déjà modifié, donc en attente de validation (Mot en Rouge)
+          <ion-note
+            >Les propositions sont possibles: <br />
+            1- Si vous êtes connectés, et que votre adresse mail est confirmé
+            (voir profil)<br />
+            2- Si le mot n'est pas déjà modifié, donc en attente de validation
+            (Mot en Rouge)
           </ion-note>
         </ion-card-content>
       </ion-card>
     </ion-card-content>
   </ion-card>
-
 </ion-content>

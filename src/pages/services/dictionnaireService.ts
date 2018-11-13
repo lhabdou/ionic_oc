@@ -25,13 +25,12 @@ export class DictionnaireService {
 
   }
 
-  proposer(ligne: ILigneDictionnaire, user:IUtilisateur, dialect:string): Observable<ILigneDictionnaire[]> {
+  proposer(ligne: ILigneDictionnaire, user:IUtilisateur): Observable<ILigneDictionnaire[]> {
     const httpOptions = {
       headers: new HttpHeaders({
         "Content-Type": 'application/json',
         "Accept":'application/json',
         "token": user.token,
-        "dialect": dialect
       })
     };
 
@@ -41,13 +40,12 @@ export class DictionnaireService {
 
   }
 
-  validerMot(ligne: ILigneDictionnaire, user:IUtilisateur, dialect:string): Observable<ILigneDictionnaire[]> {
+  validerMot(ligne: ILigneDictionnaire, user:IUtilisateur): Observable<ILigneDictionnaire[]> {
     const httpOptions = {
       headers: new HttpHeaders({
         "Content-Type": 'application/json',
         "Accept":'application/json',
         "token": user.token,
-        "dialect": dialect
 
       })
     };

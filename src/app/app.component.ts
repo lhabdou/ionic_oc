@@ -1,4 +1,5 @@
-import { SignupPage } from './../pages/signup/signup';
+import { AlertController } from "ionic-angular/components/alert/alert-controller";
+import { SignupPage } from "./../pages/signup/signup";
 import { Component } from "@angular/core";
 import { StatusBar } from "@ionic-native/status-bar";
 import { SplashScreen } from "@ionic-native/splash-screen";
@@ -18,13 +19,12 @@ import * as firebase from "firebase";
   templateUrl: "app.html"
 })
 export class MyApp {
-
   rootPage: any = TabsPage;
   isAuth = false;
   token: string;
-  emailNonVerifie:boolean = true;
+  emailNonVerifie: boolean = true;
   user: IUtilisateur;
-  @ViewChild('content') content: NavController;
+  @ViewChild("content") content: NavController;
 
   constructor(
     platform: Platform,
@@ -34,6 +34,7 @@ export class MyApp {
     private afAuth: AngularFireAuth,
     private menuCtrl: MenuController,
     private toastCtrl: ToastController,
+    private alertCtrl: AlertController
   ) {
     platform.ready().then(() => {
       afAuth.auth.onAuthStateChanged(userData => {
@@ -46,6 +47,7 @@ export class MyApp {
 
               this.userSrv.getUserProfile(this.token).subscribe(userResult => {
                 this.user = userResult;
+                this.user.emailVerifie = userData.emailVerified;
                 this.user.token = this.token;
                 this.isAuth = true;
                 let toast = this.toastCtrl.create({
@@ -58,11 +60,11 @@ export class MyApp {
                   position: "top"
                 });
                 toast.present();
-                this.content.setRoot(TabsPage,{user:this.user});
+                this.content.setRoot(TabsPage, { user: this.user });
               });
             })
             .catch(error => {
-             return "Erreur lors de la connexion" +  error.message;
+              return "Erreur lors de la connexion" + error.message;
             });
         } else {
           this.isAuth = false;
@@ -90,15 +92,31 @@ export class MyApp {
     this.content.push(LoginPage);
   }
 
-  editerProfil(user:IUtilisateur) {
+  editerProfil(user: IUtilisateur) {
     this.menuCtrl.close();
-    this.content.push(SignupPage, { newUser: false, user: user});
+    this.content.push(SignupPage, { newUser: false, user: user });
   }
 
   sendEmailVerification() {
-
-    firebase.auth().currentUser.sendEmailVerification().then((ok)=>{
-
-    })
+    firebase
+      .auth()
+      .currentUser.sendEmailVerification()
+      .then(ok => {
+        let alert = this.alertCtrl.create({
+          title: "Email de confirmation",
+          message:
+            "Un email a été envoyé à votre adresse mail, merci de cliquer sur le lien pour confirmer votre adresse mail," +
+            "N'oubliez pas d'actualiser l'application pour que la validation apparaisse",
+          buttons: [
+            {
+              text: "OK",
+              handler: () => {
+                //nothing TODO
+              }
+            }
+          ]
+        });
+        alert.present();
+      });
   }
 }

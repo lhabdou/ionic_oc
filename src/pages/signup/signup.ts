@@ -1,4 +1,4 @@
-import { IPays } from './../modeles/paysModel';
+import { IPays } from "./../modeles/paysModel";
 import { ENVIRONNEMENT } from "./../../constantes/constantesUtilis";
 import { TabsPage } from "./../tabs/tabs";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
@@ -10,7 +10,7 @@ import { UtilisateurService } from "../services/utilisateurService";
 import { ToastController } from "ionic-angular/components/toast/toast-controller";
 import * as firebase from "firebase";
 import { AlertController } from "ionic-angular/components/alert/alert-controller";
-import { PaysService } from '../services/paysService';
+import { PaysService } from "../services/paysService";
 @Component({
   selector: "page-signup",
   templateUrl: "signup.html"
@@ -22,6 +22,7 @@ export class SignupPage {
   signupError: string;
   newUser: boolean;
   oldEmail: string;
+  coutryExist: boolean;
   listePays: IPays[];
 
   constructor(
@@ -34,8 +35,14 @@ export class SignupPage {
     private fb: FormBuilder,
     private paysService: PaysService
   ) {
-
     this.newUser = navParams.get("newUser");
+    if (!this.listePays) {
+      this.paysService.getAllCountries().subscribe((paysData: IPays[]) => {
+        this.listePays = paysData;
+      });
+    }
+
+
     if (!this.newUser) {
       this.user = navParams.get("user");
       this.oldEmail = this.user.email;
@@ -49,10 +56,7 @@ export class SignupPage {
           "",
           Validators.compose([Validators.required, Validators.minLength(2)])
         ],
-        pseudo: [
-          "",
-          Validators.minLength(2)
-        ],
+        pseudo: ["", Validators.minLength(2)],
         pays: [Validators.required],
         tel: [],
         email: [
@@ -75,10 +79,7 @@ export class SignupPage {
             "",
             Validators.compose([Validators.required, Validators.minLength(2)])
           ],
-          pseudo: [
-            "",
-            Validators.minLength(2)
-          ],
+          pseudo: ["", Validators.minLength(2)],
           pays: [Validators.required],
           tel: [],
           email: [
@@ -97,12 +98,6 @@ export class SignupPage {
         { validator: this.checkPassword("password", "confPassword") }
       );
     }
-    if(!this.listePays) {
-      this.paysService.getAllCountries().subscribe((paysData:IPays[])=>{
-        this.listePays = paysData;
-      });
-    }
-
   }
   ngOnInit(): void {
     this.user.mdp = "";
@@ -180,8 +175,6 @@ export class SignupPage {
 
   supprimerProfil() {
     this.presentConfirm();
-
-    this.navCtrl.setRoot(TabsPage);
   }
 
   presentConfirm() {
@@ -201,6 +194,7 @@ export class SignupPage {
           text: "Supprimer",
           handler: () => {
             this.userSrv.supprimerUtilisateur(this.user);
+            this.navCtrl.setRoot(TabsPage);
           }
         }
       ]
@@ -223,5 +217,9 @@ export class SignupPage {
       ]
     });
     alert.present();
+  }
+
+  comparePays(e1: IPays, e2: IPays): boolean {
+    return e1 && e2 ? e1.code === e2.code : e1 === e2;
   }
 }

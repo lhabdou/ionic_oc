@@ -30,17 +30,17 @@ export class LigneDictionnairePage implements OnInit {
     private navCtrl: NavController,
   ) {
     this.user = this.navParams.get("user");
-    this.accesContributeur();
   }
 
   ngOnInit() {
     this.ligne = this.navParams.get("ligneParam");
+    this.accesContributeur();
   }
 
   accesContributeur(): boolean {
     let contributeurs = 3;
     if (
-      this.user &&
+      this.user && this.user.emailVerifie &&
       this.user.role &&
       (this.checkArray(this.valideurs, this.user.role.id) ||
         (this.checkStatut() && contributeurs == this.user.role.id))
@@ -94,23 +94,23 @@ export class LigneDictionnairePage implements OnInit {
         {
           type: "radio",
           label: "Shi Ngazidja",
-          value:"motNgz",
+          value:"ngz",
           checked:true
         },
         {
           type:"radio",
           label: "Shi Ndzuani",
-          value:"motNdz"
+          value:"ndz"
         },
         {
           type:"radio",
           label: "Shi Mwali",
-          value:"motMwa"
+          value:"mwa"
         },
         {
           type:"radio",
           label: "Shi Maore",
-          value:"motMao"
+          value:"mao"
         },
         {
           type:"radio",

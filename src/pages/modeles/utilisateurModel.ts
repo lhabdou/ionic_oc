@@ -10,6 +10,7 @@ export class IUtilisateur {
     tel?: string;
     pays?:IPays;
     email: string;
+    emailVerifie?: boolean;
     googleConnect: boolean;
     urlImage?: string;
     role?: IRole;

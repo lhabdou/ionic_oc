@@ -5,12 +5,18 @@
     </ion-toolbar>
   </ion-header>
   <ion-content>
-    <button ion-button (click)="goToLoginPage()" position="middle" color="light" *ngIf="!isAuth">Se connecter</button>
+    <button
+      ion-button
+      (click)="goToLoginPage()"
+      position="middle"
+      color="light"
+      *ngIf="!isAuth"
+    >
+      Se connecter
+    </button>
 
     <ion-list *ngIf="isAuth">
-      <ion-item>
-        <ion-img></ion-img>
-      </ion-item>
+      <ion-item> <ion-img></ion-img> </ion-item>
 
       <ion-item>
         <ion-label>Nom:</ion-label>
@@ -27,9 +33,13 @@
       </ion-item>
 
       <ion-item>
-          <ion-label>Pays:</ion-label>
-          <ion-input *ngIf="user.pays" [(ngModel)]="user.pays.nom" [readonly]="true"></ion-input>
-        </ion-item>
+        <ion-label>Pays:</ion-label>
+        <ion-input
+          *ngIf="user.pays"
+          [(ngModel)]="user.pays.nom"
+          [readonly]="true"
+        ></ion-input>
+      </ion-item>
 
       <ion-item>
         <ion-label>Tél:</ion-label>
@@ -42,19 +52,24 @@
       </ion-item>
 
       <div *ngIf="emailNonVerifie">
-        <button ion-button small  color="danger">
-          Adresse email non confirmé
-      </button>
-      <a (click)="sendEmailVerification()">Renvoyer un mail de vérification</a>
+        <a class="btnEnvoiMailVerif" (click)="sendEmailVerification()">
+          <ion-note padding color="danger">
+            Adresse email non confirmée
+          </ion-note>
+          <button ion-button small color="danger" >Me renvoyer un mail de vérification</button>
+          </a>
+
       </div>
 
+      <div *ngIf="!emailNonVerifie">
+        <ion-note padding color="secondary">Adresse email confirmée <ion-icon name="checkmark"></ion-icon></ion-note>
+      </div>
 
-      <ion-item *ngIf="!user.googleConnect" >
+      <ion-item *ngIf="!user.googleConnect">
         <button ion-button (click)="editerProfil(user)">
-          <ion-icon name="settings" ></ion-icon> &nbsp; Editer
+          <ion-icon name="settings"></ion-icon> &nbsp; Editer
         </button>
       </ion-item>
-
     </ion-list>
   </ion-content>
   <ion-footer>
