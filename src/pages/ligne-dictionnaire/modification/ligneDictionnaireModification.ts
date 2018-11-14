@@ -1,4 +1,3 @@
-import { LigneDictionnairePage } from './../ligneDictionnaire';
 import { AccessService } from './../../services/accessService';
 import { TabsPage } from './../../tabs/tabs';
 import { NavController } from 'ionic-angular/navigation/nav-controller';
@@ -9,7 +8,6 @@ import { ILigneDictionnaire } from "../../modeles/ligneDictionnaireModel";
 import { Component, OnInit } from "@angular/core";
 import { NavParams } from "ionic-angular";
 import { LoginPage } from "../../login/login";
-import { ViewController } from 'ionic-angular/navigation/view-controller';
 
 @Component({
   selector: "page-ligne-dictionnaire-modification",
