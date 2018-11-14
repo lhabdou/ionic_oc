@@ -60,7 +60,7 @@ export class MyApp {
                   position: "top"
                 });
                 toast.present();
-                this.content.setRoot(TabsPage, { user: this.user });
+                this.content.setRoot(TabsPage, { user: this.user, isAuth: this.afAuth});
               });
             })
             .catch(error => {

@@ -1,3 +1,5 @@
+import { LigneDictionnairePage } from './../ligneDictionnaire';
+import { AccessService } from './../../services/accessService';
 import { TabsPage } from './../../tabs/tabs';
 import { NavController } from 'ionic-angular/navigation/nav-controller';
 import { AlertController } from "ionic-angular/components/alert/alert-controller";
@@ -7,6 +9,7 @@ import { ILigneDictionnaire } from "../../modeles/ligneDictionnaireModel";
 import { Component, OnInit } from "@angular/core";
 import { NavParams } from "ionic-angular";
 import { LoginPage } from "../../login/login";
+import { ViewController } from 'ionic-angular/navigation/view-controller';
 
 @Component({
   selector: "page-ligne-dictionnaire-modification",
@@ -20,16 +23,16 @@ export class LigneDictionnaireModificationPage implements OnInit {
   public loginPage = LoginPage;
   resultatsLigne: any;
   user: IUtilisateur;
-  access: boolean = false;
-  contributeurAccess: boolean = false;
-  valideurs: Array<number> = [1, 2];
+  accesValidation:boolean = false;
+
   dialect: string;
 
   constructor(
     private alertCtrl: AlertController,
     private navParams: NavParams,
     private dictionnaireService: DictionnaireService,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private accessService:AccessService
   ) {
     this.user = this.navParams.get("user");
   }
@@ -38,49 +41,10 @@ export class LigneDictionnaireModificationPage implements OnInit {
     this.ligne = this.navParams.get("ligne");
     this.dialect = this.navParams.get("dialect");
     this.ligne.dialectModifie = this.dialect;
-    this.accesContributeur();
+    this.accessService.accesContributeur(this.user, this.ligne);
+    this.accesValidation = this.accessService.accesValidation(this.user);
   }
 
-  accesValidation(): boolean {
-    if (
-      this.user &&
-      this.user.role &&
-      this.checkArray(this.valideurs, this.user.role.id)
-    ) {
-      this.access = true;
-    }
-    return this.access;
-  }
-
-  accesContributeur(): boolean {
-    let contributeurs = 3;
-    if (
-      this.user && this.user.emailVerifie &&
-      this.user.role &&
-      (this.checkArray(this.valideurs, this.user.role.id) ||
-        (this.checkStatut() && contributeurs == this.user.role.id))
-    ) {
-      this.contributeurAccess = true;
-    }
-    return this.contributeurAccess;
-  }
-
-  private checkStatut(): boolean {
-    return (
-      this.ligne.statut.statut != "A VALIDER" &&
-      this.ligne.statut.statut != "CLOTURE"
-    );
-  }
-
-  checkArray(tableau: Array<number>, id: number): boolean {
-    tableau.forEach(element => {
-      if (element == id) {
-        this.access = true;
-      }
-    });
-
-    return this.access;
-  }
 
   proposer() {
     this.dictionnaireService
@@ -105,6 +69,7 @@ export class LigneDictionnaireModificationPage implements OnInit {
           "Confirmation",
           "Le mot " + this.ligne.motFr + ", est bien validé"
         );
+        this.navCtrl.getPrevious();
       });
   }
 

@@ -56,4 +56,22 @@ export class DictionnaireService {
 
   }
 
+  listerMotsAValider(dialect:string, token:string) {
+
+    const httpOptions = {
+      headers: new HttpHeaders({
+        "Content-Type": 'application/json',
+        "Accept":'application/json',
+        "token": token,
+        "dialect":dialect
+
+      })
+    };
+
+   return  this.httpClient.get<ILigneDictionnaire[]>(
+      ENVIRONNEMENT.URL_REST_LOCAL + "/listerpropositions",
+      httpOptions);
+
+  }
+
 }

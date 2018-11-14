@@ -1,0 +1,13 @@
+
+<ion-header>
+  <ion-navbar> <ion-title>Gestionnaire</ion-title> </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-item>
+    <a (click)="validerDesMots()">Valider les propositions</a>
+  </ion-item>
+
+  <ion-item *ngIf="admin" > <a (click)="gererLesUsers()">Gerer les utilisateurs</a> </ion-item>
+
+</ion-content>

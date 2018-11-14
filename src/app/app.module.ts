@@ -1,3 +1,7 @@
+import { MotsAValiderPage } from './../pages/gestion/mots-a-valider/mots-a-valider';
+import { AccessService } from './../pages/services/accessService';
+import { GestionService } from './../pages/services/gestionService';
+import { GestionPage } from './../pages/gestion/gestion';
 import { LigneDictionnaireModificationPage } from './../pages/ligne-dictionnaire/modification/ligneDictionnaireModification';
 import { PaysService } from './../pages/services/paysService';
 import { MdpOubliePage } from './../pages/mdp-oublie/mdp-oublie';
@@ -32,7 +36,9 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
     LoginPage,
     SignupPage,
     TabsPage,
-    MdpOubliePage
+    GestionPage,
+    MdpOubliePage,
+    MotsAValiderPage
   ],
   imports: [
     BrowserModule,
@@ -52,7 +58,9 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
     LoginPage,
     SignupPage,
     TabsPage,
-    MdpOubliePage
+    MdpOubliePage,
+    GestionPage,
+    MotsAValiderPage
   ],
   providers: [
     StatusBar,
@@ -63,7 +71,9 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
     AngularFireAuth,
     DictionnaireService,
     UtilisateurService,
-    PaysService
+    PaysService,
+    GestionService,
+    AccessService
   ]
 })
 export class AppModule { }

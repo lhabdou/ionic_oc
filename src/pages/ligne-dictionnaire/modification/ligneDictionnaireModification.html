@@ -1,73 +1,98 @@
 <ion-header>
-
-  <ion-navbar>
-    <ion-title>Mot / Kalima</ion-title>
-  </ion-navbar>
-
+  <ion-navbar> <ion-title>Mot / Kalima</ion-title> </ion-navbar>
 </ion-header>
 
 <ion-content padding>
   <ion-card>
-    <ion-card-header>{{ligne.motFr}} / {{ligne.motNgz}}</ion-card-header>
+    <ion-card-header>{{ ligne.motFr }} / {{ ligne.motNgz }}</ion-card-header>
     <ion-card-content>
       <ion-grid>
-        <ion-row >
+        <ion-row>
+          <ion-img
+            src="assets/imgs/img_fr.png"
+            alt="drapeau Français"
+          ></ion-img>
           <ion-col>Français</ion-col>
-          <ion-col > {{ligne.motFr}}
-          </ion-col>
+          <ion-col> {{ ligne.motFr }} </ion-col>
         </ion-row>
         <ion-row>
+          <ion-img
+            src="assets/imgs/img_ang.png"
+            alt="drapeau Britanique"
+          ></ion-img>
           <ion-col>English</ion-col>
-          <ion-col>
-            {{ligne.motAng}}
-          </ion-col>
+          <ion-col> {{ ligne.motAng }} </ion-col>
         </ion-row>
         <ion-row>
+          <ion-img
+            src="assets/imgs/img_fr.png"
+            alt="drapeau Français"
+          ></ion-img>
           <ion-col>Definition FR</ion-col>
-          <ion-col>
-            {{ligne.definitionFr}}
-          </ion-col>
+          <ion-col> {{ ligne.definitionFr }} </ion-col>
         </ion-row>
         <ion-item>
-          <ion-label stacked>Fassiri Comorien</ion-label>
-          <ion-input [(ngModel)]="ligne.definitionCom">
-          </ion-input>
+          ><ion-label stacked
+            >Fassiri Comorien
+            <ion-img
+              src="assets/imgs/img_com.png"
+              alt="drapeau Ngazidja"
+            ></ion-img
+          ></ion-label>
+          <ion-textarea [(ngModel)]="ligne.definitionCom"> </ion-textarea>
         </ion-item>
+
+        <ion-item *ngIf="dialect == 'ngz'">
+          <ion-label stacked
+            >Shi Ngazidja
+            <ion-img
+              src="assets/imgs/img_ngz.png"
+              alt="drapeau Ngazidja"
+            ></ion-img
+          ></ion-label>
+          <ion-input [(ngModel)]="ligne.motNgz"> </ion-input>
+        </ion-item>
+
+        <ion-item *ngIf="dialect == 'ndz'">
+          <ion-label stacked
+            >Shi Ndzuani<ion-img
+              src="assets/imgs/img_ndz.png"
+              alt="drapeau Ndzuani"
+            ></ion-img
+          ></ion-label>
+          <ion-input [(ngModel)]="ligne.motNdz"> </ion-input>
+        </ion-item>
+
+        <ion-item *ngIf="dialect == 'mwa'">
+          <ion-label stacked
+            >Shi Mwali
+            <ion-img src="assets/imgs/img_mwa.png" alt="drapeau Mwali"></ion-img
+          ></ion-label>
+          <ion-input [(ngModel)]="ligne.motMwa"> </ion-input>
+        </ion-item>
+
+        <ion-item *ngIf="dialect == 'mao'">
+          <ion-label stacked
+            >Shi Maore<ion-img
+              src="assets/imgs/img_mao.png"
+              alt="drapeau Maore"
+            ></ion-img
+          ></ion-label>
+          <ion-input [(ngModel)]="ligne.motMao"> </ion-input>
+        </ion-item>
+
         <ion-item>
           <ion-label stacked>Suggestion</ion-label>
-          <ion-input>
-            {{ligne.suggestion}}
-          </ion-input>
-        </ion-item>
-
-        <ion-item *ngIf="dialect == 'ngz'" >
-          <ion-label stacked>Shi Ngazidja</ion-label>
-          <ion-input [(ngModel)]="ligne.motNgz">
-          </ion-input>
-        </ion-item>
-
-        <ion-item *ngIf="dialect == 'ndz'" >
-          <ion-label stacked>Shi Ndzuani</ion-label>
-          <ion-input [(ngModel)]="ligne.motNdz">
-          </ion-input>
-        </ion-item>
-
-        <ion-item *ngIf="dialect == 'mwa'" >
-          <ion-label stacked>Shi Mwali</ion-label>
-          <ion-input [(ngModel)]="ligne.motMwa">
-          </ion-input>
-        </ion-item>
-
-        <ion-item *ngIf="dialect == 'mao'" >
-          <ion-label stacked>Shi Maore</ion-label>
-          <ion-input [(ngModel)]="ligne.motMao">
-          </ion-input>
+          <ion-textarea placeholder="Nous faire une suggestion ou une remarque sur ce mot"> {{ ligne.suggestion }} </ion-textarea>
         </ion-item>
       </ion-grid>
 
-      <button ion-button *ngIf="accesValidation()" (click)="validerMot()" >Valider</button>
-      <button ion-button [disabled]="!contributeurAccess" (click)="proposer()">Proposer</button>
+      <button ion-button *ngIf="accesValidation" (click)="validerMot()">
+        Valider
+      </button>
+      <button ion-button [disabled]="!contributeurAccess" (click)="proposer()">
+        Proposer
+      </button>
     </ion-card-content>
   </ion-card>
-
 </ion-content>

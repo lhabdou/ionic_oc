@@ -1,97 +1,191 @@
 <ion-header>
-
   <ion-navbar>
     <ion-title *ngIf="newUser">Enregistrement</ion-title>
     <ion-title *ngIf="!newUser">Mise à jour</ion-title>
   </ion-navbar>
-
 </ion-header>
 
-
 <ion-content padding>
-  <form (ngSubmit)="newUser? saveUser(user, true):saveUser(user,false)" [formGroup]="signupForm">
+  <form
+    (ngSubmit)="newUser ? saveUser(user, true) : saveUser(user, false)"
+    [formGroup]="signupForm"
+  >
     <ion-list>
       <ion-note>* Champs obligatoires</ion-note>
       <ion-item>
         <ion-label floating>*Nom:</ion-label>
-        <ion-input type="text" [(ngModel)]="user.nom" formControlName="nom"></ion-input>
+        <ion-input
+          type="text"
+          [(ngModel)]="user.nom"
+          formControlName="nom"
+        ></ion-input>
       </ion-item>
       <div ngxErrors="nom" #nomErrors="ngxErrors" color="danger">
-        <div [ngxError]="['minlength','required']" [when]="['touched', 'dirty']">Veuillez saisir votre nom</div>
+        <div
+          [ngxError]="['minlength', 'required']"
+          [when]="['touched', 'dirty']"
+        >
+          Veuillez saisir votre nom
+        </div>
       </div>
 
-      <ion-item [ngClass]="{ invalid: prenomErrors.hasError('*', ['touched', 'dirty']) }">
+      <ion-item
+        [ngClass]="{
+          invalid: prenomErrors.hasError('*', ['touched', 'dirty'])
+        }"
+      >
         <ion-label floating>*Prénom:</ion-label>
-        <ion-input type="text" [(ngModel)]="user.prenom" formControlName="prenom"></ion-input>
+        <ion-input
+          type="text"
+          [(ngModel)]="user.prenom"
+          formControlName="prenom"
+        ></ion-input>
       </ion-item>
       <div ngxErrors="prenom" #prenomErrors="ngxErrors" color="danger">
-        <div [ngxError]="['minlength','required']" [when]="['touched', 'dirty']">Veuillez saisir votre prénom</div>
+        <div
+          [ngxError]="['minlength', 'required']"
+          [when]="['touched', 'dirty']"
+        >
+          Veuillez saisir votre prénom
+        </div>
       </div>
 
-
-      <ion-item [ngClass]="{ invalid: pseudoErrors.hasError('*', ['touched', 'dirty']) }">
+      <ion-item
+        [ngClass]="{
+          invalid: pseudoErrors.hasError('*', ['touched', 'dirty'])
+        }"
+      >
         <ion-label floating>Pseudo:</ion-label>
-        <ion-input type="text" [(ngModel)]="user.pseudo" formControlName="pseudo"></ion-input>
+        <ion-input
+          type="text"
+          [(ngModel)]="user.pseudo"
+          formControlName="pseudo"
+        ></ion-input>
       </ion-item>
       <div ngxErrors="pseudo" #pseudoErrors="ngxErrors" color="danger">
-        <div [ngxError]="['minlength']" [when]="['touched', 'dirty']">Pseudo doit avoir au moins 2 caractères</div>
+        <div [ngxError]="['minlength']" [when]="['touched', 'dirty']">
+          Pseudo doit avoir au moins 2 caractères
+        </div>
       </div>
 
-      <ion-item  [ngClass]="{ invalid: paysErrors.hasError('*', ['touched', 'dirty']) }">
+      <ion-item
+        [ngClass]="{ invalid: paysErrors.hasError('*', ['touched', 'dirty']) }"
+      >
         <ion-label floating>*Pays:</ion-label>
-        <ion-select [(ngModel)]="user.pays"  formControlName="pays" okText="Ok" cancelText="Annuler" [compareWith]="comparePays">
-          <ion-option *ngFor="let p of listePays"  [value]="p">{{p.nom}}</ion-option>
+        <ion-select
+          [(ngModel)]="user.pays"
+          formControlName="pays"
+          okText="Ok"
+          cancelText="Annuler"
+          [compareWith]="comparePays"
+        >
+          <ion-option *ngFor="let p of listePays" [value]="p">{{
+            p.nom
+          }}</ion-option>
         </ion-select>
       </ion-item>
       <div ngxErrors="pays" #paysErrors="ngxErrors">
-          <div [ngxError]="['required']" [when]="['touched']">Merci de selectionner le nom du pays où vous vous localiser</div>
+        <div [ngxError]="['required']" [when]="['touched']">
+          Merci de selectionner le nom du pays où vous vous localiser
+        </div>
       </div>
-      <ion-item [ngClass]="{ invalid: emailErrors.hasError('*', ['touched', 'dirty']) }">
+      <ion-item
+        [ngClass]="{ invalid: emailErrors.hasError('*', ['touched', 'dirty']) }"
+      >
         <ion-label floating>*Email:</ion-label>
-        <ion-input type="email" [(ngModel)]="user.email" formControlName="email"></ion-input>
+        <ion-input
+          type="email"
+          [(ngModel)]="user.email"
+          formControlName="email"
+        ></ion-input>
       </ion-item>
       <div ngxErrors="email" #emailErrors="ngxErrors" color="danger">
-        <div [ngxError]="['email', 'required']" [when]="['touched', 'dirty']">Veuillez entrer une adresse Email valide</div>
+        <div [ngxError]="['email', 'required']" [when]="['touched', 'dirty']">
+          Veuillez entrer une adresse Email valide
+        </div>
       </div>
 
       <ion-item>
         <ion-label floating>Tél:</ion-label>
-        <ion-input [(ngModel)]="user.tel" formControlName="tel">
-        </ion-input>
+        <ion-input [(ngModel)]="user.tel" formControlName="tel"> </ion-input>
       </ion-item>
 
-      <ion-item [ngClass]="{ invalid: passwordErrors.hasError('*', ['touched', 'dirty']) }">
+      <ion-item
+        [ngClass]="{
+          invalid: passwordErrors.hasError('*', ['touched', 'dirty'])
+        }"
+      >
         <ion-label floating>*Mot de passe:</ion-label>
-        <ion-input type="password" formControlName="password" [(ngModel)]="user.mdp"></ion-input>
+        <ion-input
+          type="password"
+          formControlName="password"
+          [(ngModel)]="user.mdp"
+        ></ion-input>
       </ion-item>
       <div ngxErrors="password" #passwordErrors="ngxErrors" color="danger">
-        <div [ngxError]="['minlength', 'required']" [when]="['touched']">Le mot de passe doit contenir au moins 5
-          caractères</div>
-      </div>
-      <div *ngIf="newUser">
-        <ion-item [ngClass]="{ invalid: confPasswordErrors.hasError('*', ['touched', 'dirty']) }">
-          <ion-label floating>*Confirmation:</ion-label>
-          <ion-input type="password" [(ngModel)]="confPassword" formControlName="confPassword"></ion-input>
-        </ion-item>
-        <div ngxErrors="confPassword" #confPasswordErrors="ngxErrors" color="danger">
-          <div [ngxError]="['minlength', 'required']" [when]="['touched']">Confirmation du mot de passe incorrecte</div>
+        <div [ngxError]="['minlength', 'required']" [when]="['touched']">
+          Le mot de passe doit contenir au moins 5 caractères
         </div>
       </div>
-
-
+      <div *ngIf="newUser">
+        <ion-item
+          [ngClass]="{
+            invalid: confPasswordErrors.hasError('*', ['touched', 'dirty'])
+          }"
+        >
+          <ion-label floating>*Confirmation:</ion-label>
+          <ion-input
+            type="password"
+            [(ngModel)]="confPassword"
+            formControlName="confPassword"
+          ></ion-input>
+        </ion-item>
+        <div
+          ngxErrors="confPassword"
+          #confPasswordErrors="ngxErrors"
+          color="danger"
+        >
+          <div [ngxError]="['minlength', 'required']" [when]="['touched']">
+            Confirmation du mot de passe incorrecte
+          </div>
+        </div>
+      </div>
     </ion-list>
 
-    <div class="form-error">{{signupError}}</div>
+    <div class="form-error">{{ signupError }}</div>
 
-    <button *ngIf="newUser" ion-button type="submit" [disabled]="!signupForm.valid">S'enregistrer</button>
-    <button *ngIf="!newUser" ion-button type="submit" [disabled]="!signupForm.valid">Modifier</button>
-    <div style="position: relative; bottom: 0px; width: 100%;">
-      <button *ngIf="!newUser" ion-button small color="danger" (click)="supprimerProfil()">Supprimer mon profil</button>
-      <br>
-    </div>
+    <button
+      *ngIf="newUser"
+      ion-button
+      type="submit"
+      [disabled]="!signupForm.valid"
+    >
+      S'enregistrer
+    </button>
+    <button
+      *ngIf="!newUser"
+      ion-button
+      type="submit"
+      [disabled]="!signupForm.valid"
+    >
+      Modifier
+    </button>
 
+    <ion-item>
+      <button
+        class="btnSupprimerProfil"
+        *ngIf="!newUser"
+        ion-button
+        small
+        color="danger"
+        [disabled]="!signupForm.valid"
+        (click)="supprimerProfil()"
+      >
+        Supprimer mon profil
+      </button>
+      <br />
+    </ion-item>
   </form>
-
 </ion-content>
 
 <ion-footer>
