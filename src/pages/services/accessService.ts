@@ -33,6 +33,8 @@ export class AccessService {
     user: IUtilisateur,
     ligne: ILigneDictionnaire
   ): boolean {
+    this.contributeurAccess = false;
+
     let contributeurs = 3;
     if (
       user &&

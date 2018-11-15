@@ -16,6 +16,7 @@ export class LigneDictionnairePage implements OnInit {
   ligne: ILigneDictionnaire;
   user: IUtilisateur;
   dialect:string;
+  contributeurAccess:boolean = false;
 
   constructor(
     private alertCtrl: AlertController,
@@ -28,7 +29,7 @@ export class LigneDictionnairePage implements OnInit {
 
   ngOnInit() {
     this.ligne = this.navParams.get("ligneParam");
-    this.accessService.accesContributeur(this.user, this.ligne);
+    this.contributeurAccess = this.accessService.accesContributeur(this.user, this.ligne);
   }
 
 

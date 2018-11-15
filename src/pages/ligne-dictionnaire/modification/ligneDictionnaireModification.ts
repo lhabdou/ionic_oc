@@ -1,6 +1,4 @@
 import { AccessService } from './../../services/accessService';
-import { TabsPage } from './../../tabs/tabs';
-import { NavController } from 'ionic-angular/navigation/nav-controller';
 import { AlertController } from "ionic-angular/components/alert/alert-controller";
 import { DictionnaireService } from "./../../services/dictionnaireService";
 import { IUtilisateur } from "./../../modeles/utilisateurModel";
@@ -22,14 +20,13 @@ export class LigneDictionnaireModificationPage implements OnInit {
   resultatsLigne: any;
   user: IUtilisateur;
   accesValidation:boolean = false;
-
+  contributeurAccess:boolean = false;
   dialect: string;
 
   constructor(
     private alertCtrl: AlertController,
     private navParams: NavParams,
     private dictionnaireService: DictionnaireService,
-    private navCtrl: NavController,
     private accessService:AccessService
   ) {
     this.user = this.navParams.get("user");
@@ -39,7 +36,7 @@ export class LigneDictionnaireModificationPage implements OnInit {
     this.ligne = this.navParams.get("ligne");
     this.dialect = this.navParams.get("dialect");
     this.ligne.dialectModifie = this.dialect;
-    this.accessService.accesContributeur(this.user, this.ligne);
+    this.contributeurAccess = this.accessService.accesContributeur(this.user, this.ligne);
     this.accesValidation = this.accessService.accesValidation(this.user);
   }
 
@@ -56,7 +53,6 @@ export class LigneDictionnaireModificationPage implements OnInit {
         );
       });
 
-      this.navCtrl.setRoot(TabsPage);
   }
 
   validerMot() {
@@ -67,7 +63,7 @@ export class LigneDictionnaireModificationPage implements OnInit {
           "Confirmation",
           "Le mot " + this.ligne.motFr + ", est bien validé"
         );
-        this.navCtrl.getPrevious();
+
       });
   }
 
