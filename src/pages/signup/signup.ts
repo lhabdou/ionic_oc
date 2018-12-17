@@ -42,7 +42,6 @@ export class SignupPage {
       });
     }
 
-
     if (!this.newUser) {
       this.user = navParams.get("user");
       this.oldEmail = this.user.email;
@@ -120,22 +119,22 @@ export class SignupPage {
       this.afAuth.auth
         .createUserWithEmailAndPassword(user.email, user.mdp)
         .then((data: firebase.auth.UserCredential) => {
+          data.user
+            .getIdToken()
+            .then((token: string) => {
+              user.token = token;
+              user.idUtilisateur = data.user.uid;
+              this.userSrv.saveProfileUser(user, newUtilisateur);
+              this.profilCree();
+            })
+            .catch(error => {
+              this.signupError = error.message;
+            });
           data.user.sendEmailVerification().then(
-            ok => {
-              data.user
-                .getIdToken()
-                .then((token: string) => {
-                  user.token = token;
-                  this.userSrv.saveProfileUser(user, newUtilisateur);
-                  this.profilCree();
-                  this.navCtrl.setRoot(TabsPage);
-                })
-                .catch(error => {
-                  this.signupError = error.message;
-                });
-            },
+            ok => {},
             error => {
-              this.signupError = "Erreur d'envoie du mail de vérification";
+              this.signupError =
+                "Erreur lors de l'envoie du mail de vérification";
             }
           );
         })

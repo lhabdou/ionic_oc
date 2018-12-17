@@ -31,6 +31,7 @@ export class DictionnaireService {
         "Content-Type": 'application/json',
         "Accept":'application/json',
         "token": user.token,
+        "uid": user.idUtilisateur
       })
     };
 
@@ -46,6 +47,7 @@ export class DictionnaireService {
         "Content-Type": 'application/json',
         "Accept":'application/json',
         "token": user.token,
+        "uid": user.idUtilisateur
 
       })
     };
@@ -56,13 +58,14 @@ export class DictionnaireService {
 
   }
 
-  listerMotsAValider(dialect:string, token:string) {
+  listerMotsAValider(dialect:string, user:IUtilisateur) {
 
     const httpOptions = {
       headers: new HttpHeaders({
         "Content-Type": 'application/json',
         "Accept":'application/json',
-        "token": token,
+        "token": user.token,
+        "uid":user.idUtilisateur,
         "dialect":dialect
 
       })

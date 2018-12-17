@@ -45,23 +45,30 @@ export class MyApp {
               this.token = tokenResult;
               this.emailNonVerifie = !userData.emailVerified;
 
-              this.userSrv.getUserProfile(this.token).subscribe(userResult => {
-                this.user = userResult;
-                this.user.emailVerifie = userData.emailVerified;
-                this.user.token = this.token;
-                this.isAuth = true;
-                let toast = this.toastCtrl.create({
-                  message:
-                    this.user.nom +
-                    " " +
-                    this.user.prenom +
-                    ", Bienvenu sur Kamusi",
-                  duration: 2000,
-                  position: "top"
+              this.userSrv
+                .getUserProfile(this.token, userData.uid, this.user)
+                .subscribe(userResult => {
+                  this.user = userResult;
+                  if (this.user) {
+                    this.user.emailVerifie = userData.emailVerified;
+                    this.user.token = this.token;
+                    this.isAuth = true;
+                    let toast = this.toastCtrl.create({
+                      message:
+                        this.user.nom +
+                        " " +
+                        this.user.prenom +
+                        ", Bienvenu sur Kamusi",
+                      duration: 2000,
+                      position: "top"
+                    });
+                    toast.present();
+                    this.content.setRoot(TabsPage, {
+                      user: this.user,
+                      isAuth: this.afAuth
+                    });
+                  }
                 });
-                toast.present();
-                this.content.setRoot(TabsPage, { user: this.user, isAuth: this.afAuth});
-              });
             })
             .catch(error => {
               return "Erreur lors de la connexion" + error.message;

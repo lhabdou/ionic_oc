@@ -46,7 +46,7 @@ export class GestionPage {
           text: "Ok",
           handler: value => {
             this.dictionnaireSrv
-              .listerMotsAValider(value, this.user.token)
+              .listerMotsAValider(value, this.user)
               .subscribe((result: ILigneDictionnaire[]) => {
                 this.motsAvalider = result;
               });
