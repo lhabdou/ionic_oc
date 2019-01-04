@@ -4,8 +4,8 @@ export const ENVIRONNEMENT = {
 
   URL_REST_LOCAL:
   //"https://kamusicompro.herokuapp.com/kamusi",
-  //"http://dictionnaire.eu-west-3.elasticbeanstalk.com/kamusi",
-"http://localhost:8080/kamusi",
+  "http://kamusi.eu-west-3.elasticbeanstalk.com/kamusi",
+//"http://localhost:8080/kamusi",
 
     roleContributeur: { id: 3, role: "CONTRIBUTEUR" } as IRole,
     roleValideur: { id: 2, role: "VALIDEUR" } as IRole,
