@@ -4,8 +4,9 @@ import { DictionnaireService } from "./../../services/dictionnaireService";
 import { IUtilisateur } from "./../../modeles/utilisateurModel";
 import { ILigneDictionnaire } from "../../modeles/ligneDictionnaireModel";
 import { Component, OnInit } from "@angular/core";
-import { NavParams } from "ionic-angular";
+import { NavParams, NavController } from "ionic-angular";
 import { LoginPage } from "../../login/login";
+import { TabsPage } from '../../tabs/tabs';
 
 @Component({
   selector: "page-ligne-dictionnaire-modification",
@@ -27,6 +28,7 @@ export class LigneDictionnaireModificationPage implements OnInit {
     private alertCtrl: AlertController,
     private navParams: NavParams,
     private dictionnaireService: DictionnaireService,
+    public navCtrl: NavController,
     private accessService:AccessService
   ) {
     this.user = this.navParams.get("user");
@@ -48,9 +50,9 @@ export class LigneDictionnaireModificationPage implements OnInit {
         this.confirmationOk(
           "Confirmation",
           "Merci pour votre" +
-            " contribution, un mail vous sera envoyé " +
-            "une fois votre proposition analysée"
+            " contribution :) --> Marahaba Mendji"
         );
+      this.navCtrl.setRoot(TabsPage);
       });
 
   }
@@ -63,7 +65,6 @@ export class LigneDictionnaireModificationPage implements OnInit {
           "Confirmation",
           "Le mot " + this.ligne.motFr + ", est bien validé"
         );
-
       });
   }
 

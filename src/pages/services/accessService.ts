@@ -35,13 +35,13 @@ export class AccessService {
   ): boolean {
     this.contributeurAccess = false;
 
-    let contributeurs = 3;
+    let idContributeurs = 3;
     if (
       user &&
       user.emailVerifie &&
       user.role &&
       (this.checkRoles(ENVIRONNEMENT.valideurs, user.role) ||
-        (this.checkStatut(ligne) && contributeurs == user.role.id))
+        (this.checkStatut(ligne) && idContributeurs == user.role.id))
     ) {
       this.contributeurAccess = true;
     }

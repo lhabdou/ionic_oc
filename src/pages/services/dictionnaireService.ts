@@ -58,7 +58,7 @@ export class DictionnaireService {
 
   }
 
-  listerMotsAValider(dialect:string, user:IUtilisateur) {
+  listerMotsAValider(dialect:string, user:IUtilisateur): Observable<ILigneDictionnaire[]> {
 
     const httpOptions = {
       headers: new HttpHeaders({
