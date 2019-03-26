@@ -49,12 +49,18 @@ export class GestionPage {
               .listerMotsAValider(value, this.user)
               .subscribe((result: ILigneDictionnaire[]) => {
                 this.motsAvalider = result;
+                                
+              },
+              (error) =>{
+                //nothing to do
+              }, () =>{
+                this.navCtrl.push(MotsAValiderPage, {
+                  dialect: value,
+                  user: this.user,
+                  mots: this.motsAvalider
+                });
               });
-            this.navCtrl.push(MotsAValiderPage, {
-              dialect: value,
-              user: this.user,
-              mots: this.motsAvalider
-            });
+            
           }
         }
       ]

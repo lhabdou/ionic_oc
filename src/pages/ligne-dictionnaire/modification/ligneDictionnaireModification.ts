@@ -52,7 +52,6 @@ export class LigneDictionnaireModificationPage implements OnInit {
           "Merci pour votre" +
             " contribution :) --> Marahaba Mendji"
         );
-      this.navCtrl.setRoot(TabsPage);
       });
 
   }
@@ -60,7 +59,7 @@ export class LigneDictionnaireModificationPage implements OnInit {
   validerMot() {
     this.dictionnaireService
       .validerMot(this.ligne, this.user)
-      .subscribe(result => {
+      .subscribe((result) => {
         this.confirmationOk(
           "Confirmation",
           "Le mot " + this.ligne.motFr + ", est bien validé"
@@ -80,5 +79,6 @@ export class LigneDictionnaireModificationPage implements OnInit {
       ]
     });
     alert.present();
+    this.navCtrl.setRoot(TabsPage);
   }
 }
